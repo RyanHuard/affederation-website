@@ -25,6 +25,18 @@ def get_conn():
 def get_cursor(conn):
     return conn.cursor()
 
+# Gets column names from PostgresQL and inserts in data
+def insert_column_names(cursor, data):
+    column_names = [desc[0] for desc in cursor.description]
+    data_with_column_names = []
+
+    for item in data:
+        data_dict = dict(zip(column_names, item))
+        data_with_column_names.append(data_dict)
+
+    return data_with_column_names
+
+
 @app.route("/api/teams")
 def test():
     conn = get_conn()
@@ -33,14 +45,9 @@ def test():
     cursor.execute("SELECT * FROM teams ORDER BY team_id")
     
     teams = cursor.fetchall()
-    
-    # Get the column names from the cursor's description
-    column_names = [desc[0] for desc in cursor.description]
-    
-    # Create a list of dictionaries, each representing a team with column names
-    teams_with_column_names = []
-    for team in teams:
-        team_dict = dict(zip(column_names, team))
-        teams_with_column_names.append(team_dict)
-    
-    return teams_with_column_names
+    teams = insert_column_names(cursor, teams)
+
+    cursor.close()
+    conn.close()
+
+    return teams

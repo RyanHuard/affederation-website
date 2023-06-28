@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 
-import { Team, TeamContext, sortAlphabetically } from "../../../TeamContext";
+import { Team, TeamContext, sortAlphabetically, hyphenateAndLowerCaseTeam } from "../../../TeamContext";
 
 const TeamsHeader = () => {
   let teams: any[] = useContext(TeamContext);
@@ -13,7 +14,7 @@ const TeamsHeader = () => {
       <div className="h-14 flex justify-center space-x-6">
       {teams?.map((team, key) => {
         const logoPath = `/src/assets/${team.team_logo}`;
-        return <img className="h-11 my-auto" src={logoPath} alt="Team Logo" key={key} />;
+        return <Link to={`/teams/${hyphenateAndLowerCaseTeam(team.team_location, team.team_name)}`} className="my-auto"><img className="h-11" src={logoPath} alt="Team Logo" key={key} /></Link>
       })}
       </div>
     </div>

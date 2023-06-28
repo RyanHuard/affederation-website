@@ -21,5 +21,11 @@ export const sortAlphabetically = (teams) => {
     return teams?.sort((a, b) => a.team_location.localeCompare(b.team_location));
 }
 
+export const hyphenateAndLowerCaseTeam = (location: String, name: String) => {
+    let team = location.replace(" ", "-").replace(".", "") + "-" + name.replace(" ", "-");
+    team = team.toLowerCase();
+    return team;
+}
+
 
 export const TeamContext = createContext([])

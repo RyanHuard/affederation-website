@@ -4,8 +4,8 @@ import welcomeBanner from "../../assets/welcome-banner.png";
 const Home = () => {
   return (
     <div>
-      <header>
-        <img src={welcomeBanner}  />
+      <header className="h-[400px]">
+        <img src={welcomeBanner} className="object-cover"/>
       </header>
     </div>
   )
