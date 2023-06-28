@@ -1,0 +1,5 @@
+a.active, a:hover {
+    text-decoration: 2px underline white;
+    text-underline-offset: 5px;
+}
+
