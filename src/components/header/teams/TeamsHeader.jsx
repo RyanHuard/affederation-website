@@ -5,16 +5,16 @@ import {
   TeamContext,
   sortAlphabetically,
   hyphenateAndLowerCaseTeam,
-} from "../../../TeamContext";
+} from "../../../lib/TeamContext";
+import { Spinner } from "@chakra-ui/react";
 
 const TeamsHeader = () => {
   let teams = useContext(TeamContext);
   teams = teams?.data;
   teams = sortAlphabetically(teams);
-  console.log(teams)
 
   return (
-    <div className="bg-black">
+    <div className="hidden bg-black md:block">
       <div className="flex h-14 justify-center space-x-6">
         {teams?.map((team, key) => {
           const logoPath = `/src/assets/${team.team_logo}`;

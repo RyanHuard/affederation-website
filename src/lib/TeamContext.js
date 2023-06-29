@@ -1,17 +1,11 @@
 import { createContext } from "react";
-import axios from "axios";
+import { api } from "./axios";
 import { useQuery } from "@tanstack/react-query";
-
-
-const api = axios.create({
-  baseURL: "http://127.0.0.1:5000/api",
-});
 
 
 export const getTeams = () => {
   return api.get("/teams");
 };
-
 
 export const useTeams = () => {
   return (

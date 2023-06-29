@@ -7,11 +7,11 @@ import "./App.css";
 import Standings from "./features/standings/Standings";
 import Home from "./features/home/Home";
 import Header from "./components/header/Header";
-import { TeamContext, useTeams } from "./TeamContext";
+import { TeamContext, useTeams } from "./lib/TeamContext";
 
 function App() {
   const teams = useTeams();
-  
+
   
   return (
     <BrowserRouter>
