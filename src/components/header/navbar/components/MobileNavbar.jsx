@@ -1,21 +1,25 @@
 import React, { useState } from "react";
 import { HamburgerIcon } from "@chakra-ui/icons";
+import { IconButton, CloseButton, Image } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 import affLogo from "../../../../assets/aff-logo.png";
-import { IconButton, CloseButton } from "@chakra-ui/react";
+
 import SideNavigation from "./SideNavigation";
 
 const MobileNavbar = () => {
   const [openSidebar, setOpenSidebar] = useState(false);
 
   // Inherits height because the wrapper div changes height of navbar.
-  // the divs are needed for mobile visibility hidden/display
+  // the divs are needed for mobile visibility being hidden and display
   return (
     <div
       className="mx-6 flex items-center justify-between md:hidden"
       style={{ height: "inherit" }}
     >
-      <img src={affLogo} className="h-9" />
+      <Link to="/" onClick={() => setOpenSidebar(false)}>
+        <Image src={affLogo} className="mr-4 h-9 lg:h-10" />
+      </Link>
       {!openSidebar ? (
         <IconButton
           icon={<HamburgerIcon boxSize={8} color="white" />}

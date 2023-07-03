@@ -6,7 +6,6 @@ import {
   sortAlphabetically,
   hyphenateAndLowerCaseTeam,
 } from "../../../lib/TeamContext";
-import { Spinner } from "@chakra-ui/react";
 
 const TeamsHeader = () => {
   let teams = useContext(TeamContext);

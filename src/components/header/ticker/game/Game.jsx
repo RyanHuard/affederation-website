@@ -1,49 +1,23 @@
 import React from "react";
-import { useGames } from "./api/getGames";
-import { Spinner } from "@chakra-ui/react";
 
-const Game = () => {
-  const gamesQuery = useGames();
 
-  //   if (gamesQuery.isLoading) {
-  //     return (
-  //         <div className="w-full h-20 flex justify-center items-center">
-  //           <Spinner />
-  //         </div>
-  //     )
-  //   }
-
+const Game = ({ game }) => {
+  const awayLogo = `/src/assets/${game.away_team_logo}`;
+  const homeLogo = `/src/assets/${game.home_team_logo}`;
+  
   return (
     <div className="flex">
-      <div className="h-20 w-40 border-l-2 border-neutral-700">
-        <h1>1SA vs ALA</h1>
-      </div>
-      <div className="h-20 w-40 border-l-2 border-neutral-700">
-        <h1>2MEM vs STL</h1>
-      </div>
-      <div className="h-20 w-40 border-l-2 border-neutral-700">
-        <h1>3SHR vs ORL</h1>
-      </div>
-      <div className="h-20 w-40 border-l-2 border-neutral-700">
-        <h1>4SHR vs ORL</h1>
-      </div>
-      <div className="h-20 w-40 border-l-2 border-neutral-700">
-        <h1>5SHR vs ORL</h1>
-      </div>
-      <div className="h-20 w-40 border-l-2 border-neutral-700">
-        <h1>6SA vs ALA</h1>
-      </div>
-      <div className="h-20 w-40 border-l-2 border-neutral-700">
-        <h1>7MEM vs STL</h1>
-      </div>
-      <div className="h-20 w-40 border-l-2 border-neutral-700">
-        <h1>8SHR vs ORL</h1>
-      </div>
-      <div className="h-20 w-40 border-l-2 border-neutral-700">
-        <h1>9SHR vs ORL</h1>
-      </div>
-      <div className="h-20 w-40 border-l-2 border-neutral-700">
-        <h1>0SHR vs ORL</h1>
+      <div
+        className="h-24 w-40 border-l border-neutral-700 py-2 pl-2"
+      >
+        <span className="flex ">
+          <img src={awayLogo} className="mr-2 w-7" />{" "}
+          <span className="font-bold text-[15px] my-auto">{game.away_team_abb}</span>
+        </span>
+        <span className="flex">
+          <img src={homeLogo} className="mr-2 w-7" />{" "}
+          <span className="font-bold text-[15px] my-auto">{game.home_team_abb}</span>
+        </span>
       </div>
     </div>
   );
