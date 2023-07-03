@@ -8,14 +8,12 @@ import Carousel from "../carousel/Carousel";
 
 
 const Ticker = () => {
-  // current season
   const gamesQuery = useGames("current-season");
-  console.log(gamesQuery.data)
 
   if (gamesQuery.isLoading) {
     return (
       <div className="flex h-20 w-full items-center justify-center">
-        <Spinner />
+        <Spinner size="lg" />
       </div>
     );
   }
