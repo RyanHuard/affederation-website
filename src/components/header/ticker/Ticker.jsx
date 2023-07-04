@@ -12,7 +12,7 @@ const Ticker = () => {
 
   if (gamesQuery.isLoading) {
     return (
-      <div className="flex h-20 w-full items-center justify-center">
+      <div className="flex h-24 w-full items-center justify-center bg-slate-50">
         <Spinner size="lg" />
       </div>
     );

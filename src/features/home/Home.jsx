@@ -1,14 +1,17 @@
-import React from 'react'
-import welcomeBanner from "../../assets/welcome-banner.png";
+import React from "react";
+import HomeLayout from "./HomeLayout";
+import JoinCommunity from "./cards/JoinCommunity";
+import MainContainer from "./containers/MainContainer";
+import RightContainer from "./containers/RightContainer";
+
 
 const Home = () => {
   return (
-    <div>
-      <header>
-        <img src={welcomeBanner} />
-      </header>
-    </div>
-  )
-}
+    <HomeLayout>
+      <MainContainer />
+      <RightContainer />
+    </HomeLayout>
+  );
+};
 
-export default Home
+export default Home;

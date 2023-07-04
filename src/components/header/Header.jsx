@@ -5,10 +5,9 @@ import Ticker from './ticker/Ticker'
 
 const Header = () => {
   return (
-    <header>
+    <header className="h-full">
       <TeamsHeader />
       <Ticker />
-      <Navbar />
     </header>
   )
 }

@@ -8,7 +8,7 @@ import "./Navbar.css";
 
 const DesktopNavbar = () => {
   return (
-    <div className="hidden md:block" style={{ height: "inherit" }}>
+    <div className="hidden md:block" style={{ height: "inherit"}}>
       <Flex
         px="6"
         py="5"

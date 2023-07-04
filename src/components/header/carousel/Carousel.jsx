@@ -7,7 +7,7 @@ const Carousel = ({ children }) => {
   const itemWidth = "176";
 
   return (
-    <div className="flex w-full min-w-full justify-between bg-neutral-100">
+    <div className="flex w-full min-w-full justify-between bg-slate-50">
       <IconButton
         icon={<ChevronLeftIcon />}
         onClick={() => setCurrentIndex(currentIndex - 1)}

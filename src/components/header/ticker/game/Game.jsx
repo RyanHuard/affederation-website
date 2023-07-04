@@ -6,8 +6,8 @@ const calculateWeek = (gameId, seasonId) => {
 };
 
 const Game = ({ game }) => {
-  const awayLogo = `/src/assets/${game.away_team_logo}`;
-  const homeLogo = `/src/assets/${game.home_team_logo}`;
+  const awayLogo = `/src/assets/logos/${game.away_team_logo}`;
+  const homeLogo = `/src/assets/logos/${game.home_team_logo}`;
 
   let awayResult;
   if (game.away_team_score > game.home_team_score) {
@@ -29,7 +29,7 @@ const Game = ({ game }) => {
             {game.away_team_abb}
           </span>
           <span
-            className={`my-auto w-4 ml-1 text-[13px] font-bold ${
+            className={`my-auto ml-1 w-4 text-[13px] font-bold ${
               awayResult ? "text-black" : "text-neutral-500"
             }`}
           >
@@ -49,7 +49,7 @@ const Game = ({ game }) => {
             {game.home_team_abb}
           </span>
           <span
-            className={`my-auto w-4 ml-1 text-[13px] font-bold ${
+            className={`my-auto ml-1 w-4 text-[13px] font-bold ${
               !awayResult ? "text-black" : "text-neutral-500"
             }`}
           >
@@ -66,3 +66,5 @@ const Game = ({ game }) => {
 };
 
 export default Game;
+
+
