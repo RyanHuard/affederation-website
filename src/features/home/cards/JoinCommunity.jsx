@@ -1,4 +1,5 @@
-import { Card, Button } from "@chakra-ui/react";
+import { Card } from "@chakra-ui/react";
+import Button from "../../../components/button/Button";
 import React from "react";
 
 const JoinCommunity = () => {
@@ -12,15 +13,7 @@ const JoinCommunity = () => {
           Meet the owners, discuss with fellow fans, and make predictions
         </p>
         <div className="mt-6 text-center">
-          <Button
-            className="inline-block"
-            bgColor="#013369"
-            color="#ffffff"
-            borderRadius="none"
-            fontSize="15px"
-          >
-            JOIN NOW
-          </Button>
+          <Button onClick={() => console.log("TEST")}>JOIN NOW</Button>
         </div>
       </div>
     </Card>

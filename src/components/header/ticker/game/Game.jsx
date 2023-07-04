@@ -17,7 +17,7 @@ const Game = ({ game }) => {
   }
 
   return (
-    <div className="flex bg-neutral-100">
+    <div className="flex bg-slate-50">
       <div className="h-24 w-44 border-l border-neutral-300 py-3 pl-2">
         <span className="mb-1 flex">
           <img src={awayLogo} className="mr-1 w-6" alt="away team logo" />{" "}
@@ -66,5 +66,3 @@ const Game = ({ game }) => {
 };
 
 export default Game;
-
-
