@@ -24,7 +24,7 @@ const TeamsHeader = () => {
 
           return (
             <Link to={teamPath} className="my-auto" key={key}>
-              <img className="h-11" src={logoPath} alt="Team Logo" />
+              <img className="h-10" src={logoPath} alt="Team Logo" />
             </Link>
           );
         })}

@@ -5,7 +5,7 @@ import CreateAPlayer from '../cards/CreateAPlayer'
 
 const RightContainer = () => {
   return (
-    <Box className="w-1/3 xl:w-[26.5rem]">
+    <Box>
         <CreateAPlayer />
     </Box>
   )

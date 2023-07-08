@@ -9,7 +9,7 @@ const Button = ({
   backgroundColor = "#013369",
   color = "#FFF",
   fontSize = "15px",
-  hoverBackgroundColor = "#0056b3"
+  hoverBackgroundColor = "#0056b3",
 }) => {
   return (
     <button
@@ -21,8 +21,8 @@ const Button = ({
         color: color,
         fontSize: fontSize,
         ":hover": {
-          backgroundColor: hoverBackgroundColor
-        }
+          backgroundColor: hoverBackgroundColor,
+        },
       }}
       onClick={onClick}
     >

@@ -6,7 +6,7 @@ import JoinCommunity from '../cards/JoinCommunity'
 
 const MainContainer = () => {
   return (
-    <Box className="w-2/3 lg:w-[50rem]">
+    <Box>
         <JoinCommunity />
     </Box>
   )

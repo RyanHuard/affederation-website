@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .mobile-homepage-divide {
+        @apply divide-y divide-[#e49740];
+    }
+}

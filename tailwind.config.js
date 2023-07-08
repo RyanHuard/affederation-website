@@ -5,10 +5,12 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    fontFamily: {
-      'sans': ['Roboto', 'system-ui'],
-      'serif': ['ui-serif', 'Georgia'],
-    },
+    extend: {
+    colors: {
+      "aff-blue": "#013369",
+      "aff-orange": "#e49740",
+    }
+  }
   },
   plugins: [],
 }

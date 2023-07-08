@@ -9,6 +9,7 @@ import Home from "./features/home/Home";
 import Header from "./components/header/Header";
 import { TeamContext, useTeams } from "./lib/TeamContext";
 import Navbar from "./components/header/navbar/Navbar";
+import Layout from "./Layout";
 
 function App() {
   const teams = useTeams();
@@ -20,10 +21,16 @@ function App() {
         <div style={{ position: "sticky", top: 0, zIndex: 999 }}>
           <Navbar />
         </div>
+
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/standings" element={<Standings />} />
         </Routes>
+
+        <Layout>
+          <Routes>
+            <Route path="/standings" element={<Standings />} />
+          </Routes>
+        </Layout>
       </TeamContext.Provider>
     </BrowserRouter>
   );

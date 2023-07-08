@@ -9,7 +9,7 @@ const SideNavigation = ({ setOpenSidebar }) => {
     <>
       <Flex
         className="fixed left-0 top-36 h-screen w-screen
-        flex-col overflow-y-auto bg-neutral-800"
+        flex-col overflow-y-auto bg-[#013369]"
       >
         <Flex flexDir="column" align="center" className="text-white">
           {navRoutes.map((route, index) => {

@@ -20,7 +20,7 @@ const Carousel = ({ children }) => {
         className="flex w-full max-w-full flex-nowrap overflow-hidden overflow-x-hidden"
       >
         <div
-          className="flex h-24 min-w-full flex-nowrap items-center justify-start"
+          className="flex min-w-full flex-nowrap items-center justify-start"
           style={{
             transform: `translate(-${currentIndex * itemWidth}px)`,
             transition: "0.2s cubic-bezier(0.39, 0.575, 0.565, 1)",

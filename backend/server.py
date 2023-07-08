@@ -1,10 +1,11 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 import psycopg2
 import os
 from dotenv import load_dotenv
 
 from queries.schedule import schedule_query
+from queries.home_standings import home_standings_query
 
 
 app = Flask(__name__)
@@ -104,4 +105,20 @@ def get_schedule(season_id=None):
     cursor.close()
     conn.close()
 
-    return seasonal_schedule_list
+    return jsonify(seasonal_schedule_list)
+
+@app.route("/api/home-standings")
+def get_home_standings():
+    conn = get_conn()
+    cursor = get_cursor(conn)
+
+    cursor.execute(home_standings_query)
+    standings = cursor.fetchall()
+
+    standings_json = []
+    column_names = [cursor[0] for cursor in cursor.description]
+
+    for team in standings:
+        standings_json.append(dict(zip(column_names, team)))
+
+    return jsonify(standings_json)
