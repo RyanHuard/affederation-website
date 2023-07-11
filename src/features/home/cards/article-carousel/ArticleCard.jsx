@@ -1,7 +1,8 @@
 import { Card } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
-import ArticleCarousel from "./ArticleCarousel";
-import Thumbnail from "./Thumbnail";
+import ArticleCarousel from "./components/ArticleCarousel";
+import Thumbnail from "./components/Thumbnail";
+import Headlines from "./components/Headlines";
 
 const ArticleCard = () => {
   const cardRef = useRef(null);
@@ -33,36 +34,14 @@ const ArticleCard = () => {
   }, [currentIndex]);
 
   return (
-    <Card ref={cardRef} className="drop-shadow-md lg:w-3/5 h-full">
+    <Card ref={cardRef} rounded="sm" className="drop-shadow-md">
       <ArticleCarousel itemWidth={cardWidth} currentIndex={currentIndex} setCurrentIndex={setCurrentIndex}>
         {articles.map((article, index) => {
           return <Thumbnail article={article} key={index} />;
         })}
       </ArticleCarousel>
-
-      <div className="flex h-16 flex-grow gap-1 bg-white">
-        {articles?.map((article, index) => {
-          const isActive = index === currentIndex;
-          const activeBgColor = isActive ? "aff-orange" : "aff-blue";
-
-          return (
-            <div
-              onClick={() => setCurrentIndex(index)}
-              className="my-auto h-full flex-1 cursor-pointer overflow-hidden"
-              key={index}
-            >
-              <div
-                className={`h-[.2rem] bg-${activeBgColor}`}
-              ></div>
-              <span
-                className={`block text-sm font-semibold text-${activeBgColor} h-12 overflow-hidden p-2 leading-5`}
-              >
-                {article?.title}
-              </span>
-            </div>
-          );
-        })}
-      </div>
+      <Headlines articles={articles} currentIndex={currentIndex} setCurrentIndex={setCurrentIndex}/>
+      
     </Card>
   );
 };

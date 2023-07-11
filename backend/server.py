@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 
 from queries.schedule import schedule_query
 from queries.home_standings import home_standings_query
+from queries.standings import standings_query
 
 
 app = Flask(__name__)
@@ -122,3 +123,26 @@ def get_home_standings():
         standings_json.append(dict(zip(column_names, team)))
 
     return jsonify(standings_json)
+
+
+@app.route("/api/standings")
+def get_team_standings():
+    conn = get_conn()
+    cursor = get_cursor(conn)
+
+ 
+ 
+    cursor.execute(standings_query)
+    results = cursor.fetchall()
+
+    team_standings_list = []
+
+    column_names = [desc[0] for desc in cursor.description]
+
+    for row in results:
+        team_standings_list.append(dict(zip(column_names, row)))
+
+    cursor.close()
+    conn.close()
+
+    return team_standings_list

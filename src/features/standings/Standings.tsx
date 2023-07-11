@@ -1,8 +1,13 @@
 import React from 'react'
 
+
+import Header from "./components/Header";
+
 const Standings = () => {
   return (
-    <div>Standings</div>
+    <div className="bg-white p-12 h-full">
+      <Header />
+    </div>
   )
 }
 

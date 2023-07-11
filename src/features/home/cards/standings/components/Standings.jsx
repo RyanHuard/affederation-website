@@ -1,10 +1,10 @@
 import React from "react";
 
-import { useStandings } from "./api/getStandings";
+import { useHomeStandings } from "../api/getHomeStandings";
 import { Divider, Spinner } from "@chakra-ui/react";
 
 const Standings = () => {
-  const standingsQuery = useStandings();
+  const standingsQuery = useHomeStandings();
 
   const westStandings = standingsQuery.data?.filter(
     (team) => team.division == "west"
@@ -15,7 +15,7 @@ const Standings = () => {
 
   if (standingsQuery.isLoading) {
     return (
-      <div>
+      <div className="m-auto">
         <Spinner />
       </div>
     );
@@ -32,18 +32,21 @@ const Standings = () => {
             const logo = `src/assets/logos/${team.team_logo}`;
 
             return (
-              <div key={index} className="flex border-b px-2 py-2 last-of-type:border-0">
-                <span className="my-auto">{index + 1}.{" "}</span>
-                <span className="ml-2 flex">
-                  <img src={logo} width="30px" className="mr-2" />
+              <div
+                key={index}
+                className="flex border-b px-2 py-2 last-of-type:border-0"
+              >
+      
+                <span className=" flex">
+                  <img src={logo} width="30px" className="mr-[.25rem]" />
                   <span className="my-auto hidden sm:block lg:hidden xl:block">
                     {team.team.split(" ")[team.team.split(" ").length - 1]}
                   </span>
-                  <span className="my-auto sm:hidden block lg:block xl:hidden">
+                  <span className="my-auto block sm:hidden lg:block xl:hidden">
                     {team.stats_team_city}
                   </span>
                 </span>
-                <span className="ml-auto">
+                <span className="my-auto ml-auto">
                   {team.wins}-{team.loss}
                 </span>
               </div>
@@ -51,9 +54,11 @@ const Standings = () => {
           })}
         </div>
       </section>
-      <div className="pt-4">
-      <Divider orientation="vertical"/>
+
+      <div className="mt-4">
+        <Divider orientation="vertical" />
       </div>
+
       <section className="w-1/2 px-4 pt-1">
         <header className="mb-2 border-b border-b-black px-1 pb-2 pt-2 font-semibold">
           East
@@ -63,18 +68,21 @@ const Standings = () => {
             const logo = `src/assets/logos/${team.team_logo}`;
 
             return (
-              <div key={index} className="flex border-b px-2 py-2 last-of-type:border-0">
-                <span className="my-auto">{index + 1}.{" "}</span>
-                <span className="ml-2 flex">
-                  <img src={logo} width="30px" className="mr-2" />
+              <div
+                key={index}
+                className="flex border-b px-2 py-2 last-of-type:border-0"
+              >
+            
+                <span className="flex">
+                  <img src={logo} width="30px" className="mr-[.35rem]" />
                   <span className="my-auto hidden sm:block lg:hidden xl:block">
                     {team.team.split(" ")[team.team.split(" ").length - 1]}
                   </span>
-                  <span className="my-auto sm:hidden block lg:block xl:hidden">
+                  <span className="my-auto block sm:hidden lg:block xl:hidden">
                     {team.stats_team_city}
                   </span>
                 </span>
-                <span className="ml-auto">
+                <span className="my-auto ml-auto">
                   {team.wins}-{team.loss}
                 </span>
               </div>
