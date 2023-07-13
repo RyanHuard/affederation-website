@@ -10,7 +10,6 @@ const DesktopNavbar = () => {
   return (
     <div className="hidden md:block" style={{ height: "inherit"}}>
       <Flex
-        px="6"
         py="5"
         className="m-auto max-w-7xl text-white"
         height="inherit"

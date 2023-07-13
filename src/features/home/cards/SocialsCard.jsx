@@ -4,7 +4,7 @@ import { FaYoutube, FaTwitter, FaInstagram, FaTiktok } from "react-icons/fa";
 
 const SocialsCard = () => {
   return (
-    <Card rounded="sm">
+    <Card rounded="sm ">
       <header className="h-12 bg-aff-blue rounded-t-sm">
         <h1 className="px-4 py-3 font-semibold text-white">CONNECT WITH US</h1>
       </header>

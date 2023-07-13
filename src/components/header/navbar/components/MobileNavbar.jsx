@@ -14,7 +14,7 @@ const MobileNavbar = () => {
   // the divs are needed for mobile visibility being hidden and display
   return (
     <div
-      className="mx-6 flex items-center justify-between md:hidden"
+      className="px-6 flex items-center justify-between md:hidden"
       style={{ height: "inherit" }}
     >
       <Link to="/" onClick={() => setOpenSidebar(false)}>

@@ -7,6 +7,7 @@ const LeagueInfoCard = () => {
     {
       title: "FAQ",
       body: "Get your quetsions answered here",
+      // top 3 questions
       img: "src/assets/home/league-info/faq.png",
     },
     {
@@ -27,7 +28,7 @@ const LeagueInfoCard = () => {
       <header className="h-12 bg-aff-blue rounded-t-sm">
         <h1 className="px-4 py-3 font-semibold text-white text-left">LEAGUE INFO</h1>
       </header>
-        <h1 className="text-3xl font-bold pt-6">
+        <h1 className="text-2xl lg:text-3xl font-bold pt-6">
           ABOUT THE AMERICAN FOOTBALL FEDERATION
         </h1>
       </header>

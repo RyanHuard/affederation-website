@@ -130,17 +130,26 @@ def get_team_standings():
     conn = get_conn()
     cursor = get_cursor(conn)
 
- 
- 
     cursor.execute(standings_query)
     results = cursor.fetchall()
 
     team_standings_list = []
+    current_season_id = None
+    current_season_standings = []
 
     column_names = [desc[0] for desc in cursor.description]
 
     for row in results:
-        team_standings_list.append(dict(zip(column_names, row)))
+        if row[1] != current_season_id:
+            if current_season_standings:
+                team_standings_list.append(current_season_standings)
+            current_season_id = row[1]
+            current_season_standings = []
+
+        current_season_standings.append(dict(zip(column_names, row)))
+
+    if current_season_standings:
+        team_standings_list.append(current_season_standings)
 
     cursor.close()
     conn.close()

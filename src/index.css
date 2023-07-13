@@ -4,6 +4,6 @@
 
 @layer components {
     .mobile-homepage-divide {
-        @apply divide-y divide-[#e49740];
+        @apply divide-y divide-aff-orange;
     }
 }
