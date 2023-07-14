@@ -1,7 +1,8 @@
 import React from "react";
 
 import HomeLayout from "./HomeLayout";
-import Layout from "../../Layout";
+import MainLayout from "src/components/layout/MainLayout";
+
 
 import welcomeBanner from "../../assets/welcome-banner.png";
 
@@ -14,9 +15,9 @@ import { Box } from "@chakra-ui/react";
 import LeagueInfoCard from "./cards/league-info/LeagueInfoCard";
 const Header = () => {
   return (
-    <header className="hidden lg:block -mt-6">
+    
       <img src={welcomeBanner} />
-    </header>
+
   );
 };
 const Home = () => {
@@ -24,9 +25,9 @@ const Home = () => {
   return (
     <>
       <div className="hidden lg:block">
-        <Layout header={<Header />}>
+        <MainLayout header={<Header />}>
           <HomeLayout>
-          <div className="col-span-6 flex-col space-y-6">
+          <div className="col-span-6 flex-col space-y-6 ">
             <JoinCommunity />
             <ArticleCard />
           </div>
@@ -41,10 +42,11 @@ const Home = () => {
             <LeagueInfoCard />
           </div>
           </HomeLayout>
-        </Layout>
+          </MainLayout>
       </div>
 
       <div className="mr lg:hidden">
+      <MainLayout>
         <HomeLayout>
           <ArticleCard />
           <JoinCommunity />
@@ -53,6 +55,7 @@ const Home = () => {
           <SocialsCard />
           <LeagueInfoCard />
         </HomeLayout>
+        </MainLayout>
       </div>
     </>
   );

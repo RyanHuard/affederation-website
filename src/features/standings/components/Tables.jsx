@@ -36,7 +36,7 @@ const Tables = ({ seasonId }) => {
     );
 
     return (
-      <div className="m-auto my-12 max-w-7xl pb-6">
+      <div className="m-auto my-12 pb-6 w-full">
         <div className="mb-6  border-2">
           <Table title="West" data={westTeams} columns={columns} />
         </div>

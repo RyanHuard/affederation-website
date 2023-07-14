@@ -3,7 +3,7 @@ import { Image, Flex, HStack } from "@chakra-ui/react";
 import { NavLink, Link } from "react-router-dom";
 
 import navRoutes from "../routes";
-import affLogo from "../../../../assets/aff-logo.png";
+import affLogo from "src/assets/aff-logo.png";
 import "./Navbar.css";
 
 const DesktopNavbar = () => {
@@ -11,7 +11,7 @@ const DesktopNavbar = () => {
     <div className="hidden md:block" style={{ height: "inherit"}}>
       <Flex
         py="5"
-        className="m-auto max-w-7xl text-white"
+        className="m-auto max-w-7xl text-white px-6"
         height="inherit"
       >
         <HStack spacing="24px" as="nav">

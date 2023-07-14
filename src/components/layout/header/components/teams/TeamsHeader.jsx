@@ -5,7 +5,7 @@ import {
   TeamContext,
   sortAlphabetically,
   hyphenateAndLowerCaseTeam,
-} from "../../../lib/TeamContext";
+} from "src/lib/TeamContext";
 
 const TeamsHeader = () => {
   let teams = useContext(TeamContext);

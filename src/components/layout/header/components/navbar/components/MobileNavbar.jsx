@@ -3,7 +3,7 @@ import { HamburgerIcon } from "@chakra-ui/icons";
 import { IconButton, CloseButton, Image } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
-import affLogo from "../../../../assets/aff-logo.png";
+import affLogo from "src/assets/aff-logo.png";
 
 import SideNavigation from "./SideNavigation";
 

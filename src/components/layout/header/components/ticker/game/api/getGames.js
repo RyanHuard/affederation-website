@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { api } from "../../../../../lib/axios";
+import { api } from "src/lib/axios";
 
 // Null season_id returns all seasons schedule
 export const getGames = (season_id = null) => {
