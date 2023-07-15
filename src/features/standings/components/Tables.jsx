@@ -19,13 +19,14 @@ const Tables = ({ seasonId }) => {
   if (seasonId <= 5) {
     return (
       <div className="m-auto my-12 pb-6">
-      <div className="mb-6  border-2">
-        <Table title="American Football Federation" data={standingsQuery?.data[seasonId - 1]} columns={columns} />
+        <div className="mb-6  border-2">
+          <Table
+            title="American Football Federation"
+            data={standingsQuery?.data[seasonId - 1]}
+            columns={columns}
+          />
+        </div>
       </div>
-
-
-    </div>
-    
     );
   } else if (seasonId >= 6) {
     const westTeams = standingsQuery?.data[seasonId - 1].filter(
@@ -36,8 +37,8 @@ const Tables = ({ seasonId }) => {
     );
 
     return (
-      <div className="m-auto my-12 pb-6 w-full">
-        <div className="mb-6  border-2">
+      <div className="max-w-screen my-12 pb-6 ">
+        <div className="mb-6 border ">
           <Table title="West" data={westTeams} columns={columns} />
         </div>
 

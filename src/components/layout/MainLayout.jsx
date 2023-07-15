@@ -13,10 +13,9 @@ const MainLayout = ({ children, header }) => {
       <div className="sticky top-0 z-50">
         <Navbar />
       </div>
-      <header className="hidden w-full lg:block">{header}</header>
-      <div className="relative m-auto flex  max-w-7xl justify-center">
-        <main className="relative flex-grow lg:mx-4 lg:mt-6  ">{children}</main>
-      </div>
+      <header className="hidden w-full lg:block mt-6">{header}</header>
+
+      <main className="h-full max-w-[80rem] lg:px-4 lg:pt-6 mx-auto">{children}</main>
     </div>
   );
 };

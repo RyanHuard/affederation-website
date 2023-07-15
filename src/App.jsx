@@ -8,6 +8,7 @@ import { TeamContext, useTeams } from "./lib/TeamContext";
 
 import Standings from "./features/standings/Standings";
 import Home from "./features/home/Home";
+import PlayerStats from "./features/stats/PlayerStats";
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/standings" element={<Standings />} />
+            <Route path="/stats" element={<PlayerStats />} />
           </Routes>
 
       </TeamContext.Provider>

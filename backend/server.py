@@ -1,33 +1,19 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import psycopg2
-import os
-from dotenv import load_dotenv
+
+from db_connection import get_conn, get_cursor
 
 from queries.schedule import schedule_query
 from queries.home_standings import home_standings_query
 from queries.standings import standings_query
 
+from stats.player_stats import player_stats_blueprint
+
 
 app = Flask(__name__)
+app.register_blueprint(player_stats_blueprint)
 CORS(app)
-
-load_dotenv()
-
-
-def get_conn():
-    DB_HOST = os.getenv("DB_HOST")
-    DB_NAME = os.getenv("DB_NAME")
-    DB_USER = os.getenv("DB_USER")
-    DB_PASS = os.getenv("DB_PASS")
-
-    return psycopg2.connect(
-        database=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST
-    )
-
-
-def get_cursor(conn):
-    return conn.cursor()
 
 
 # Gets column names from PostgresQL and inserts in data
@@ -108,6 +94,7 @@ def get_schedule(season_id=None):
 
     return jsonify(seasonal_schedule_list)
 
+
 @app.route("/api/home-standings")
 def get_home_standings():
     conn = get_conn()
@@ -121,6 +108,9 @@ def get_home_standings():
 
     for team in standings:
         standings_json.append(dict(zip(column_names, team)))
+
+    cursor.close()
+    conn.close()
 
     return jsonify(standings_json)
 

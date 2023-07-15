@@ -16,7 +16,7 @@ import LeagueInfoCard from "./cards/league-info/LeagueInfoCard";
 const Header = () => {
   return (
     
-      <img src={welcomeBanner} />
+      <img className="-mt-6" src={welcomeBanner} />
 
   );
 };

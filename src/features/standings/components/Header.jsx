@@ -12,6 +12,7 @@ const Header = ({ handleSeasonSelect, handleDivisionSelect }) => {
           </header>
           <div className="mt-6 hidden h-[2px] bg-aff-blue sm:block" />
           <div className="flex justify-center gap-6 border-b-2 py-2 sm:justify-normal sm:border-0 sm:py-6">
+           
             <Select
               borderRadius="sm"
               width="10rem"

@@ -10,7 +10,7 @@ const columns = [
     sortable: true,
     cell: (row) => {
         return (
-      <div className="flex over">
+      <div className="flex">
         <img
           src={`./logos/${row.team_logo}`}
           alt="Team Logo"
@@ -19,7 +19,8 @@ const columns = [
         <span className="my-auto pl-2">{row.team}</span>
       </div>);
     },
-    width: "16rem"
+    width: "16rem",
+
   },
   {
     name: "W",

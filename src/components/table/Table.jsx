@@ -1,44 +1,51 @@
-import React from 'react'
-import DataTable from 'react-data-table-component'
+import React from "react";
+import DataTable from "react-data-table-component";
 
 import "./Table.css";
 
 const affStyles = {
-    table: {
-        style: {
-            overflow: "auto"
-        }
+  table: {
+    style: {
+      overflow: "auto",
     },
-    headRow: {
-        style: {
-            fontSize: "14px",
-            fontWeight: "semibold",
-            color: "black",
-            backgroundColor: "white",
-            minHeight: "40px",
-            
-        },
+  },
+  headRow: {
+    style: {
+      fontSize: "14px",
+      fontWeight: "semibold",
+      color: "black",
+      backgroundColor: "white",
+      minHeight: "40px",
     },
-    rows: {
-        style: {
-            fontSize:  "15px",
-        }
+  },
+  rows: {
+    style: {
+      fontSize: "15px",
     },
-    header: {
-        style: {
-            backgroundColor: "white",
-            fontSize: "18px",
-            minHeight: "50px",
-            borderBottom: "1px solid orange"
-        }
-    }
+  },
+  header: {
+    style: {
+      backgroundColor: "white",
+      fontSize: "18px",
+      minHeight: "50px",
+      borderBottom: "1px solid orange",
+      
+    },
+  },
+};
 
-}
-
-const Table = ({ data, columns, title }) => {
+const Table = (props) => {
   return (
-    <DataTable striped data={data} columns={columns} customStyles={affStyles} className="border-b" title={title}/>
-  )
-}
+    <div className="overflow-x-auto ">
+      <DataTable
+        className="border-b"
+        striped={true}
+        customStyles={affStyles}
+        responsive="true"
+        {...props}
+      />
+    </div>
+  );
+};
 
-export default Table
+export default Table;
