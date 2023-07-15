@@ -2,13 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 
 import { api } from "src/lib/axios";
 
-export const getStandings = () => {
-  return api.get("/standings").then((res) => res.data);
+export const getPlayerStats = (seasonId) => {
+  return api.get(`/stats/${seasonId}`).then((res) => res.data);
 };
 
-export const useStandings = () => {
+export const usePlayerStats = (seasonId) => {
   return useQuery({
     queryKey: ["standings"],
-    queryFn: () => getStandings(),
+    queryFn: () => getPlayerStats(seasonId),
   });
 };

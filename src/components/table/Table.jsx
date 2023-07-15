@@ -2,6 +2,7 @@ import React from "react";
 import DataTable from "react-data-table-component";
 
 import "./Table.css";
+import { Spinner } from "@chakra-ui/react";
 
 const affStyles = {
   table: {
@@ -42,6 +43,9 @@ const Table = (props) => {
         striped={true}
         customStyles={affStyles}
         responsive="true"
+        progressComponent={<Spinner size="xl" my="24" />}
+        defaultSortFieldId={2}
+        defaultSortAsc={false}
         {...props}
       />
     </div>

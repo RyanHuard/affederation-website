@@ -23,7 +23,6 @@ function App() {
             <Route path="/standings" element={<Standings />} />
             <Route path="/stats" element={<PlayerStats />} />
           </Routes>
-
       </TeamContext.Provider>
     </BrowserRouter>
   );

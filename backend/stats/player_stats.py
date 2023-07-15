@@ -18,7 +18,7 @@ def get_player_stats(season_id):
         categories = query_info["categories"]
 
 
-        query = f"SELECT first_name, last_name, position, team_city, \
+        query = f"SELECT first_name, last_name, position, team_city, (SELECT team_logo from TEAMS where teams.abbreviation = player_stats.team_city), \
             {', '.join(selections)} FROM player_stats WHERE {criteria}\
                 AND season_id = %s GROUP BY pid, last_name, first_name, team_city, position"
         cursor.execute(query, (season_id,))
