@@ -45,10 +45,8 @@ const Table = (props) => {
         customStyles={affStyles}
         responsive="true"
         progressComponent={<Spinner size="xl" my="24" />}
- 
         defaultSortAsc={false}
         {...props}
-        // sortFunction={customSort}
       />
     </div>
   );
