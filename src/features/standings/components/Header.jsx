@@ -5,7 +5,7 @@ const Header = ({ handleSeasonSelect, handleDivisionSelect }) => {
 
   return (
 
-    <div className="bg-white sm:pt-12">
+    <div className="bg-white sm:pt-12 border-b border-aff-blue">
         <div className="m-auto max-w-7xl px-6">
           <header className="hidden text-3xl font-bold sm:block">
             STANDINGS

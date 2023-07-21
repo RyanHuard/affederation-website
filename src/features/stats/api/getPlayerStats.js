@@ -8,7 +8,7 @@ export const getPlayerStats = (seasonId) => {
 
 export const usePlayerStats = (seasonId) => {
   return useQuery({
-    queryKey: ["standings"],
+    queryKey: ["playerStats", seasonId],
     queryFn: () => getPlayerStats(seasonId),
   });
 };

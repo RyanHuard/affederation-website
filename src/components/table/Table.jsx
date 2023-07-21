@@ -35,18 +35,20 @@ const affStyles = {
   },
 };
 
+
+
 const Table = (props) => {
   return (
-    <div className="overflow-x-auto ">
+    <div className="overflow-x-auto drop-shadow">
       <DataTable
-        className="border-b"
         striped={true}
         customStyles={affStyles}
         responsive="true"
         progressComponent={<Spinner size="xl" my="24" />}
-        defaultSortFieldId={2}
+ 
         defaultSortAsc={false}
         {...props}
+        // sortFunction={customSort}
       />
     </div>
   );

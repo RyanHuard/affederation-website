@@ -33,6 +33,8 @@ player_stat_columns = {
             "SUM(match_rush_yards)",
             "SUM(match_rush_tds)",
             "SUM(match_fumble)",
+            "(CAST(SUM(match_rush_yards) AS DECIMAL)/SUM(match_rush_attempts))",
+            "MAX(match_rush_long)"
         ],
         "criteria": "match_rush_attempts > 0",
         "categories": [
@@ -45,6 +47,8 @@ player_stat_columns = {
             "rush_yards",
             "rush_tds",
             "fumbles",
+            "yards_per_carry",
+            "long"
         ],
     },
     "receiving": {
@@ -55,6 +59,7 @@ player_stat_columns = {
             "SUM(match_receiving_tds)",
             "SUM(match_receiving_targets)",
             "SUM(match_fumble)",
+            "COUNT(*) as games_played"
         ],
         "criteria": "match_receiving_receptions > 0",
         "categories": [
@@ -65,10 +70,11 @@ player_stat_columns = {
             "team_logo",
             "receptions",
             "receiving_yards",
-            "receiving_yards_per_attempt",
+            "receiving_yards_per_reception",
             "receiving_tds",
             "receiving_targets",
             "fumbles",
+            "games_played"
         ],
     },
     "defense": {
