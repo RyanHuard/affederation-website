@@ -10,8 +10,8 @@ const Tables = ({ seasonId }) => {
 
   if (seasonId <= 5) {
     return (
-      <div className="m-auto my-12 pb-6">
-        <div className="mb-6  border-2">
+      <div className="m-auto my-0 pb-6 sm:my-12">
+        <div className="mb-6 border-2">
           <Table
             title="American Football Federation"
             data={standingsQuery?.data[seasonId - 1]}
@@ -30,13 +30,23 @@ const Tables = ({ seasonId }) => {
     );
 
     return (
-      <div className="max-w-screen my-12 pb-6 ">
-        <div className="mb-6 border ">
-          <Table title="West" data={westTeams} columns={columns}  progressPending={standingsQuery.isLoading} />
+      <div className="max-w-screen my-0 pb-6 sm:my-12 ">
+        <div className="mb-0 border sm:mb-6 ">
+          <Table
+            title="West"
+            data={westTeams}
+            columns={columns}
+            progressPending={standingsQuery.isLoading}
+          />
         </div>
 
         <div className=" border-2">
-          <Table title="East" data={eastTeams} columns={columns}  progressPending={standingsQuery.isLoading}/>
+          <Table
+            title="East"
+            data={eastTeams}
+            columns={columns}
+            progressPending={standingsQuery.isLoading}
+          />
         </div>
       </div>
     );

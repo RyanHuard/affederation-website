@@ -19,9 +19,9 @@ const Header = ({
     <div className="border-b border-aff-blue bg-white sm:pt-12">
       <div className="m-auto max-w-7xl px-6">
         <header className="hidden text-3xl font-bold sm:block">
-          PLAYER STATISTICS - {seasonId + 2021}
+          Player Statistics - {seasonId + 2021}
         </header>
-        <Tabs className="mt-6" onChange={handleTabChange}>
+        <Tabs className="overflow-x-auto pt-2" onChange={handleTabChange}>
           <TabList>
             {categories.map((name, index) => {
               return (
@@ -31,6 +31,7 @@ const Header = ({
                     color: "#e49740",
                   }}
                   key={index}
+                  className="whitespace-nowrap h-14"
                 >
                   {name}
                 </Tab>
@@ -39,7 +40,7 @@ const Header = ({
           </TabList>
         </Tabs>
         <div className="-mt-[2px] hidden h-[2px] bg-aff-blue sm:block" />
-        <div className="flex justify-center gap-6 border-b-2 py-2 sm:justify-normal sm:border-0 sm:py-6">
+        <div className="flex justify-left gap-6 border-b-2 py-2 sm:justify-normal sm:border-0 sm:py-6">
           <Select
             borderRadius="sm"
             width="10rem"

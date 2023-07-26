@@ -47,7 +47,7 @@ const PlayerStats = () => {
         />
       }
     >
-      <div className="py-12">
+      <div className="sm:py-12">
         <Table
           key={category}
           data={stats}

@@ -17,7 +17,7 @@ schedule_query = "SELECT games.game_id, games.season_id,\
         (SELECT t2.loss\
         FROM team_standings t2\
         WHERE games.home_team_id = t2.team_id AND games.season_id = t2.season_id) \
-        AS home_team_loss, away.team_logo, home.team_logo, away.abbreviation, home.abbreviation\
+        AS home_team_loss, away.team_logo, home.team_logo, away.abbreviation, home.abbreviation, away.helmet, home.helmet\
         FROM games\
         JOIN teams away ON games.away_team_id = away.team_id\
         JOIN teams home ON games.home_team_id = home.team_id"

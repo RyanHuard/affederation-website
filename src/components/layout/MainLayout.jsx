@@ -13,9 +13,13 @@ const MainLayout = ({ children, header }) => {
       <div className="sticky top-0 z-50">
         <Navbar />
       </div>
-      <header className="hidden w-full lg:block mt-6">{header}</header>
+      <header className="mt-0 w-full sm:mt-6">{header}</header>
+      {/* <div className="absolute ml-[19.5rem] left-0 hidden h-[1200px] w-8 bg-[#e49740] lg:block" />
+      <div className="absolute right-0 ml-auto  mr-[19.5rem] hidden h-[1200px] w-8 bg-[#e49740] lg:block" /> */}
 
-      <main className="max-w-[80rem] lg:px-4 lg:pt-6 mx-auto pb-24">{children}</main>
+      <main className="mx-auto max-w-[80rem] pb-24 lg:px-4 lg:pt-6">
+        {children}
+      </main>
     </div>
   );
 };

@@ -134,7 +134,7 @@ export const columns = [
       sortable: true,
     },
   ],
-  [
+  /* Receiving */ [
     {
       name: "Player",
       selector: (row) => `${row.first_name} ${row.last_name}`,
@@ -186,6 +186,61 @@ export const columns = [
     {
       name: "Targets",
       selector: (row) => row.receiving_targets,
+      sortable: true,
+    },
+  ],
+  /* Defense */ [
+    {
+      name: "Player",
+      selector: (row) => `${row.first_name} ${row.last_name}`,
+      sortable: true,
+      cell: (row) => {
+        console.log(row.logo);
+        return (
+          <div className="flex">
+            <img
+              src={`src/assets/logos/${row.team_logo}`}
+              alt="Logo"
+              width={30}
+            />
+            <div className="my-auto pl-2">
+              {row.first_name} {row.last_name}
+              <span className="px-[6px]">·</span>
+              <span className="text-neutral-500">{row.position}</span>
+            </div>
+          </div>
+        );
+      },
+      width: "16rem",
+    },
+    {
+      name: "Tackles",
+      selector: (row) => row.tackles,
+      sortable: true,
+    },
+    {
+      name: "Sacks",
+      selector: (row) => row.sacks,
+      sortable: true,
+    },
+    {
+      name: "Int",
+      selector: (row) => row.interceptions,
+      sortable: true,
+    },
+    {
+      name: "Int Yds",
+      selector: (row) => row.interception_yards,
+      sortable: true,
+    },
+    {
+      name: "TFL",
+      selector: (row) => row.tackles_for_loss,
+      sortable: true,
+    },
+    {
+      name: "Deflections",
+      selector: (row) => row.deflections,
       sortable: true,
     },
   ]

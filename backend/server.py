@@ -29,7 +29,7 @@ def insert_column_names(cursor, data):
 
 
 @app.route("/api/teams")
-def test():
+def get_teams():
     conn = get_conn()
     cursor = get_cursor(conn)
 
@@ -85,6 +85,8 @@ def get_schedule(season_id=None):
                 "home_team_logo": game[13],
                 "away_team_abb": game[14],
                 "home_team_abb": game[15],
+                "away_team_helmet": game[16],
+                "home_team_helmet": game[17],
             }
         )
     schedules_list.append(seasonal_schedule_list)
@@ -145,3 +147,6 @@ def get_team_standings():
     conn.close()
 
     return team_standings_list
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)

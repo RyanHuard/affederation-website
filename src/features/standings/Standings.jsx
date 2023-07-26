@@ -12,7 +12,7 @@ const Standings = () => {
   };
 
   return (
-    <MainLayout header={<Header handleSeasonSelect={handleSeasonSelect} />}>
+    <MainLayout header={<Header handleSeasonSelect={handleSeasonSelect} seasonId={seasonId} />}>
       <Tables seasonId={seasonId} />
     </MainLayout>
   );
