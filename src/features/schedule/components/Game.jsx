@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Game = ({ ...game }) => {
+  console.log(game)
   return (
     <Link to={`/game/${game.season_id}/${game.game_id}`}>
     <div className="mx-2 lg:mx-0 mb-4 flex h-14 items-center justify-center rounded-sm bg-white drop-shadow">
@@ -20,7 +21,7 @@ const Game = ({ ...game }) => {
             src={`src/assets/helmets/${game.away_team_helmet}`}
           />
         </div>
-        <span className="w-10 px-2 text-center text-lg font-bold sm:text-xl">
+        <span className={`${game?.away_team_score == null && "hidden" } w-10 px-2 text-center text-lg font-bold sm:text-xl`}>
           {game.away_team_score}
         </span>
       </div>
@@ -41,7 +42,7 @@ const Game = ({ ...game }) => {
             src={`src/assets/helmets/${game.home_team_helmet}`}
           />
         </div>
-        <span className="w-10 text-center text-lg font-bold sm:text-xl">
+        <span className={`${game?.away_team_score == null && "hidden" } w-10 text-center text-lg font-bold sm:text-xl`}>
           {game.home_team_score}
         </span>
       </div>

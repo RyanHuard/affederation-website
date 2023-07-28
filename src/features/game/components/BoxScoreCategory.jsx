@@ -10,6 +10,21 @@ const BoxScoreCategory = ({
   teamName,
   teamLogo
 }) => {
+
+  switch (position) {
+    case "passing":
+      playerStats?.sort((a, b) => b.yards - a.yards);
+      break;
+    case "rushing":
+      playerStats?.sort((a, b) => b.rush_yards - a.rush_yards);
+      break;
+    case "receiving":
+      playerStats?.sort((a, b) => b.receiving_yards - a.receiving_yards);
+      break;
+    case "defense":
+      playerStats?.sort((a, b) => b.tackles - a.tackles);
+      break;
+  }
     
   return (
     <div className="pt-6 text-black">

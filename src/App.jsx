@@ -11,6 +11,7 @@ import Home from "./features/home/Home";
 import PlayerStats from "./features/stats/PlayerStats";
 import Schedule from "./features/schedule/Schedule";
 import Game from "./features/game/Game";
+import Teams from "./features/teams/Teams";
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/standings" element={<Standings />} />
             <Route path="/schedule" element={<Schedule />} />
+            <Route path="/teams" element={<Teams />} />
             <Route path="/stats" element={<PlayerStats />} />
 
             <Route path="/game/:seasonId/:gameId" element={<Game />} />

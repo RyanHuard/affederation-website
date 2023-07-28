@@ -23,7 +23,7 @@ def get_player_stats(season_id, game_id):
 
         query = f"SELECT CONCAT(first_name, ' ', last_name), team_city, \
             {', '.join(selections)} FROM player_stats WHERE {criteria} AND last_name <> 'One' AND last_name <> 'Two' AND last_name <> 'Three' AND last_name <> 'Five' \
-                AND season_id = %s AND game_id = %s GROUP BY pid, last_name, first_name, team_city, position"
+                AND season_id = %s AND game_id = %s GROUP BY pid, last_name, first_name, team_city, position "
         cursor.execute(query, (season_id, game_id))
 
         players = cursor.fetchall()

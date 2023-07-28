@@ -1,8 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const calculateWeek = (gameId, seasonId) => {
-  let seasonStartGameId = 123;
-  return Math.ceil((gameId + 1 - seasonStartGameId) / 3);
+  let seasonStartGameId = 159;
+  return Math.ceil((gameId + 1 - seasonStartGameId) / 5);
 };
 
 const Game = ({ game }) => {
@@ -17,6 +18,7 @@ const Game = ({ game }) => {
   }
 
   return (
+    <Link to={`/game/${game.season_id}/${game.game_id}`}>
     <div className="flex bg-slate-50">
       <div className="h-24 w-44 border-l border-neutral-300 py-3 pl-2">
         <span className="mb-1 flex">
@@ -62,6 +64,7 @@ const Game = ({ game }) => {
         <span className="ml-1 text-xs">Week {calculateWeek(game.game_id)}</span>
       </div>
     </div>
+    </Link>
   );
 };
 

@@ -8,7 +8,7 @@ import Week from "./components/Week";
 import { useSchedule } from "./api/getSchedule";
 
 const Schedule = () => {
-  const [seasonId, setSeasonId] = useState(5);
+  const [seasonId, setSeasonId] = useState(6);
   const [weekId, setWeekId] = useState(1);
 
   const handleSeasonSelect = (e) => {
