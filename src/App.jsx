@@ -12,6 +12,7 @@ import PlayerStats from "./features/stats/PlayerStats";
 import Schedule from "./features/schedule/Schedule";
 import Game from "./features/game/Game";
 import Teams from "./features/teams/Teams";
+import Team from "./features/team-page/Team";
 
 
 function App() {
@@ -28,6 +29,8 @@ function App() {
             <Route path="/stats" element={<PlayerStats />} />
 
             <Route path="/game/:seasonId/:gameId" element={<Game />} />
+
+            <Route path="/teams/:teamId/:teamName" element={<Team />} />
 
           </Routes>
       </TeamContext.Provider>

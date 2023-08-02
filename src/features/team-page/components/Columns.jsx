@@ -5,13 +5,9 @@ export const columns = [
       selector: (row) => `${row.first_name} ${row.last_name}`,
       sortable: true,
       cell: (row) => {
+
         return (
           <div className="flex">
-            <img
-              src={`src/assets/logos/${row.team_logo}`}
-              alt="Logo"
-              width={30}
-            />
             <div className="my-auto pl-2">
               {row.first_name} {row.last_name}
               <span className="px-[6px]">·</span>
@@ -87,10 +83,11 @@ export const columns = [
         console.log(row.logo);
         return (
           <div className="flex">
-            <img
-              src={`src/assets/logos/${row.team_logo}`}
+      <img
+              src="/src/features/team-page/components/0000.png"
               alt="Logo"
-              width={30}
+              width={26}
+              className="rounded-full"
             />
             <div className="my-auto pl-2">
               {row.first_name} {row.last_name}
@@ -142,11 +139,7 @@ export const columns = [
         console.log(row.logo);
         return (
           <div className="flex">
-            <img
-              src={`src/assets/logos/${row.team_logo}`}
-              alt="Logo"
-              width={30}
-            />
+            
             <div className="my-auto pl-2">
               {row.first_name} {row.last_name}
               <span className="px-[6px]">·</span>
@@ -197,11 +190,7 @@ export const columns = [
         console.log(row.logo);
         return (
           <div className="flex">
-            <img
-              src={`src/assets/logos/${row.team_logo}`}
-              alt="Logo"
-              width={30}
-            />
+           
             <div className="my-auto pl-2">
               {row.first_name} {row.last_name}
               <span className="px-[6px]">·</span>

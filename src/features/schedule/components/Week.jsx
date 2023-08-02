@@ -30,8 +30,8 @@ const Week = ({ schedule, seasonId, weekId }) => {
   };
 
   return ( 
-    <div className="md:pt-9 pt-6">
-      <h1 className="md:text-2xl text-xl font-bold pb-6 pl-2 lg:pl-0">Season {seasonId} - Week {weekId}</h1>
+    <div className="pt-3 sm:pt-0">
+      <h1 className="md:text-2xl text-xl font-bold pb-3 sm:pb-6 pl-2 lg:pl-0">Season {seasonId} - Week {weekId}</h1>
       {makeWeek(weekId, gamesPerWeek)}
     </div>
   );

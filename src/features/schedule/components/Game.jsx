@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Game = ({ ...game }) => {
-  console.log(game)
+
   return (
     <Link to={`/game/${game.season_id}/${game.game_id}`}>
     <div className="mx-2 lg:mx-0 mb-4 flex h-14 items-center justify-center rounded-sm bg-white drop-shadow">

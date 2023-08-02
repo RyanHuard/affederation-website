@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 
 import { TeamContext } from "../../lib/TeamContext";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import MainLayout from "../../components/layout/MainLayout";
 
 const Teams = () => {
@@ -36,12 +36,20 @@ const Teams = () => {
     "Griffon Kipper"
   ]
 
+
+
+
   return (
     <MainLayout>
-      <div className="flex flex-wrap justify-center gap-x-36 gap-y-20 gap pt-12">
+      <div className="flex flex-wrap justify-center gap-x-36 gap-y-20 gap pt-12 sm:pt-0">
         {teamData?.map((team, index) => {
+          const teamLink  = (
+            team.team_location.replace(".", "") + "-" + team.team_name
+          )
+            .replace(" ", "-")
+            .toLowerCase();
           return (
-            <div key={index} >
+            <NavLink to={`/teams/${team.team_id}/${teamLink}`} key={index} >
               <img width="300" src={`/src/assets/helmets/${team.helmet}`} />
               <div className="flex-col flex text-center leading-5">
                 <span className="font-bold">
@@ -50,7 +58,7 @@ const Teams = () => {
                 <span>{homeTowns[index]}</span>
                 <span>General Manager: {managers[index]}</span>
               </div>
-            </div>
+            </NavLink>
           );
         })}
       </div>

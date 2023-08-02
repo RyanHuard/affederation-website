@@ -17,7 +17,7 @@ const MainLayout = ({ children, header }) => {
       {/* <div className="absolute ml-[19.5rem] left-0 hidden h-[1200px] w-8 bg-[#e49740] lg:block" />
       <div className="absolute right-0 ml-auto  mr-[19.5rem] hidden h-[1200px] w-8 bg-[#e49740] lg:block" /> */}
 
-      <main className="mx-auto max-w-[80rem] pb-24 lg:px-4 lg:pt-6">
+      <main className="mx-auto max-w-[80rem] pb-24 lg:px-4 sm:pt-12">
         {children}
       </main>
     </div>

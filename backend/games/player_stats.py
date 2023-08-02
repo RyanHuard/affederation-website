@@ -42,4 +42,7 @@ def get_player_stats(season_id, game_id):
                 else:
                     players_by_team_position[team_city][position].append(player)
 
+    cursor.close()
+    conn.close()
+
     return players_by_team_position

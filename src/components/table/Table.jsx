@@ -17,12 +17,19 @@ const affStyles = {
       color: "black",
       backgroundColor: "white",
       minHeight: "40px",
+      
     },
+    denseStyle: {
+      fontSize: "14px"
+   }
   },
   rows: {
     style: {
       fontSize: "15px",
     },
+    denseStyle: {
+      fontSize: "14px"
+  }
   },
   header: {
     style: {
@@ -30,9 +37,10 @@ const affStyles = {
       fontSize: "18px",
       minHeight: "50px",
       borderBottom: "1px solid orange",
-      
     },
+    
   },
+
 };
 
 

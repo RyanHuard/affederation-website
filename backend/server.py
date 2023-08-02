@@ -10,11 +10,13 @@ from queries.standings import standings_query
 
 from stats.player_stats import player_stats_blueprint
 from games.player_stats import game_stats_blueprint
+from teams.team_stats import team_stats_blueprint
 
 
 app = Flask(__name__)
 app.register_blueprint(player_stats_blueprint)
 app.register_blueprint(game_stats_blueprint)
+app.register_blueprint(team_stats_blueprint)
 
 CORS(app)
 
@@ -54,25 +56,37 @@ def get_schedule(season_id=None, game_id=None):
     conn = get_conn()
     cursor = get_cursor(conn)
 
+    team_id = request.args.get("teamid")
+    
+
     if season_id == "current-season":
         cursor.execute(
             schedule_query
             + " WHERE season_id = (SELECT MAX(season_id) FROM games) ORDER BY game_id"
         )
+
+    elif "teamid" in request.args:
+        cursor.execute(
+            schedule_query + " WHERE season_id = %s AND (away_team_id = %s OR home_team_id = %s) ORDER BY game_id", (season_id, team_id, team_id)
+        )
+
     elif season_id and game_id:
         cursor.execute(
             schedule_query + " WHERE season_id = %s AND game_id = %s",
             (season_id, game_id),
         )
+
     elif season_id:
         cursor.execute(
             schedule_query + " WHERE season_id = %s ORDER BY game_id", (season_id)
         )
-
+        
     else:
         cursor.execute(schedule_query + " ORDER BY game_id")
 
+
     schedule = cursor.fetchall()
+    
     seasonal_schedule_list = []
     schedules_list = []
 
@@ -97,6 +111,8 @@ def get_schedule(season_id=None, game_id=None):
                 "home_team_abb": game[15],
                 "away_team_helmet": game[16],
                 "home_team_helmet": game[17],
+                "away_team_id": game[18],
+                "home_team_id": game[19]
             }
         )
     schedules_list.append(seasonal_schedule_list)

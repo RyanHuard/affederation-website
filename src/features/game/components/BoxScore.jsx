@@ -81,7 +81,6 @@ const BoxScore = ({ boxScore, game }) => {
   };
 
   const teams = Object.keys(boxScore);
-  
 
   let awayIndex, homeIndex;
 
@@ -95,13 +94,16 @@ const BoxScore = ({ boxScore, game }) => {
 
   if (game.season_id < 4) {
     return (
-       <div className="h-[500px] mx-auto max-w-4xl bg-white rounded dro-shadow">
-        <h1 className="p-6 text-center">Sorry, there are no game stats available until 2025</h1>
-      </div>);
+      <div className="mx-auto h-[500px] max-w-4xl rounded bg-white drop-shadow">
+        <h1 className="p-6 text-center">
+          Sorry, there are no game stats available until 2025
+        </h1>
+      </div>
+    );
   }
 
-  if (!game.away_team_score) {
-    return <div>TEST</div>
+  if (game.away_team_score == null) {
+    return <div>TEST</div>;
   }
 
   return (
@@ -140,7 +142,7 @@ const BoxScore = ({ boxScore, game }) => {
         })}
       </div>
 
-      <div className=" block max-w-fit rounded-sm bg-white pb-6 pt-6 drop-shadow lg:hidden">
+      <div className="block max-w-fit rounded-sm bg-white pb-6 pt-6 drop-shadow lg:hidden">
         {Object.entries(categories).map(([position, data], index) => {
           const awayStats = boxScore[teams[awayIndex]][position];
 
@@ -159,7 +161,10 @@ const BoxScore = ({ boxScore, game }) => {
             </div>
           );
         })}
-        <div className="mx-2 mt-4 h-px w-full bg-neutral-300" />
+
+        {/*Border */}
+        <div id="border" className="mt-4 h-px w-full bg-neutral-300" />
+
         {Object.entries(categories).map(([position, data], index) => {
           const homeStats = boxScore[teams[awayIndex]][position];
 

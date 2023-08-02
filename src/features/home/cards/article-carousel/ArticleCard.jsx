@@ -29,7 +29,6 @@ const ArticleCard = () => {
     if (cardRef.current) {
       const width = cardRef.current.offsetWidth;
       setCardWidth(width);
-      console.log(width)
     }
   }, [currentIndex]);
 
