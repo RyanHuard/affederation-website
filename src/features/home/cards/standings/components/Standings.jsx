@@ -2,6 +2,7 @@ import React from "react";
 
 import { useHomeStandings } from "../api/getHomeStandings";
 import { Divider, Spinner } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 const Standings = () => {
   const standingsQuery = useHomeStandings();
@@ -22,6 +23,7 @@ const Standings = () => {
   }
 
   return (
+    <Link to={"/standings"}>
     <div className="flex overflow-hidden pb-4">
       <section className="w-1/2 px-4 pt-1">
         <header className="mb-2 border-b border-b-black px-1 pb-2 pt-2 font-semibold">
@@ -91,6 +93,7 @@ const Standings = () => {
         </div>
       </section>
     </div>
+    </Link>
   );
 };
 

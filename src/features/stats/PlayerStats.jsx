@@ -20,8 +20,8 @@ const PlayerStats = () => {
     "Defense",
     "Kicking",
     "Punting",
-    "Kickoff Returns",
-    "Punt Returns",
+    // "Kickoff Returns",
+    // "Punt Returns",
   ];
 
   const handleSeasonSelect = (e) => {

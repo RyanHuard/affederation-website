@@ -1,13 +1,28 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
 
 from stats.player_stat_columns import player_stat_columns
 from db_connection import get_conn, get_cursor
 
+
 player_stats_blueprint = Blueprint("player_stats_blueprint", __name__)
+
+
+# Gets column names from PostgresQL and inserts in data
+def insert_column_names(cursor, data):
+    column_names = [desc[0] for desc in cursor.description]
+    data_with_column_names = []
+
+    for item in data:
+        data_dict = dict(zip(column_names, item))
+        data_with_column_names.append(data_dict)
+
+    return data_with_column_names
+
 
 def get_team_stats_city(team_id):
     team_cities = ["ALA", "MEM", "SA", "STL", "KEN", "OK", "FAR", "ORL", "SHR", "SC"]
     return team_cities[int(team_id)]
+
 
 @player_stats_blueprint.route("/api/stats/<season_id>")
 def get_player_stats(season_id):
@@ -22,13 +37,20 @@ def get_player_stats(season_id):
         selections = query_info["selections"]
         criteria = query_info["criteria"]
         categories = query_info["categories"]
-        
+
         if "teamid" in request.args:
             criteria += f" AND team_city = '{get_team_stats_city(team_id)}'"
 
-        query = f"SELECT first_name, last_name, position, team_city, (SELECT team_logo from TEAMS where teams.abbreviation = player_stats.team_city), \
-            {', '.join(selections)} FROM player_stats WHERE {criteria} AND last_name <> 'One' AND last_name <> 'Two' AND last_name <> 'Three' AND last_name <> 'Five' \
-                AND season_id = %s GROUP BY pid, last_name, first_name, team_city, position"
+        query = f"""
+        SELECT first_name, last_name, position, team_city,
+        (SELECT team_logo FROM teams WHERE
+        teams.abbreviation = player_stats.team_city),
+        {', '.join(selections)} FROM player_stats 
+        WHERE {criteria} AND last_name <> 'One' AND last_name <> 'Two'
+        AND last_name <> 'Three' AND last_name <> 'Five'
+        AND season_id = %s GROUP BY pid, last_name,
+        first_name, team_city, position
+        """
         cursor.execute(query, (season_id,))
 
         players = cursor.fetchall()
@@ -39,3 +61,97 @@ def get_player_stats(season_id):
         players_by_position[position] = players_json
 
     return players_by_position
+
+
+# Gets player info and all-time stats
+@player_stats_blueprint.route("/api/player-info/<first_name>/<last_name>")
+def get_player_info(first_name, last_name):
+    conn = get_conn()
+    cursor = get_cursor(conn)
+
+    team_id = request.args.get("teamid")
+
+    player_stats_by_position_and_season = {}  # Store player stats by position and season
+
+    for position, query_info in player_stat_columns.items():
+        selections = query_info["selections"]
+        criteria = query_info["criteria"]
+        categories = query_info["categories"]
+
+        if "teamid" in request.args:
+            criteria += f" AND team_city = '{get_team_stats_city(team_id)}'"
+
+        players_by_season = {}  # Store player stats by season
+
+        for season_id in range(7):  # Iterate through season IDs 0 to 6
+            query = f"""
+            SELECT first_name, last_name, position, team_city,
+            (SELECT team_logo FROM teams WHERE
+            teams.abbreviation = player_stats.team_city),
+            {', '.join(selections)} FROM player_stats WHERE {criteria}
+            AND first_name = %s AND last_name = %s AND season_id = %s
+            GROUP BY pid, last_name, first_name, team_city, position, season_id
+            """
+            cursor.execute(
+                query, (first_name.capitalize(), last_name.capitalize(), season_id)
+            )
+
+            players = cursor.fetchall()
+            players_json = []
+            for player in players:
+                players_json.append(dict(zip(categories, player)))
+
+            players_by_season[season_id] = players_json
+
+        player_stats_by_position_and_season[position] = players_by_season
+
+    player_info_query = """
+        SELECT r.*
+        FROM rosters r
+        JOIN (
+            SELECT fname, lname, MAX(CAST(season_id AS INT)) AS max_season_id
+            FROM rosters
+            GROUP BY fname, lname
+        ) max_season ON r.fname = max_season.fname
+        AND r.lname = max_season.lname
+        AND CAST(r.season_id AS INT) = max_season.max_season_id
+        WHERE r.fname = %s AND r.lname = %s
+        """
+
+    cursor.execute(player_info_query, (first_name.capitalize(), last_name.capitalize()))
+
+    player_info = cursor.fetchone()
+
+    column_names = [desc[0] for desc in cursor.description]
+
+    player_info_json = {
+        column_names[i]: str(player_info[i]) for i in range(len(column_names))
+    }
+
+    # This must be done because the tid on data sheet is in different order
+    # than actual team ids
+    match player_info_json["tid"]:
+        case "0":
+            player_info_json["tid"] = 0
+        case "1":
+            player_info_json["tid"] = 6
+        case "2":
+            player_info_json["tid"] = 4
+        case "3":
+            player_info_json["tid"] = 1
+        case "4":
+            player_info_json["tid"] = 5
+        case "5":
+            player_info_json["tid"] = 7
+        case "6":
+            player_info_json["tid"] = 2
+        case "7":
+            player_info_json["tid"] = 8
+        case "8":
+            player_info_json["tid"] = 9
+        case "9":
+            player_info_json["tid"] = 3
+    
+    player_stats_by_position_and_season["player_info"] = player_info_json
+
+    return jsonify(player_stats_by_position_and_season)

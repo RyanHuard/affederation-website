@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export const columns = [
   /* Passing */ [
     {
@@ -5,15 +7,33 @@ export const columns = [
       selector: (row) => `${row.first_name} ${row.last_name}`,
       sortable: true,
       cell: (row) => {
+        const playerName = `${row.first_name}_${row.last_name}`;
+        const src = `/src/assets/players/season_6/${playerName}.png`;
+        const fallbackSrc = "/src/assets/players/player_placeholder.png";
 
         return (
-          <div className="flex">
-            <div className="my-auto pl-2">
-              {row.first_name} {row.last_name}
-              <span className="px-[6px]">·</span>
-              <span className="text-neutral-500">{row.position}</span>
+          <Link
+            to={`/players/${row.first_name
+              ?.toLowerCase()
+              .replaceAll(" ", "-")}-${row.last_name.toLowerCase()}`}
+          >
+            <div className="flex text-[#0066CC]">
+              <img
+                src={src}
+                onError={(e) => {
+                  e.target.src = fallbackSrc;
+                }}
+                alt="Logo"
+                width={26}
+                className=""
+              />
+              <div className="my-auto pl-2">
+                {row.first_name} {row.last_name}
+                <span className="px-[6px]">·</span>
+                <span className="text-neutral-500">{row.position}</span>
+              </div>
             </div>
-          </div>
+          </Link>
         );
       },
       width: "16rem",
@@ -80,21 +100,33 @@ export const columns = [
       selector: (row) => `${row.first_name} ${row.last_name}`,
       sortable: true,
       cell: (row) => {
-        console.log(row.logo);
+        const playerName = `${row.first_name}_${row.last_name}`;
+        const src = `/src/assets/players/season_6/${playerName}.png`;
+        const fallbackSrc = "/src/assets/players/player_placeholder.png";
+
         return (
-          <div className="flex">
-      <img
-              src="/src/features/team-page/components/0000.png"
-              alt="Logo"
-              width={26}
-              className="rounded-full"
-            />
-            <div className="my-auto pl-2">
-              {row.first_name} {row.last_name}
-              <span className="px-[6px]">·</span>
-              <span className="text-neutral-500">{row.position}</span>
+          <Link
+            to={`/players/${row.first_name
+              ?.toLowerCase()
+              .replaceAll(" ", "-")}-${row.last_name.toLowerCase()}`}
+          >
+            <div className="flex text-[#0066CC]">
+              <img
+                src={src}
+                onError={(e) => {
+                  e.target.src = fallbackSrc;
+                }}
+                alt="Logo"
+                width={26}
+                className=""
+              />
+              <div className="my-auto pl-2">
+                {row.first_name} {row.last_name}
+                <span className="px-[6px]">·</span>
+                <span className="text-neutral-500">{row.position}</span>
+              </div>
             </div>
-          </div>
+          </Link>
         );
       },
       width: "16rem",
@@ -136,16 +168,33 @@ export const columns = [
       selector: (row) => `${row.first_name} ${row.last_name}`,
       sortable: true,
       cell: (row) => {
-        console.log(row.logo);
+        const playerName = `${row.first_name}_${row.last_name}`;
+        const src = `/src/assets/players/season_6/${playerName}.png`;
+        const fallbackSrc = "/src/assets/players/player_placeholder.png";
+
         return (
-          <div className="flex">
-            
+          <Link
+            to={`/players/${row.first_name
+              ?.toLowerCase()
+              .replaceAll(" ", "-")}-${row.last_name.toLowerCase()}`}
+          >
+          <div className="flex text-[#0066CC]">
+            <img
+              src={src}
+              onError={(e) => {
+                e.target.src = fallbackSrc;
+              }}
+              alt="Logo"
+              width={26}
+              className=""
+            />
             <div className="my-auto pl-2">
               {row.first_name} {row.last_name}
               <span className="px-[6px]">·</span>
               <span className="text-neutral-500">{row.position}</span>
             </div>
           </div>
+          </Link>
         );
       },
       width: "16rem",
@@ -162,12 +211,14 @@ export const columns = [
     },
     {
       name: "Yds/Rec",
-      selector: (row) => parseFloat(row.receiving_yards_per_reception).toFixed(1),
+      selector: (row) =>
+        parseFloat(row.receiving_yards_per_reception).toFixed(1),
       sortable: true,
     },
     {
       name: "Yds/G",
-      selector: (row) => Math.round(row.receiving_yards/row.games_played * 10) / 10,
+      selector: (row) =>
+        Math.round((row.receiving_yards / row.games_played) * 10) / 10,
       sortable: true,
     },
     {
@@ -187,16 +238,33 @@ export const columns = [
       selector: (row) => `${row.first_name} ${row.last_name}`,
       sortable: true,
       cell: (row) => {
-        console.log(row.logo);
+        const playerName = `${row.first_name}_${row.last_name}`;
+        const src = `/src/assets/players/season_6/${playerName}.png`;
+        const fallbackSrc = "/src/assets/players/player_placeholder.png";
+
         return (
-          <div className="flex">
-           
+          <Link
+            to={`/players/${row.first_name
+              ?.toLowerCase()
+              .replaceAll(" ", "-")}-${row.last_name.toLowerCase()}`}
+          >
+          <div className="flex text-[#0066CC]">
+            <img
+              src={src}
+              onError={(e) => {
+                e.target.src = fallbackSrc;
+              }}
+              alt="Logo"
+              width={26}
+              className=""
+            />
             <div className="my-auto pl-2">
               {row.first_name} {row.last_name}
               <span className="px-[6px]">·</span>
               <span className="text-neutral-500">{row.position}</span>
             </div>
           </div>
+          </Link>
         );
       },
       width: "16rem",
@@ -231,7 +299,7 @@ export const columns = [
       selector: (row) => row.deflections,
       sortable: true,
     },
-  ]
+  ],
 ];
 
 import { clamp, round } from "lodash";

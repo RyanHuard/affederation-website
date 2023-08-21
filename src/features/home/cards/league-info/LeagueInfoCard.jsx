@@ -1,6 +1,7 @@
 import { Card } from "@chakra-ui/react";
 import React from "react";
 import InfoCard from "./InfoCard";
+import { Link } from "react-router-dom";
 
 const LeagueInfoCard = () => {
   const infoCards = [
@@ -23,20 +24,24 @@ const LeagueInfoCard = () => {
   ];
 
   return (
-    <div className="text-center bg-white relative h-[540px]">
+    <div className="relative bg-white pb-12 text-center lg:h-[540px]">
       <header>
-      <header className="h-12 bg-aff-blue rounded-t-sm">
-        <h1 className="px-4 py-3 font-semibold text-white text-left">LEAGUE INFO</h1>
-      </header>
-        <h1 className="text-2xl lg:text-3xl font-bold pt-6">
+        <header className="h-12 rounded-t-sm bg-aff-blue">
+          <h1 className="px-4 py-3 text-left font-semibold text-white">
+            LEAGUE INFO
+          </h1>
+        </header>
+        <h1 className="pt-6 text-2xl font-bold lg:text-3xl">
           ABOUT THE AMERICAN FOOTBALL FEDERATION
         </h1>
       </header>
-      <div className="flex lg:flex-row lg:gap-0 gap-12 flex-col justify-evenly pt-12">
-        {infoCards.map(({ title, body, img }, index) => (
-          <InfoCard key={index} title={title} body={body} img={img} />
-        ))}
-      </div>
+      <Link to="/league-info">
+        <div className="flex flex-col justify-evenly gap-12 pt-12 lg:flex-row lg:gap-0">
+          {infoCards.map(({ title, body, img }, index) => (
+            <InfoCard key={index} title={title} body={body} img={img} />
+          ))}
+        </div>
+      </Link>
     </div>
   );
 };

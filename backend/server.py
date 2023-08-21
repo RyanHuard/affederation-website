@@ -11,12 +11,14 @@ from queries.standings import standings_query
 from stats.player_stats import player_stats_blueprint
 from games.player_stats import game_stats_blueprint
 from teams.team_stats import team_stats_blueprint
+from articles.publish import publish_articles_blueprint
 
 
 app = Flask(__name__)
 app.register_blueprint(player_stats_blueprint)
 app.register_blueprint(game_stats_blueprint)
 app.register_blueprint(team_stats_blueprint)
+app.register_blueprint(publish_articles_blueprint)
 
 CORS(app)
 
@@ -38,7 +40,9 @@ def get_teams():
     conn = get_conn()
     cursor = get_cursor(conn)
 
-    cursor.execute("SELECT * FROM teams ORDER BY team_id")
+    cursor.execute(
+        "SELECT * FROM teams ORDER BY teams.team_id"
+    )
 
     teams = cursor.fetchall()
     teams = insert_column_names(cursor, teams)
@@ -57,7 +61,6 @@ def get_schedule(season_id=None, game_id=None):
     cursor = get_cursor(conn)
 
     team_id = request.args.get("teamid")
-    
 
     if season_id == "current-season":
         cursor.execute(
@@ -67,7 +70,9 @@ def get_schedule(season_id=None, game_id=None):
 
     elif "teamid" in request.args:
         cursor.execute(
-            schedule_query + " WHERE season_id = %s AND (away_team_id = %s OR home_team_id = %s) ORDER BY game_id", (season_id, team_id, team_id)
+            schedule_query
+            + " WHERE season_id = %s AND (away_team_id = %s OR home_team_id = %s) ORDER BY game_id",
+            (season_id, team_id, team_id),
         )
 
     elif season_id and game_id:
@@ -80,13 +85,12 @@ def get_schedule(season_id=None, game_id=None):
         cursor.execute(
             schedule_query + " WHERE season_id = %s ORDER BY game_id", (season_id)
         )
-        
+
     else:
         cursor.execute(schedule_query + " ORDER BY game_id")
 
-
     schedule = cursor.fetchall()
-    
+
     seasonal_schedule_list = []
     schedules_list = []
 
@@ -112,7 +116,7 @@ def get_schedule(season_id=None, game_id=None):
                 "away_team_helmet": game[16],
                 "home_team_helmet": game[17],
                 "away_team_id": game[18],
-                "home_team_id": game[19]
+                "home_team_id": game[19],
             }
         )
     schedules_list.append(seasonal_schedule_list)
@@ -176,4 +180,4 @@ def get_team_standings():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="127.0.0.1", port=5000)

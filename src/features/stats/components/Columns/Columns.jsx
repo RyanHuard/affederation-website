@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export const columns = [
   /* Passing */ [
     {
@@ -6,6 +8,7 @@ export const columns = [
       sortable: true,
       cell: (row) => {
         return (
+          <Link to={`/players/${row.first_name.toLowerCase()}-${row.last_name.toLowerCase()}`}>
           <div className="flex">
             <img
               src={`src/assets/logos/${row.team_logo}`}
@@ -18,6 +21,7 @@ export const columns = [
               <span className="text-neutral-500">{row.position}</span>
             </div>
           </div>
+          </Link>
         );
       },
       width: "16rem",
@@ -84,8 +88,8 @@ export const columns = [
       selector: (row) => `${row.first_name} ${row.last_name}`,
       sortable: true,
       cell: (row) => {
-        console.log(row.logo);
         return (
+          <Link to={`/players/${row.first_name.toLowerCase().replaceAll(" ", "-")}-${row.last_name.toLowerCase()}`}>
           <div className="flex">
             <img
               src={`src/assets/logos/${row.team_logo}`}
@@ -98,6 +102,7 @@ export const columns = [
               <span className="text-neutral-500">{row.position}</span>
             </div>
           </div>
+          </Link>
         );
       },
       width: "16rem",
@@ -139,8 +144,8 @@ export const columns = [
       selector: (row) => `${row.first_name} ${row.last_name}`,
       sortable: true,
       cell: (row) => {
-        console.log(row.logo);
         return (
+          <Link to={`/players/${row.first_name.toLowerCase()}-${row.last_name.toLowerCase()}`}>
           <div className="flex">
             <img
               src={`src/assets/logos/${row.team_logo}`}
@@ -153,6 +158,7 @@ export const columns = [
               <span className="text-neutral-500">{row.position}</span>
             </div>
           </div>
+          </Link>
         );
       },
       width: "16rem",
@@ -194,8 +200,8 @@ export const columns = [
       selector: (row) => `${row.first_name} ${row.last_name}`,
       sortable: true,
       cell: (row) => {
-        console.log(row.logo);
         return (
+          <Link to={`/players/${row.first_name.toLowerCase()}-${row.last_name.toLowerCase()}`}>
           <div className="flex">
             <img
               src={`src/assets/logos/${row.team_logo}`}
@@ -208,6 +214,7 @@ export const columns = [
               <span className="text-neutral-500">{row.position}</span>
             </div>
           </div>
+          </Link>
         );
       },
       width: "16rem",
@@ -242,7 +249,129 @@ export const columns = [
       selector: (row) => row.deflections,
       sortable: true,
     },
-  ]
+  ],
+  /* Kicking */ [
+    {
+      name: "Player",
+      selector: (row) => `${row.first_name} ${row.last_name}`,
+      sortable: true,
+      cell: (row) => {
+        return (
+          <Link to={`/players/${row.first_name.toLowerCase()}-${row.last_name.toLowerCase()}`}>
+          <div className="flex">
+            <img
+              src={`src/assets/logos/${row.team_logo}`}
+              alt="Logo"
+              width={30}
+            />
+            <div className="my-auto pl-2">
+              {row.first_name} {row.last_name}
+              <span className="px-[6px]">·</span>
+              <span className="text-neutral-500">{row.position}</span>
+            </div>
+          </div>
+          </Link>
+        );
+      },
+      width: "16rem",
+    },
+    {
+      name: "FG Made",
+      selector: (row) => row.fg_made,
+      sortable: true,
+    },
+    {
+      name: "FG Att",
+      selector: (row) => row.fg_attempts,
+      sortable: true,
+    },
+    {
+      name: "FG %",
+      selector: (row) => (parseFloat(row.fg_percentage) * 100).toFixed(1),
+      sortable: true,
+    },
+    {
+      name: "FG Long",
+      selector: (row) => row.fg_long,
+      sortable: true,
+    },
+    {
+      name: "XP Made",
+      selector: (row) => row.xp_made,
+      sortable: true,
+    },
+    {
+      name: "XP Att",
+      selector: (row) => row.xp_attempts,
+      sortable: true,
+    },
+    {
+      name: "XP %",
+      selector: (row) => (parseFloat(row.xp_percentage) * 100).toFixed(1),
+      sortable: true,
+    },
+  ],
+  /* Punting */ [
+    {
+      name: "Player",
+      selector: (row) => `${row.first_name} ${row.last_name}`,
+      sortable: true,
+      cell: (row) => {
+        return (
+          <Link to={`/players/${row.first_name.toLowerCase()}-${row.last_name.toLowerCase()}`}>
+          <div className="flex">
+            <img
+              src={`src/assets/logos/${row.team_logo}`}
+              alt="Logo"
+              width={30}
+            />
+            <div className="my-auto pl-2">
+              {row.first_name} {row.last_name}
+              <span className="px-[6px]">·</span>
+              <span className="text-neutral-500">{row.position}</span>
+            </div>
+          </div>
+          </Link>
+        );
+      },
+      width: "16rem",
+    },
+    {
+      name: "Gross Avg",
+      selector: (row) => parseFloat(row.gross_yards_per_punt).toFixed(1),
+      sortable: true,
+    },
+    {
+      name: "Net Avg",
+      selector: (row) => parseFloat(row.net_yards_per_punt).toFixed(1),
+      sortable: true,
+    },
+    {
+      name: "Net Yds",
+      selector: (row) => row.net_yards,
+      sortable: true,
+    },
+    {
+      name: "Punts",
+      selector: (row) => row.punt_count,
+      sortable: true,
+    },
+    {
+      name: "Long",
+      selector: (row) => row.long,
+      sortable: true,
+    },
+    {
+      name: "Gross Yds",
+      selector: (row) => row.gross_yards,
+      sortable: true,
+    },
+    {
+      name: "Touchbacks",
+      selector: (row) => row.touchbacks,
+      sortable: true,
+    },
+  ],
 ];
 
 import { clamp, round } from "lodash";

@@ -13,6 +13,7 @@ import Stats from "./components/Stats";
 
 const Team = () => {
   const [tabIndex, setTabIndex] = useState(0);
+  const [seasonId, setSeasonId] = useState(6);
 
   const { teamId } = useParams();
   const teamContext = useContext(TeamContext);
@@ -25,10 +26,16 @@ const Team = () => {
     setTabIndex(e);
   };
 
+  const handleSeasonSelect = (e) => {
+    setSeasonId(parseInt(e.target.value));
+  };
+
   return (
     <MainLayout
       header={
         <Header
+          handleSeasonSelect={handleSeasonSelect}
+          seasonId={seasonId}
           team={team}
           tabs={
             <TeamTabs handleTabChange={handleTabChange} tabIndex={tabIndex} />
@@ -36,19 +43,18 @@ const Team = () => {
         />
       }
     >
-      <div className=" h-screen">
-      <Tabs index={tabIndex}>
-        <TabPanels>
-          <TabPanel>
-            <Schedule team={team} />
-          </TabPanel>
-          <TabPanel>
-            <Stats team={team} />
-          </TabPanel>
-          <TabPanel>
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
+      <div className="">
+        <Tabs index={tabIndex}>
+          <TabPanels>
+            <TabPanel>
+              <Schedule team={team} seasonId={seasonId} />
+            </TabPanel>
+            <TabPanel>
+              <Stats team={team} seasonId={seasonId} />
+            </TabPanel>
+            <TabPanel></TabPanel>
+          </TabPanels>
+        </Tabs>
       </div>
     </MainLayout>
   );

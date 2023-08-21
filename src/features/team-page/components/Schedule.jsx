@@ -4,8 +4,8 @@ import Table from "/src/components/table/Table";
 import { useSchedule } from "./api/Schedule";
 import { getColumns } from "./ScheduleColumns";
 
-const Schedule = ({ team }) => {
-  const scheduleQuery = useSchedule(6, team.team_id);
+const Schedule = ({ team, seasonId }) => {
+  const scheduleQuery = useSchedule(seasonId, team.team_id);
 
   const scheduleData = scheduleQuery?.data;
 

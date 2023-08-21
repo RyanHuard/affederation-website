@@ -13,7 +13,7 @@ const JoinCommunity = () => {
         <div className="pt-6 text-center">
           <div className="flex items-center gap-8 ml-14">
             <img src={discordLogo} className="w-12"/>
-          <Button onClick={() => console.log("TEST")}>JOIN NOW</Button>
+          <Button onClick={() => alert("Our discord will be available to all fans coming soon!")}>JOIN NOW</Button>
           </div>
         </div>
       </div>

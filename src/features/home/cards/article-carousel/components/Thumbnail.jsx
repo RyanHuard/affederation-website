@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 const Thumbnail = ({ article }) => {
   return (
     <div className="relative min-w-full">
-      <Link to={article.title.replace(" ", "-").toLowerCase()}>
+      <Link to={`/news/${article.title.replaceAll(" ", "-").toLowerCase()}/${article.article_id}`}>
         <img
           src="https://goutsa.com/images/2022/1/25/dome_1stgm.jpg"
           className="rounded-t-sm"
@@ -13,7 +13,7 @@ const Thumbnail = ({ article }) => {
         <div className="absolute bottom-0 left-0 w-full p-6">
           <div className="mb-[0.125rem] h-1 w-9 bg-aff-orange" />
           <h1 className="mb-3 text-xl font-bold leading-5 text-white sm:text-3xl sm:leading-8">
-            {article.title}
+            {article.title.toUpperCase()}
           </h1>
           <h3 className="text-sm font-bold text-aff-orange">READ MORE</h3>
         </div>

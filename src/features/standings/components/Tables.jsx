@@ -30,7 +30,7 @@ const Tables = ({ seasonId }) => {
     );
 
     return (
-      <div className="max-w-screen  ">
+      <div className="max-w-screen">
         <div className="mb-0 border md:mb-6 ">
           <Table
             title="West"
@@ -40,7 +40,7 @@ const Tables = ({ seasonId }) => {
           />
         </div>
 
-        <div className=" border-2">
+        <div className="border-2">
           <Table
             title="East"
             data={eastTeams}

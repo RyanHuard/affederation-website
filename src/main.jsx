@@ -31,11 +31,11 @@ persistQueryClient({
 const theme = extendTheme({});
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+
     <QueryClientProvider client={queryClient}>
       <ChakraProvider theme={theme}>
         <App />
       </ChakraProvider>
     </QueryClientProvider>
-  </React.StrictMode>
+
 );
