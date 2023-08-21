@@ -1,2 +1,1 @@
-web: npm i && npm start
-server: python backend/server.py
+web: python backend/server.py
