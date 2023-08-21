@@ -7,6 +7,7 @@ import columns from "./Columns";
 
 const Tables = ({ seasonId }) => {
   const standingsQuery = useStandings();
+  console.log(standingsQuery.data)
 
   if (seasonId <= 5) {
     return (

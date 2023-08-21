@@ -4,7 +4,7 @@ module.exports = function(app) {
   app.use(
     '/api',
     createProxyMiddleware({
-      target: 'https://affederation.net/',
+      target: 'http://affederation.net/',
       changeOrigin: true,
     })
   );
