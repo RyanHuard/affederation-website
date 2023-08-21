@@ -20,7 +20,7 @@ const Ticker = () => {
 
   return (
     <Carousel>
-      {gamesQuery.data.map((game, index) => {
+      {gamesQuery?.data.map((game, index) => {
         return <Game game={game} key={index}/>
       })}
     </Carousel>

@@ -9,17 +9,17 @@ const LeagueInfoCard = () => {
       title: "FAQ",
       body: "Get your quetsions answered here",
       // top 3 questions
-      img: "src/assets/home/league-info/faq.png",
+      img: "/assets/home/league-info/faq.png",
     },
     {
       title: "HOW IT WORKS",
       body: "Learn the in and outs of the AFF",
-      img: "src/assets/home/league-info/hiw.png",
+      img: "/assets/home/league-info/hiw.png",
     },
     {
       title: "LEAGUE RECORDS",
       body: "Learn about the history of the AFF by seeing records set by the all-time greats",
-      img: "src/assets/home/league-info/rec.png",
+      img: "/assets/home/league-info/rec.png",
     },
   ];
 
