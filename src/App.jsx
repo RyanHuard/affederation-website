@@ -17,7 +17,7 @@ import Article from "./features/articles/Article";
 import Player from "./features/player/Player";
 import CreateAPlayer from "./features/create-a-player/CreateAPlayer";
 import LeagueInfo from "./features/league-info/LeagueInfo";
-import UploadArticles from "./manager-features/upload-articles/uploadArticles";
+// import UploadArticles from "./manager-features/upload-articles/uploadArticles";
 
 
 
@@ -44,8 +44,8 @@ function App() {
 
             <Route path="/create-a-player" element={<CreateAPlayer />} />
             <Route path="/league-info" element={<LeagueInfo />} />
-
-            <Route path="/upload-article" element={<UploadArticles />} />
+{/* 
+            <Route path="/upload-article" element={<UploadArticles />} /> */}
 
           </Routes>
       </TeamContext.Provider>
