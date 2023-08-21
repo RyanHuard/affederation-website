@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import psycopg2
 import os
@@ -15,7 +15,7 @@ from teams.team_stats import team_stats_blueprint
 from articles.publish import publish_articles_blueprint
 
 
-app = Flask(__name__, static_folder="dist", static_url_path="")
+app = Flask(__name__, static_folder="../dist", static_url_path="")
 app.register_blueprint(player_stats_blueprint)
 app.register_blueprint(game_stats_blueprint)
 app.register_blueprint(team_stats_blueprint)
@@ -179,6 +179,10 @@ def get_team_standings():
 
     return team_standings_list
 
+
+@app.route("/")
+def server():
+    return send_from_directory(app.static_folder, "index.html")
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
