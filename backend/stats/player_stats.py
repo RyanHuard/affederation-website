@@ -130,27 +130,26 @@ def get_player_info(first_name, last_name):
 
     # This must be done because the tid on data sheet is in different order
     # than actual team ids
-    match player_info_json["tid"]:
-        case "0":
-            player_info_json["tid"] = 0
-        case "1":
-            player_info_json["tid"] = 6
-        case "2":
-            player_info_json["tid"] = 4
-        case "3":
-            player_info_json["tid"] = 1
-        case "4":
-            player_info_json["tid"] = 5
-        case "5":
-            player_info_json["tid"] = 7
-        case "6":
-            player_info_json["tid"] = 2
-        case "7":
-            player_info_json["tid"] = 8
-        case "8":
-            player_info_json["tid"] = 9
-        case "9":
-            player_info_json["tid"] = 3
+    if player_info_json["tid"] == "0":
+        player_info_json["tid"] = 0
+    elif player_info_json["tid"] == "1":
+        player_info_json["tid"] = 6
+    elif player_info_json["tid"] == "2":
+        player_info_json["tid"] = 4
+    elif player_info_json["tid"] == "3":
+        player_info_json["tid"] = 1
+    elif player_info_json["tid"] == "4":
+        player_info_json["tid"] = 5
+    elif player_info_json["tid"] == "5":
+        player_info_json["tid"] = 7
+    elif player_info_json["tid"] == "6":
+        player_info_json["tid"] = 2
+    elif player_info_json["tid"] == "7":
+        player_info_json["tid"] = 8
+    elif player_info_json["tid"] == "8":
+        player_info_json["tid"] = 9
+    elif player_info_json["tid"] == "9":
+        player_info_json["tid"] = 3
     
     player_stats_by_position_and_season["player_info"] = player_info_json
 
