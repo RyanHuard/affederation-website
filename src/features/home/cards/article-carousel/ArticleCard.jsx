@@ -24,7 +24,7 @@ const ArticleCard = () => {
   return (
     <Card ref={cardRef} rounded="sm" className="drop-shadow-md overflow-hidden">
       <ArticleCarousel itemWidth={cardWidth} currentIndex={currentIndex} setCurrentIndex={setCurrentIndex}>
-        {articles.map((article, index) => {
+        {articles?.map((article, index) => {
           return <Thumbnail article={article} key={index} />;
         })}
       </ArticleCarousel>
