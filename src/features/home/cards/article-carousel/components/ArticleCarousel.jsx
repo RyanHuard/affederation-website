@@ -4,7 +4,7 @@ const ArticleCarousel = ({ children, currentIndex, setCurrentIndex, itemWidth })
 
 
   const carouselInfiniteScroll = () => {
-    if (currentIndex === children.length-1) {
+    if (currentIndex === children?.length-1) {
       return setCurrentIndex(0)
     }
     return setCurrentIndex(currentIndex + 1);

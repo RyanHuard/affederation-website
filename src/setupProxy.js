@@ -4,7 +4,7 @@ module.exports = function(app) {
   app.use(
     '/api',
     createProxyMiddleware({
-      target: 'https://stark-taiga-48721.herokuapp.com/',
+      target: 'https://affederation.net/',
       changeOrigin: true,
     })
   );
