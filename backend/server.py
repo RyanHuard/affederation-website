@@ -15,7 +15,7 @@ from teams.team_stats import team_stats_blueprint
 from articles.publish import publish_articles_blueprint
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="../dist", static_url_path="")
 app.register_blueprint(player_stats_blueprint)
 app.register_blueprint(game_stats_blueprint)
 app.register_blueprint(team_stats_blueprint)
