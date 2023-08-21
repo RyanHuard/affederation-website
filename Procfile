@@ -1,1 +1,2 @@
-web: python backend/server.py
+web: npm start
+server: python backend/server.py
