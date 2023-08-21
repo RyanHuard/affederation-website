@@ -181,5 +181,5 @@ def get_team_standings():
 
 
 if __name__ == "__main__":
-    app.run(port=os.environ.get("PORT"))
-    print(os.environ.get("PORT"))
+    app.run(port=os.getenv("PORT"))
+    print(os.getenv("PORT"))
