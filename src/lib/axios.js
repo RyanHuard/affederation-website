@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Changes port
 export const api = axios.create({
-  // baseURL: `${window.location.protocol}//${window.location.hostname}:5000/api`,
-  baseURL: "https://affederation.net/api"
+   baseURL: `${window.location.protocol}//${window.location.hostname}/api`,
+  // baseURL: "https://affederation.net/api"
 });
 
