@@ -8,8 +8,8 @@ export const columns = [
       sortable: true,
       cell: (row) => {
         const playerName = `${row.first_name}_${row.last_name}`;
-        const src = `/src/assets/players/season_6/${playerName}.png`;
-        const fallbackSrc = "/src/assets/players/player_placeholder.png";
+        const src = `/assets/players/season_6/${playerName}.png`;
+        const fallbackSrc = "/assets/players/player_placeholder.png";
 
         return (
           <Link
@@ -101,8 +101,8 @@ export const columns = [
       sortable: true,
       cell: (row) => {
         const playerName = `${row.first_name}_${row.last_name}`;
-        const src = `/src/assets/players/season_6/${playerName}.png`;
-        const fallbackSrc = "/src/assets/players/player_placeholder.png";
+        const src = `/assets/players/season_6/${playerName}.png`;
+        const fallbackSrc = "/assets/players/player_placeholder.png";
 
         return (
           <Link
@@ -169,8 +169,8 @@ export const columns = [
       sortable: true,
       cell: (row) => {
         const playerName = `${row.first_name}_${row.last_name}`;
-        const src = `/src/assets/players/season_6/${playerName}.png`;
-        const fallbackSrc = "/src/assets/players/player_placeholder.png";
+        const src = `/assets/players/season_6/${playerName}.png`;
+        const fallbackSrc = "/assets/players/player_placeholder.png";
 
         return (
           <Link
@@ -239,8 +239,8 @@ export const columns = [
       sortable: true,
       cell: (row) => {
         const playerName = `${row.first_name}_${row.last_name}`;
-        const src = `/src/assets/players/season_6/${playerName}.png`;
-        const fallbackSrc = "/src/assets/players/player_placeholder.png";
+        const src = `/assets/players/season_6/${playerName}.png`;
+        const fallbackSrc = "/assets/players/player_placeholder.png";
 
         return (
           <Link

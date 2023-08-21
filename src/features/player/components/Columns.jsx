@@ -11,7 +11,7 @@ export const columns = [
       selector: (row) => row.team,
        cell: (row) => {
         return <div className="flex">
-          <img className="w-5 mr-1" src={`/src/assets/logos/${row.team_logo}`}/>
+          <img className="w-5 mr-1" src={`/assets/logos/${row.team_logo}`}/>
           <span className="my-auto">{row.team}</span>
         </div>
       }
@@ -84,7 +84,7 @@ export const columns = [
       selector: (row) => row.team,
        cell: (row) => {
         return <div className="flex">
-          <img className="w-5 mr-1" src={`/src/assets/logos/${row.team_logo}`}/>
+          <img className="w-5 mr-1" src={`/assets/logos/${row.team_logo}`}/>
           <span className="my-auto">{row.team}</span>
         </div>
       }
@@ -131,7 +131,7 @@ export const columns = [
       name: "Team",
       selector: (row) => row.team, cell: (row) => {
         return <div className="flex">
-          <img className="w-5 mr-1" src={`/src/assets/logos/${row.team_logo}`}/>
+          <img className="w-5 mr-1" src={`/assets/logos/${row.team_logo}`}/>
           <span className="my-auto">{row.team}</span>
         </div>
       },
@@ -175,7 +175,7 @@ export const columns = [
       name: "Team",
       selector: (row) => row.team, cell: (row) => {
         return <div className="flex">
-          <img className="w-5 mr-1" src={`/src/assets/logos/${row.team_logo}`}/>
+          <img className="w-5 mr-1" src={`/assets/logos/${row.team_logo}`}/>
           <span className="my-auto">{row.team}</span>
         </div>
       },

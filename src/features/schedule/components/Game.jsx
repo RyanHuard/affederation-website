@@ -18,7 +18,7 @@ const Game = ({ ...game }) => {
           <span className="text-md px-2 sm:hidden">{game.away_team_abb}</span>
           <img
             className="mx-3 w-7 sm:w-11"
-            src={`src/assets/helmets/${game.away_team_helmet}`}
+            src={`/assets/helmets/${game.away_team_helmet}`}
           />
         </div>
         <span className={`${game?.away_team_score == null && "hidden" } w-10 px-2 text-center text-lg font-bold sm:text-xl`}>
@@ -39,7 +39,7 @@ const Game = ({ ...game }) => {
           <span className="text-md px-2 sm:hidden">{game.home_team_abb}</span>
           <img
             className="mx-3 w-7 sm:w-11"
-            src={`src/assets/helmets/${game.home_team_helmet}`}
+            src={`/assets/helmets/${game.home_team_helmet}`}
           />
         </div>
         <span className={`${game?.away_team_score == null && "hidden" } w-10 text-center text-lg font-bold sm:text-xl`}>

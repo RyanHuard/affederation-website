@@ -19,7 +19,7 @@ const Header = ({ playerInfo, team, tabs }) => {
         <header className="mx-auto flex h-full max-w-7xl py-2 ">
           <img
             className="h-full w-48 md:w-56"
-            src={`/src/assets/players/season_6/${playerInfo?.fname}_${playerInfo?.lname}.png`}
+            src={`/assets/players/season_6/${playerInfo?.fname}_${playerInfo?.lname}.png`}
           />
           <div className="sm:flex px-4 md:px-8">
           <div className="sm:w-44">
@@ -30,7 +30,7 @@ const Header = ({ playerInfo, team, tabs }) => {
             <div className="flex sm:py-4 py-2 text-sm md:text-base">
               <img
                 className="-ml-1 w-6 md:w-8"
-                src={`/src/assets/logos/${team?.team_logo}`}
+                src={`/assets/logos/${team?.team_logo}`}
               />
               <span className="my-auto ml-1">
                 {team?.team_location} · {playerInfo?.position}

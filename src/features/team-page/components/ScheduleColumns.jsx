@@ -28,7 +28,7 @@ export const getColumns = (teamId) => {
         return (
           <div className="flex">
             <span className="pr-[6px]">{location}</span>
-            <img width="20" src={`/src/assets/helmets/${helmet}`} />
+            <img width="20" src={`/assets/helmets/${helmet}`} />
             <Link
               className="pl-1 text-[#0066CC]"
               to={`/game/${row.season_id}/${row.game_id}`}

@@ -50,7 +50,7 @@ const Teams = () => {
             .toLowerCase();
           return (
             <NavLink to={`/teams/${team.team_id}/${teamLink}`} key={index} >
-              <img width="300" src={`/src/assets/helmets/${team.helmet}`} />
+              <img width="300" src={`/assets/helmets/${team.helmet}`} />
               <div className="flex-col flex text-center leading-5">
                 <span className="font-bold">
                   {team.team_location} {team.team_name}

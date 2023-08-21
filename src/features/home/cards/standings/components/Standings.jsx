@@ -31,8 +31,8 @@ const Standings = () => {
         </header>
         <div>
           {westStandings.map((team, index) => {
-            const logo = `src/assets/logos/${team.team_logo}`;
-
+            const logo = `/assets/logos/${team.team_logo}`;
+    
             return (
               <div
                 key={index}
@@ -67,7 +67,7 @@ const Standings = () => {
         </header>
         <div>
           {eastStandings.map((team, index) => {
-            const logo = `src/assets/logos/${team.team_logo}`;
+            const logo = `/assets/logos/${team.team_logo}`;
 
             return (
               <div

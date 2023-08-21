@@ -2,7 +2,7 @@ import React from "react";
 import { Select, Tab, TabList, Tabs } from "@chakra-ui/react";
 
 const Header = ({ team, tabs, handleSeasonSelect, seasonId }) => {
-  const background = { borderColor: `${team.primary_color}` };
+  const background = { borderColor: `${team?.primary_color}` };
   //   let division = team.division;
 
   // // Capitalize the first character
@@ -15,15 +15,15 @@ const Header = ({ team, tabs, handleSeasonSelect, seasonId }) => {
           <header className="mx-auto flex max-w-7xl border-b border-neutral-300 pb-4">
             <img
               className="w-20 md:w-24"
-              src={`/src/assets/logos/${team.team_logo}`}
+              src={`/assets/logos/${team?.team_logo}`}
             />
             <div className="my-auto px-2 md:px-4">
               <div className="text-xl md:text-3xl">
-                {team.team_location}{" "}
-                <span className="font-bold">{team.team_name}</span>
+                {team?.team_location}{" "}
+                <span className="font-bold">{team?.team_name}</span>
               </div>
               <div>
-                ({team.wins}-{team.loss})
+                ({team?.wins}-{team?.loss})
               </div>
             </div>
           </header>

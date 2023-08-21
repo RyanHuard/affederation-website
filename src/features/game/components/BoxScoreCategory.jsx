@@ -30,7 +30,7 @@ const BoxScoreCategory = ({
     <div className="pt-6 text-black">
       <div className="mx-1 flex text-left text-sm font-semibold pb-1">
         <h2 className="flex text-black text-[13px] ">
-          <img className="mr-1" width="20" src={`/src/assets/logos/${teamLogo}`} />{teamName} {title}
+          <img className="mr-1" width="20" src={`/assets/logos/${teamLogo}`} />{teamName} {title}
         </h2>
       </div>
       <table className="lg:w-[415px] w-full mb-3 table-fixed border-collapse border-b border-neutral-300">

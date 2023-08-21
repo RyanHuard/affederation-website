@@ -30,7 +30,7 @@ const TeamStats = ({ game }) => {
             <img
               width="30"
               className="mr-2 "
-              src={`/src/assets/helmets/${game?.away_team_helmet}`}
+              src={`/assets/helmets/${game?.away_team_helmet}`}
             />
             <span className="hidden sm:block">{game?.away_team_location} {game?.away_team_name}</span>
             <span className="block sm:hidden">{game?.away_team_abb}</span>
@@ -39,7 +39,7 @@ const TeamStats = ({ game }) => {
             <img
               width="30"
               className="mr-2"
-              src={`/src/assets/helmets/${game?.home_team_helmet}`}
+              src={`/assets/helmets/${game?.home_team_helmet}`}
             />
             <span className="hidden sm:block">{game?.home_team_location} {game?.home_team_name}</span>
             <span className="block sm:hidden">{game?.home_team_abb}</span>
@@ -78,7 +78,7 @@ const TeamStats = ({ game }) => {
             <img
               width="30"
               className="mr-2"
-              src={`/src/assets/helmets/${game?.away_team_helmet}`}
+              src={`/assets/helmets/${game?.away_team_helmet}`}
             />
              <span className="hidden sm:block">{game?.away_team_location} {game?.away_team_name}</span>
             <span className="block sm:hidden">{game?.away_team_abb}</span>
@@ -87,7 +87,7 @@ const TeamStats = ({ game }) => {
             <img
               width="30"
               className="mr-2"
-              src={`/src/assets/helmets/${game?.home_team_helmet}`}
+              src={`/assets/helmets/${game?.home_team_helmet}`}
             />
            <span className="hidden sm:block">{game?.home_team_location} {game?.home_team_name}</span>
             <span className="block sm:hidden">{game?.home_team_abb}</span>

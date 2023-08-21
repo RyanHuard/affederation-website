@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import { Spinner } from "@chakra-ui/react";
 
 const Stats = ({ team, seasonId }) => {
-  const playerStatsQuery = usePlayerStats(seasonId, team.team_id);
+  const playerStatsQuery = usePlayerStats(seasonId, team?.team_id);
   const playerStatsData = playerStatsQuery?.data;
 
   let teamLeaders;
@@ -118,8 +118,8 @@ const Stats = ({ team, seasonId }) => {
             const category = Object.keys(player);
             const playerData = player[category];
             const playerName = `${playerData.firstName}_${playerData.lastName}`;
-            const src = `/src/assets/players/season_6/${playerName}.png`;
-            const fallbackSrc = "/src/assets/players/player_placeholder.png";
+            const src = `/assets/players/season_6/${playerName}.png`;
+            const fallbackSrc = "/assets/players/player_placeholder.png";
 
             return (
               <div className="flex-shrink-0 flex-grow border border-neutral-200 px-3 py-2 text-sm ">

@@ -11,7 +11,7 @@ export const columns = [
           <Link to={`/players/${row.first_name.toLowerCase()}-${row.last_name.toLowerCase()}`}>
           <div className="flex">
             <img
-              src={`src/assets/logos/${row.team_logo}`}
+              src={`/assets/logos/${row.team_logo}`}
               alt="Logo"
               width={30}
             />
@@ -92,7 +92,7 @@ export const columns = [
           <Link to={`/players/${row.first_name.toLowerCase().replaceAll(" ", "-")}-${row.last_name.toLowerCase()}`}>
           <div className="flex">
             <img
-              src={`src/assets/logos/${row.team_logo}`}
+              src={`/assets/logos/${row.team_logo}`}
               alt="Logo"
               width={30}
             />
@@ -148,7 +148,7 @@ export const columns = [
           <Link to={`/players/${row.first_name.toLowerCase()}-${row.last_name.toLowerCase()}`}>
           <div className="flex">
             <img
-              src={`src/assets/logos/${row.team_logo}`}
+              src={`/assets/logos/${row.team_logo}`}
               alt="Logo"
               width={30}
             />
@@ -204,7 +204,7 @@ export const columns = [
           <Link to={`/players/${row.first_name.toLowerCase()}-${row.last_name.toLowerCase()}`}>
           <div className="flex">
             <img
-              src={`src/assets/logos/${row.team_logo}`}
+              src={`/assets/logos/${row.team_logo}`}
               alt="Logo"
               width={30}
             />
@@ -260,7 +260,7 @@ export const columns = [
           <Link to={`/players/${row.first_name.toLowerCase()}-${row.last_name.toLowerCase()}`}>
           <div className="flex">
             <img
-              src={`src/assets/logos/${row.team_logo}`}
+              src={`/assets/logos/${row.team_logo}`}
               alt="Logo"
               width={30}
             />
@@ -321,7 +321,7 @@ export const columns = [
           <Link to={`/players/${row.first_name.toLowerCase()}-${row.last_name.toLowerCase()}`}>
           <div className="flex">
             <img
-              src={`src/assets/logos/${row.team_logo}`}
+              src={`/assets/logos/${row.team_logo}`}
               alt="Logo"
               width={30}
             />

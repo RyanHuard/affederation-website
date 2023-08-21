@@ -5,11 +5,11 @@ import { useSchedule } from "./api/Schedule";
 import { getColumns } from "./ScheduleColumns";
 
 const Schedule = ({ team, seasonId }) => {
-  const scheduleQuery = useSchedule(seasonId, team.team_id);
+  const scheduleQuery = useSchedule(seasonId, team?.team_id);
 
   const scheduleData = scheduleQuery?.data;
 
-  const columns = getColumns(team.team_id);
+  const columns = getColumns(team?.team_id);
 
   return (
     <div className="-m-4">

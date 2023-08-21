@@ -7,8 +7,8 @@ const calculateWeek = (gameId, seasonId) => {
 };
 
 const Game = ({ game }) => {
-  const awayLogo = `/src/assets/logos/${game.away_team_logo}`;
-  const homeLogo = `/src/assets/logos/${game.home_team_logo}`;
+  const awayLogo = `/assets/logos/${game.away_team_logo}`;
+  const homeLogo = `/assets/logos/${game.home_team_logo}`;
 
   let awayResult;
   if (game.away_team_score > game.home_team_score) {

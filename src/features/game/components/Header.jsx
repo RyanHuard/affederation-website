@@ -32,7 +32,7 @@ const Header = ({ game }) => {
           className="flex font-semibold xl:w-64">
             <img
               className="my-auto h-12 w-12 sm:h-24 sm:w-24"
-              src={`/src/assets/logos/${game?.away_team_logo}`}
+              src={`/assets/logos/${game?.away_team_logo}`}
             />
             <div className="my-auto hidden px-4 lg:block ">
               <div className="text-neutral-500">
@@ -80,7 +80,7 @@ const Header = ({ game }) => {
           >
             <img
               className="my-auto h-12 w-12 sm:h-24 sm:w-24"
-              src={`/src/assets/logos/${game?.home_team_logo}`}
+              src={`/assets/logos/${game?.home_team_logo}`}
             />
             <div className="my-auto hidden px-4 lg:block">
               <div className="text-neutral-500">

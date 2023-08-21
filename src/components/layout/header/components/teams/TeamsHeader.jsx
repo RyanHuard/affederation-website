@@ -16,7 +16,7 @@ const TeamsHeader = () => {
     <div className="hidden bg-black md:block">
       <div className="flex h-14 justify-center space-x-6">
         {teams?.map((team, key) => {
-          const logoPath = `/src/assets/logos/${team.team_logo}`;
+          const logoPath = `/assets/logos/${team.team_logo}`;
           const teamPath = `/teams/${team.team_id}/${hyphenateAndLowerCaseTeam(
             team.team_location,
             team.team_name
