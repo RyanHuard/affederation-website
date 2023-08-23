@@ -11,19 +11,19 @@ const SocialsCard = () => {
       <section className="flex flex-wrap justify-between p-4 px-4">
         <div className="flex">
           <FaYoutube color="red" className="my-auto mr-[.4rem]" size="1.3rem" />
-          <span className="my-auto">Youtube</span>
+          <a target="_blank" href="https://www.youtube.com/@americanfootballfederation" className="my-auto">Youtube</a>
         </div>
-        <div className="flex">
+        <div className="flex text-neutral-400">
           <FaTwitter color="#1DA1F2" className="my-auto mr-[.4rem]" size="1.3rem" />
           <span className="my-auto">Twitter</span>
         </div>
-        <div className="flex">
+        <div className="flex text-neutral-400">
           <FaInstagram color="#d62976" className="my-auto mr-[.4rem]" size="1.3rem" />
-          <span className="my-auto">Instagram</span>
+          <a href='https://instagram.com' className="my-auto">Instagram</a>
         </div>
         <div className="flex">
           <FaTiktok color="black" className="my-auto mr-[.4rem]" size="1.3rem" />
-          <span className="my-auto">TikTok</span>
+          <a href="https://www.tiktok.com/@americanfootballfed" target="_blank" className="my-auto">TikTok</a>
         </div>
       </section>
 

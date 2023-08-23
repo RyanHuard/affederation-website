@@ -1,4 +1,5 @@
 import { useMediaQuery } from "@chakra-ui/react";
+import TeamLink from "../../../lib/TeamLink";
 
 const columns = [
   {
@@ -12,12 +13,17 @@ const columns = [
     selector: (row) => row.team,
     sortable: true,
     cell: (row) => {
+      let location = row.team?.split(" ")[0]
+      let name = row.team?.split(" ")[1]
+    
       return (
+        <TeamLink name={name} location={location} teamId={row.team_id}>
         <div className="flex">
           <img src={`./logos/${row.team_logo}`} alt="Team Logo" width={30} />
           <span className="my-auto hidden pl-2 sm:block">{row.team}</span>
           <span className="my-auto pl-2 sm:hidden">{row.stats_team_city}</span>
         </div>
+        </TeamLink>
       );
     },
     width: () => {
