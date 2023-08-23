@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, HashRouter } from "react-router-dom";
 import { Spinner } from "@chakra-ui/react";
 
 import "./App.css";
@@ -25,7 +25,7 @@ function App() {
   const teams = useTeams();
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <TeamContext.Provider value={teams?.data}>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -49,7 +49,7 @@ function App() {
 
           </Routes>
       </TeamContext.Provider>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
