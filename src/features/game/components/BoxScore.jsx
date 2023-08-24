@@ -1,5 +1,6 @@
 import React from "react";
 import BoxScoreCategory from "./BoxScoreCategory";
+import { Spinner } from "@chakra-ui/react";
 
 const BoxScore = ({ boxScore, game }) => {
   const categories = {
@@ -110,8 +111,14 @@ const BoxScore = ({ boxScore, game }) => {
     <>
       <div className="mx-auto hidden max-w-fit rounded-sm bg-white pb-6 pt-2 drop-shadow lg:block">
         {Object.entries(categories).map(([position, data], index) => {
-          const awayStats = boxScore?.[teams[awayIndex]][position];
-          const homeStats = boxScore?.[teams[homeIndex]][position];
+          const awayStats = boxScore?.[teams[awayIndex]]?.[position];
+          const homeStats = boxScore?.[teams[homeIndex]]?.[position];
+
+          if (awayStats && homeStats) {
+            return <div className="flex h-screen w-full items-center justify-center bg-[#edeef2]">
+            <Spinner size="lg" className="relative bottom-64 sm:bottom-86" />
+          </div>
+          }
 
           return (
             <div className="flex h-full px-4">
