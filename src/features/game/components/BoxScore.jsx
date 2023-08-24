@@ -114,7 +114,7 @@ const BoxScore = ({ boxScore, game }) => {
           const awayStats = boxScore?.[teams[awayIndex]]?.[position];
           const homeStats = boxScore?.[teams[homeIndex]]?.[position];
 
-          if (awayStats && homeStats) {
+          if (!(awayStats.length > 0)) {
             return <div className="flex h-screen w-full items-center justify-center bg-[#edeef2]">
             <Spinner size="lg" className="relative bottom-64 sm:bottom-86" />
           </div>
