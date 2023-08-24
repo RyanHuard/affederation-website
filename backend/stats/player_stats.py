@@ -116,7 +116,7 @@ def get_player_info(first_name, last_name):
         ) max_season ON r.fname = max_season.fname
         AND r.lname = max_season.lname
         AND CAST(r.season_id AS INT) = max_season.max_season_id
-        WHERE r.fname = %s AND r.lname = %s
+        WHERE r.fname ILIKE %s AND r.lname ILIKE %s
         """
 
     cursor.execute(player_info_query, (first_name.capitalize(), last_name.capitalize()))
