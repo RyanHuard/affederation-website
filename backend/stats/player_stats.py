@@ -70,6 +70,7 @@ def get_player_info(first_name, last_name):
     cursor = get_cursor(conn)
 
     team_id = request.args.get("teamid")
+    print(first_name, last_name)
 
     player_stats_by_position_and_season = {}  # Store player stats by position and season
 
@@ -85,11 +86,11 @@ def get_player_info(first_name, last_name):
 
         for season_id in range(7):  # Iterate through season IDs 0 to 6
             query = f"""
-            SELECT first_name, last_name, position, team_city,
+           SELECT first_name, last_name, position, team_city,
             (SELECT team_logo FROM teams WHERE
             teams.abbreviation = player_stats.team_city),
             {', '.join(selections)} FROM player_stats WHERE {criteria}
-            AND first_name = %s AND last_name = %s AND season_id = %s
+            AND first_name ILIKE %s AND last_name ILIKE %s AND season_id = %s
             GROUP BY pid, last_name, first_name, team_city, position, season_id
             """
             cursor.execute(
