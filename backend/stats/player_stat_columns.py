@@ -111,7 +111,7 @@ player_stat_columns = {
             "SUM(match_kick_xp_attempts)",
             "(CAST(SUM(match_kick_xp_made) AS DECIMAL)/NULLIF(SUM(match_kick_xp_attempts), 0))",
         ],
-        "criteria": "match_kick_xp_attempts > 0",
+        "criteria": "(match_kick_fg_attempts > 0 OR match_kick_xp_attempts > 0)",
         "categories": [
             "first_name",
             "last_name",
