@@ -81,10 +81,10 @@ player_stat_columns = {
     },
     "kicking": {
         "selections": [
-            "CONCAT(SUM(match_kick_fg_attempts), '/', SUM(match_kick_fg_made))",
+            "CONCAT(SUM(match_kick_fg_made), '/', SUM(match_kick_fg_attempts))",
             "MAX(match_kick_fg_long)",
             "ROUND(CAST(SUM(match_kick_fg_made) AS DECIMAL)/NULLIF(SUM(match_kick_fg_attempts), 0), 1)",
-            "CONCAT(SUM(match_kick_xp_attempts), '/', SUM(match_kick_xp_made))",
+            "CONCAT(SUM(match_kick_xp_made), '/', SUM(match_kick_xp_attempts))",
         ],
         "criteria": "(match_kick_xp_attempts > 0 OR match_kick_fg_attempts > 0)",
         "categories": [
