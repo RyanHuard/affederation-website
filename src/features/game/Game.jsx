@@ -33,7 +33,7 @@ const Game = () => {
     >
       {playerStatsQuery?.isLoading || gameQuery?.isLoading ? 
       (
-        <div className="flex h-screen w-full items-center justify-center bg-[#edeef2]">
+        <div className="flex h-screen items-center justify-center bg-[#edeef2]">
           <Spinner size="lg" className="relative bottom-64 sm:bottom-86" />
         </div>
       ) : isCompleted ? 

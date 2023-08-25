@@ -114,12 +114,6 @@ const BoxScore = ({ boxScore, game }) => {
           const awayStats = boxScore?.[teams[awayIndex]]?.[position];
           const homeStats = boxScore?.[teams[homeIndex]]?.[position];
 
-          if (!(awayStats?.length > 0)) {
-            return <div className="flex h-screen w-full items-center justify-center bg-[#edeef2]">
-            <Spinner size="lg" className="relative bottom-64 sm:bottom-86" />
-          </div>
-          }
-
           return (
             <div className="flex h-full px-4">
               <BoxScoreCategory
@@ -149,6 +143,7 @@ const BoxScore = ({ boxScore, game }) => {
         })}
       </div>
 
+      {/* Mobile */}
       <div className="block max-w-fit rounded-sm bg-white pb-6 pt-6 drop-shadow lg:hidden">
         {Object.entries(categories).map(([position, data], index) => {
           const awayStats = boxScore[teams[awayIndex]]?.[position];
@@ -173,7 +168,7 @@ const BoxScore = ({ boxScore, game }) => {
         <div id="border" className="mt-4 h-px w-full bg-neutral-300" />
 
         {Object.entries(categories).map(([position, data], index) => {
-          const homeStats = boxScore[teams[awayIndex]]?.[position];
+          const homeStats = boxScore[teams[homeIndex]]?.[position];
 
           return (
             <div className="flex h-full px-4">
