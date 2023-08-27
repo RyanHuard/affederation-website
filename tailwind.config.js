@@ -10,7 +10,7 @@ export default {
       "aff-blue": "#013369",
       "aff-orange": "#e49740",
     }
-  }
+  },
   },
   plugins: [],
 }

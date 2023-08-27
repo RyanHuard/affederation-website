@@ -47,6 +47,11 @@ def get_team_stats(team_id, season_id):
 
     offense_stats = cursor.fetchone()
 
+    game_id_query = "SELECT game_id FROM games WHERE (home_team_id = %s OR away_team_id = %s) AND season_id = %s"
+    cursor.execute(game_id_query, (team_id, team_id, season_id))
+
+    game_ids = cursor.fetchall()
+
     defense_query = "SELECT (AVG(match_pass_yards)*53 + AVG(match_rush_yards)*53),\
         AVG(match_pass_yards)*53, AVG(match_rush_yards)*53, \
         (SELECT points_against/(team_standings.wins + team_standings.loss) FROM team_standings\
@@ -56,11 +61,12 @@ def get_team_stats(team_id, season_id):
         ON team_standings.stats_team_city = %s\
         WHERE player_stats.season_id = %s\
         AND player_stats.team_city != %s\
+        AND player_stats.game_id IN %s\
         GROUP BY team_standings.points_against\
         LIMIT 1"
 
     cursor.execute(
-        defense_query, (team_city, season_id, team_city, season_id, team_city)
+        defense_query, (team_city, season_id, team_city, season_id, team_city, game_ids[0])
     )
 
     defense_stats = cursor.fetchone()

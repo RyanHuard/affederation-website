@@ -7,7 +7,6 @@ const TeamStats = ({ game }) => {
   const awayStatsQuery = useTeamStats(game?.away_team_id, game?.season_id);
   const homeStatsQuery = useTeamStats(game?.home_team_id, game?.season_id);
 
-
   if (game.season_id < 4) {
     return (
       <div className="mx-auto h-[500px] max-w-4xl rounded bg-white drop-shadow">
@@ -18,10 +17,9 @@ const TeamStats = ({ game }) => {
     );
   }
 
- 
   return (
-    <div className="lg:max-w-[900px] mx-auto">
-      <div className="rounded-sm bg-white p-6 drop-shadow lg:border-0 border-b border-neutral-400">
+    <div className="mx-auto lg:max-w-[900px]">
+      <div className="rounded-sm border-b border-neutral-400 bg-white p-6 drop-shadow lg:border-0">
         <div className="pb-4 text-center text-lg font-bold">
           Offensive Stats (per game)
         </div>
@@ -32,17 +30,21 @@ const TeamStats = ({ game }) => {
               className="mr-2 "
               src={`/assets/helmets/${game?.away_team_helmet}`}
             />
-            <span className="hidden sm:block">{game?.away_team_location} {game?.away_team_name}</span>
+            <span className="hidden sm:block">
+              {game?.away_team_location} {game?.away_team_name}
+            </span>
             <span className="block sm:hidden">{game?.away_team_abb}</span>
           </h2>
           <h2 className="flex self-center font-semibold">
+            <span className="hidden sm:block">
+              {game?.home_team_location} {game?.home_team_name}
+            </span>
+            <span className="block sm:hidden">{game?.home_team_abb}</span>
             <img
               width="30"
-              className="mr-2"
+              className="ml-2"
               src={`/assets/helmets/${game?.home_team_helmet}`}
             />
-            <span className="hidden sm:block">{game?.home_team_location} {game?.home_team_name}</span>
-            <span className="block sm:hidden">{game?.home_team_abb}</span>
           </h2>
         </div>
         <div>
@@ -69,7 +71,7 @@ const TeamStats = ({ game }) => {
         </div>
       </div>
 
-      <div className="mx-auto lg:mt-12 rounded-sm bg-white p-6 drop-shadow">
+      <div className="mx-auto rounded-sm bg-white p-6 drop-shadow lg:mt-12">
         <div className="pb-4 text-center text-lg font-bold">
           Defensive Stats (per game)
         </div>
@@ -80,17 +82,21 @@ const TeamStats = ({ game }) => {
               className="mr-2"
               src={`/assets/helmets/${game?.away_team_helmet}`}
             />
-             <span className="hidden sm:block">{game?.away_team_location} {game?.away_team_name}</span>
+            <span className="hidden sm:block">
+              {game?.away_team_location} {game?.away_team_name}
+            </span>
             <span className="block sm:hidden">{game?.away_team_abb}</span>
           </h2>
           <h2 className="flex self-center font-semibold">
+            <span className="hidden sm:block">
+              {game?.home_team_location} {game?.home_team_name}
+            </span>
+            <span className="block sm:hidden">{game?.home_team_abb}</span>
             <img
               width="30"
-              className="mr-2"
+              className="ml-2"
               src={`/assets/helmets/${game?.home_team_helmet}`}
             />
-           <span className="hidden sm:block">{game?.home_team_location} {game?.home_team_name}</span>
-            <span className="block sm:hidden">{game?.home_team_abb}</span>
           </h2>
         </div>
         <div>

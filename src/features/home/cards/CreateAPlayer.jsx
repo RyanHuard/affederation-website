@@ -15,7 +15,8 @@ const CreateAPlayer = () => {
           <h1 className="text-center text-2xl font-bold">CREATE A PLAYER</h1>
           <p className="mt-6 text-center">Create your unique superstar</p>
           <div className="mt-6 text-center">
-            <Button onClick={() => navigate("/create-a-player")}>GET STARTED</Button>
+            {/* <Button onClick={() => navigate("/create-a-player")}>GET STARTED</Button> */}
+            <Button onClick={() => alert("Create a Player is coming soon!")}>GET STARTED</Button>
           </div>
         </div>
       </div>
