@@ -8,7 +8,13 @@ import {
   FormHelperText,
   FormErrorMessage,
 } from "@chakra-ui/react";
+import { Field, Form, Formik, ErrorMessage } from "formik";
+import { useNavigate } from "react-router-dom";
+
 import Header from "./components/Header";
+import Button from "../../components/button/Button";
+import { fromPairs } from "lodash";
+import { validateLastName } from "./components/validateLastName";
 
 const CreateAPlayer = () => {
   // TODO: User should be able to chose height/weight and jersey number.
@@ -16,6 +22,9 @@ const CreateAPlayer = () => {
 
   const [position, setPosition] = useState("");
   const [hasPosition, setHasPosition] = useState(false);
+  const [formIsFilled, setFormIsFilled] = useState(false);
+
+  const navigate = useNavigate();
 
   const positions = [
     "",
@@ -165,94 +174,195 @@ const CreateAPlayer = () => {
     "USC",
   ];
 
-  const handlePositionSelect = (e) => {
-    let position = e.target.value;
+  const handlePositionSelect = (position) => {
     if (position != "") {
-      setPosition(position);
       setHasPosition(true);
+      console.log(position)
     } else {
       setHasPosition(false);
     }
   };
 
+  const checkRequiredForms = (values, setFormIsFilled) => {
+    for (const key in values) {
+      if (values.hasOwnProperty(key)) {
+        if (values[key] === "") {
+          setFormIsFilled(false); // If an empty string is found, set to false
+          return; // Return early since we found an empty value
+        }
+      }
+    }
+    
+    // If no empty strings were found, set to true
+    setFormIsFilled(true);
+  }
+  
+
   return (
     <MainLayout header={<Header />}>
-      <div className="">
-        <div className="mx-auto flex max-w-3xl flex-col gap-8">
-          <div className="flex gap-6">
-            <div className="w-full">
-              <FormLabel>First Name</FormLabel>
-              <Input size="lg" variant="" />
-            </div>
-            <div className="w-full">
-              <FormLabel>Last Name</FormLabel>
-              <Input size="lg" variant="" />
-            </div>
-          </div>
-          <div>
-            <FormLabel>Position</FormLabel>
-            <Select
-              size="lg"
-              variant=""
-              defaultValue=""
-              onChange={handlePositionSelect}
-            >
-              {positions.map((pos, index) => (
-                <option value={pos} key={index}>
-                  {pos}
+      <div className="p-3">
+        <Formik
+          initialValues={{
+            firstName: "",
+            lastName: "",
+            position: "",
+            homeState: "",
+            hometown: "",
+            college: "",
+            build: "",
+          }}
+          onSubmit={(values) => {
+            console.log(values);
+            navigate("/create-a-player/checkout");
+          }}
+        >
+          {({ handleBlur, handleChange, values }) => (
+            
+            <Form>
+              {/* Checks that the form is filled for enabling of the create player button */}
+
+              {checkRequiredForms(values, setFormIsFilled)}
+              <div className="mx-auto flex max-w-3xl flex-col gap-8">
+                <div className="flex gap-6">
+                  <div className="w-full">
+                    <FormControl>
+                      <FormLabel>First Name</FormLabel>
+                      <Input
+                        size="lg"
+                        variant=""
+                        name="firstName"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.firstName}
+                      />
+                    </FormControl>
+                  </div>
+                  <div className="w-full">
+                    <Field
+                      name="lastName"
+                      validate={validateLastName} // Use the custom validation function
+                    >
+                      {({ field, form }) => (
+                        <FormControl isInvalid={form.errors.lastName && form.touched.lastName}>
+                          <FormLabel>Last Name</FormLabel>
+                          <Input
+                            size="lg"
+                            variant=""
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={values.lastName}
+                            {...field}
+                          />
+                          <FormErrorMessage name="lastName" component="div">{form.errors.lastName}</FormErrorMessage>
+                        </FormControl>
+                      )}
+                    </Field>
+                  </div>
+                </div>
+                <div>
+                  <FormControl>
+                    <FormLabel>Position</FormLabel>
+                    <Select
+                      size="lg"
+                      variant=""
+                      name="position"
+                      defaultValue=""
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.position}
+                    >
+                      {positions.map((pos, index) => (
+                        <option value={pos} key={index}>
+                          {pos}
+                        </option>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </div>
+                <div>
+                  <FormControl>
+                    <FormLabel>Home State</FormLabel>
+                    <Select
+                      size="lg"
+                      variant=""
+                      name="homeState"
+                      defaultValue=""
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.homeState}
+                    >
+                      {states.map((state, index) => (
+                        <option value={state} key={index}>
+                          {state}
+                        </option>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </div>
+                <div>
+                  <FormControl>
+                    <FormLabel>Hometown</FormLabel>
+                    <Input
+                      size="lg"
+                      variant=""
+                      name="hometown"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.hometown}
+                    />
+                  </FormControl>
+                </div>
+                <div>
+                  <FormControl>
+                    <FormLabel>College</FormLabel>
+                    <Select
+                      size="lg"
+                      variant=""
+                      name="college"
+                      defaultValue=""
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.college}
+                    >
+                      {colleges.map((college, index) => (
+                        <option value={college} key={index}>
+                          {college}
+                        </option>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </div>
+                <div>
+                  <FormControl isInvalid={values.position == ""}>
+                    <FormLabel>Build</FormLabel>
+                    <Select
+                      isDisabled={values.position == ""}
+                      size="lg"
+                      variant=""
+                      name="build"
+                      defaultValue=""
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.build}
+                    >
+                      {colleges.map((college, index) => (
+                <option value={college} key={index}>
+                  {college}
                 </option>
               ))}
-            </Select>
-          </div>
-          <div>
-            <FormLabel>Home State</FormLabel>
-            <Select size="lg" variant="" defaultValue="">
-              {states.map((state, index) => (
-                <option value={state} key={index}>
-                  {state}
-                </option>
-              ))}
-            </Select>
-          </div>
-          <div>
-            <FormLabel>Hometown</FormLabel>
-            <Input size="lg" variant="" />
-          </div>
-          <div>
-              <FormLabel>College</FormLabel>
-              <Select
-                size="lg"
-                variant=""
-                defaultValue=""
-              >
-                {colleges.map((college, index) => (
-                  <option value={college} key={index}>
-                    {college}
-                  </option>
-                ))}
-              </Select>
-          </div>
-          <div>
-            <FormControl isInvalid={!hasPosition}>
-              <FormLabel>Build</FormLabel>
-              <Select
-                isDisabled={!hasPosition}
-                size="lg"
-                variant=""
-                defaultValue=""
-              >
-                {/* {colleges.map((college, index) => (
-                  <option value={college} key={index}>
-                    {college}
-                  </option>
-                ))} */}
-              </Select>
-              <FormErrorMessage>
-                You need to select a position first
-              </FormErrorMessage>
-            </FormControl>
-          </div>
-        </div>
+                    </Select>
+                    <FormErrorMessage>
+                      You need to select a position first
+                    </FormErrorMessage>
+                  </FormControl>
+                </div>
+                <Button height="50px" type="submit" disabled={!formIsFilled} >
+                  CREATE PLAYER
+                </Button>
+              </div>
+            </Form>
+          )}
+        </Formik>
       </div>
     </MainLayout>
   );

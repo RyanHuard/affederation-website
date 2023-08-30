@@ -10,11 +10,11 @@ const Header = () => {
           </header>
         </div>
       </div>
-      <h2 className="mx-auto max-w-2xl pt-6 text-center text-neutral-700">
+      {/* <h2 className="mx-auto max-w-2xl pt-6 text-center text-neutral-700">
         This is our player creation center. Once you've finished making your
         player's profile, he will be entered into the next years draft class,
         from where he will begin his career in the American Football Federation.
-      </h2>
+      </h2> */}
     </div>
   );
 };

@@ -10,6 +10,8 @@ const Button = ({
   color = "#FFF",
   fontSize = "15px",
   hoverBackgroundColor = "#0056b3",
+  disabled,
+  type
 }) => {
   return (
     <button
@@ -17,7 +19,7 @@ const Button = ({
       className="px-4 font-semibold"
       style={{
         height: height,
-        backgroundColor: backgroundColor,
+        backgroundColor: !disabled ? backgroundColor : "#b5bcc4",
         color: color,
         fontSize: fontSize,
         ":hover": {
@@ -25,6 +27,8 @@ const Button = ({
         },
       }}
       onClick={onClick}
+      disabled={disabled}
+      type={type}
     >
       {children}
     </button>

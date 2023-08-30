@@ -7,7 +7,7 @@ const Header = ({ team, tabs, handleSeasonSelect, seasonId }) => {
 
   // // Capitalize the first character
   // let capitalizedDivision = division.charAt(0).toUpperCase() + division.slice(1);
-
+  console.log(team)
   return (
     <div className="bg-white">
       <div style={background} className={`whitespace-nowrap border-b-2 pt-6`}>

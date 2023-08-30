@@ -1,13 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom"
 
+import tb from "/src/assets/UTSA_Football_Slide-ac6d4cc60d.jpg"
+
 const Thumbnail = ({ article }) => {
   return (
     <div className="relative min-w-full">
       <Link to={`/news/${article.title.replaceAll(" ", "-").toLowerCase()}/${article.article_id}`}>
         <img
-          src="https://goutsa.com/images/2022/1/25/dome_1stgm.jpg"
-          className="rounded-t-sm"
+          src={tb}
+          className="rounded-t-sm h-[418px]"
         />
         <div className="absolute bottom-0 left-0 h-96 w-full bg-gradient-to-t from-black via-transparent to-transparent"></div>
         <div className="absolute bottom-0 left-0 w-full p-6">

@@ -44,7 +44,6 @@ const affStyles = {
 };
 
 
-
 const Table = (props) => {
   return (
     <div className="overflow-x-auto drop-shadow">

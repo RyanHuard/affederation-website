@@ -175,8 +175,11 @@ export const columns = [
     },
     {
       name: "Yds/Rec",
-      selector: (row) => parseFloat(row.receiving_yards_per_reception).toFixed(1),
+      selector: (row) => parseFloat(row.receiving_yards_per_reception),
       sortable: true,
+      cell: (row) => (
+        <div>{parseFloat(row.receiving_yards_per_reception).toFixed(1)}</div>
+      )
     },
     {
       name: "Yds/G",
@@ -287,8 +290,11 @@ export const columns = [
     },
     {
       name: "FG %",
-      selector: (row) => (parseFloat(row.fg_percentage) * 100).toFixed(1),
+      selector: (row) => row.fg_percentage * 100,
       sortable: true,
+      cell: (row) => (
+        <div>{parseFloat(row.fg_percentage*100).toFixed(1)}</div>
+      )
     },
     {
       name: "FG Long",
@@ -306,9 +312,12 @@ export const columns = [
       sortable: true,
     },
     {
-      name: "XP %",
-      selector: (row) => (parseFloat(row.xp_percentage) * 100).toFixed(1),
+      name: "FG %",
+      selector: (row) => row.xp_percentage,
       sortable: true,
+      cell: (row) => (
+        <div>{parseFloat(row.xp_percentage*100).toFixed(1)}</div>
+      )
     },
   ],
   /* Punting */ [

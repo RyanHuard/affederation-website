@@ -5,7 +5,6 @@ import { Spinner } from "@chakra-ui/react";
 import "./App.css";
 import { TeamContext, useTeams } from "./lib/TeamContext";
 
-
 import Standings from "./features/standings/Standings";
 import Home from "./features/home/Home";
 import PlayerStats from "./features/stats/PlayerStats";
@@ -17,9 +16,10 @@ import Article from "./features/articles/Article";
 import Player from "./features/player/Player";
 import CreateAPlayer from "./features/create-a-player/CreateAPlayer";
 import LeagueInfo from "./features/league-info/LeagueInfo";
-// import UploadArticles from "./manager-features/upload-articles/uploadArticles";
-
-
+import UploadArticles from "./manager-features/upload-articles/uploadArticles";
+import Checkout from "./features/create-a-player/components/Checkout";
+import Success from "./features/create-a-player/components/Success";
+import Cancel from "./features/create-a-player/components/Cancel";
 
 function App() {
   const teams = useTeams();
@@ -27,27 +27,32 @@ function App() {
   return (
     <HashRouter>
       <TeamContext.Provider value={teams?.data}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/standings" element={<Standings />} />
-            <Route path="/schedule" element={<Schedule />} />
-            <Route path="/teams" element={<Teams />} />
-            <Route path="/stats" element={<PlayerStats />} />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/standings" element={<Standings />} />
+          <Route path="/schedule" element={<Schedule />} />
+          <Route path="/teams" element={<Teams />} />
+          <Route path="/stats" element={<PlayerStats />} />
 
-            <Route path="/game/:seasonId/:gameId" element={<Game />} />
+          <Route path="/game/:seasonId/:gameId" element={<Game />} />
 
-            <Route path="/teams/:teamId/:teamName" element={<Team />} />
+          <Route path="/teams/:teamId/:teamName" element={<Team />} />
 
-            <Route path="/news/:title/:articleId" element={<Article />} />
+          <Route path="/news/:title/:articleId" element={<Article />} />
 
-            <Route path="/players/:player" element={<Player />} />
+          <Route path="/players/:player" element={<Player />} />
 
-            <Route path="/create-a-player" element={<CreateAPlayer />} />
-            <Route path="/league-info" element={<LeagueInfo />} />
-{/* 
-            <Route path="/upload-article" element={<UploadArticles />} /> */}
+          <Route path="/create-a-player">
+            <Route index={true} element={<CreateAPlayer />} />
+            <Route path="checkout" element={<Checkout />} />
+            <Route path="success" element={<Success />} />
+            <Route path="cancel" element={<Cancel />} />
+          </Route>
 
-          </Routes>
+          <Route path="/league-info" element={<LeagueInfo />} />
+
+          <Route path="/upload-article" element={<UploadArticles />} />
+        </Routes>
       </TeamContext.Provider>
     </HashRouter>
   );
