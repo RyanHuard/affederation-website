@@ -9,7 +9,7 @@ const Thumbnail = ({ article }) => {
       <Link to={`/news/${article.title.replaceAll(" ", "-").toLowerCase()}/${article.article_id}`}>
         <img
           src={tb}
-          className="rounded-t-sm h-[418px]"
+          className="rounded-t-sm max-h-[418px] aspect-[16/9] w-full"
         />
         <div className="absolute bottom-0 left-0 h-96 w-full bg-gradient-to-t from-black via-transparent to-transparent"></div>
         <div className="absolute bottom-0 left-0 w-full p-6">
