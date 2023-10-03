@@ -81,7 +81,7 @@ def get_player_stats(season_id):
         AND last_name <> 'Three'
         AND last_name <> 'Five'
         AND season_id = %s
-    GROUP BY pid, last_name, first_name, position
+    GROUP BY last_name, first_name, position
 """
         cursor.execute(query, (season_id,))
 
