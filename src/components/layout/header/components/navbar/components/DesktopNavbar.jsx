@@ -1,17 +1,52 @@
-import React from "react";
-import { Image, Flex, HStack } from "@chakra-ui/react";
-import { NavLink, Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import {
+  Image,
+  Flex,
+  HStack,
+  IconButton,
+  Menu,
+  MenuItem,
+  MenuList,
+  MenuButton,
+} from "@chakra-ui/react";
+import { NavLink, Link, useNavigate } from "react-router-dom";
+import Person2Icon from "@mui/icons-material/Person2";
+import { Navigate } from "react-router-dom";
 
+import { auth, signInWithGoogle, signOutWithGoogle } from "src/firebase";
 import navRoutes from "../routes";
 import affLogo from "src/assets/aff-logo.png";
 import "./Navbar.css";
 
 const DesktopNavbar = () => {
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [anchorElement, setAnchorElement] = useState(null);
+  const openAccountMenu = Boolean(anchorElement);
+
+  const navigate = useNavigate()
+
+  const handleAccountClick = (event) => {
+    setAnchorElement(event.currentTarget);
+  };
+  const handleAccountClose = () => {
+    setAnchorElement(null);
+  };
+
+  useEffect(() => {
+    if (auth.currentUser) {
+      setLoggedIn(true);
+    } else {
+      setLoggedIn(false);
+    }
+  }, [auth.currentUser]);
+
   return (
-    <div className="hidden md:block" style={{ height: "inherit"}}>
+    <div className="hidden md:block" style={{ height: "inherit" }}>
       <Flex
         py="5"
-        className="m-auto max-w-7xl text-white px-6"
+        className="m-auto max-w-7xl px-6 text-white"
         height="inherit"
       >
         <HStack spacing="24px" as="nav">
@@ -26,7 +61,49 @@ const DesktopNavbar = () => {
             );
           })}
         </HStack>
+
+        <Menu open={openAccountMenu} onClose={handleAccountClose}>
+          <MenuButton onClick={handleAccountClick} className="ml-auto">
+            <Person2Icon className="" sx={{ fontSize: "2rem" }} />
+          </MenuButton>
+          <MenuList color="black">
+            {loggedIn ? (
+              <>
+                {/* {localStorage.getItem("isManager") == "true" ? (
+                  <MenuItem
+                    onClick={() => {
+                      navigate(`/teams/${localStorage.getItem("teamId")}/${localStorage.getItem("team")}`);
+                      handleAccountClose();
+                    }}
+                  >
+                    <>My Team</>
+                  </MenuItem>
+                ) : (
+                  <></>
+                )} */}
+                <MenuItem
+                  onClick={() => {
+                    signOutWithGoogle();
+                    handleAccountClose();
+                  }}
+                >
+                  Log Out
+                </MenuItem>
+              </>
+            ) : (
+              <MenuItem
+                onClick={() => {
+                  signInWithGoogle();
+                  handleAccountClose();
+                }}
+              >
+                Log In
+              </MenuItem>
+            )}
+          </MenuList>
+        </Menu>
       </Flex>
+      <ToastContainer autoClose={3000} pauseOnHover={false} hideProgressBar />
     </div>
   );
 };

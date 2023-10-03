@@ -20,6 +20,7 @@ import UploadArticles from "./manager-features/upload-articles/uploadArticles";
 import Checkout from "./features/create-a-player/components/Checkout";
 import Success from "./features/create-a-player/components/Success";
 import Cancel from "./features/create-a-player/components/Cancel";
+import ScrollToTop from "./components/scroll-to-top/ScrolLToTop";
 
 function App() {
   const teams = useTeams();
@@ -42,18 +43,19 @@ function App() {
 
           <Route path="/players/:player" element={<Player />} />
 
-          <Route path="/create-a-player">
+          {/* <Route path="/create-a-player">
             <Route index={true} element={<CreateAPlayer />} />
             <Route path="checkout" element={<Checkout />} />
             <Route path="success" element={<Success />} />
             <Route path="cancel" element={<Cancel />} />
-          </Route>
+          </Route> */}
 
           <Route path="/league-info" element={<LeagueInfo />} />
-
-          <Route path="/upload-article" element={<UploadArticles />} />
+{/* 
+          <Route path="/upload-article" element={<UploadArticles />} /> */}
         </Routes>
       </TeamContext.Provider>
+      <ScrollToTop />
     </HashRouter>
   );
 }

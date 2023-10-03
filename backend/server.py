@@ -180,6 +180,44 @@ def get_team_standings():
     return team_standings_list
 
 
+@app.route("/api/authorization/<user_id>")
+def is_manager(user_id):
+    conn = get_conn()
+    cursor = get_cursor(conn)
+
+    user_query = "SELECT * FROM teams WHERE manager_id = %s"
+    cursor.execute(user_query, (user_id,))
+    current_user = cursor.fetchone()
+
+    if not current_user:
+        return {"isManager": False}
+    else:
+        cursor.execute(
+            "SELECT * from trade_offers WHERE (sending_team_id = %s OR receiving_team_id = %s) AND status = 'pending'",
+            (
+                current_user[0],
+                current_user[0],
+            ),
+        )
+        pending_trades = cursor.fetchone()
+
+        if pending_trades is not None:
+            pending_trades = "true"
+        else:
+            pending_trades = "false"
+
+        cursor.close()
+        conn.close()
+
+        return {
+            "isManager": True,
+            "team_id": current_user[0],
+            "team_location": current_user[1],
+            "team_name": current_user[2],
+            "pending_trades": pending_trades,
+        }
+
+
 @app.route("/")
 def server():
     return send_from_directory(app.static_folder, "index.html")

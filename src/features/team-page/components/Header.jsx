@@ -30,8 +30,11 @@ const Header = ({ team, tabs, handleSeasonSelect, seasonId }) => {
         </div>
       </div>
       <div>{tabs}</div>
-      <div className="mx-auto h-16 max-w-7xl bg-neutral-100 px-4">
+      <div className="mx-auto h-16 max-w-7xl bg-white px-4">
         <Select defaultValue={6} borderRadius={"sm"} width="10rem" className="my-[0.75rem]" onChange={handleSeasonSelect}>
+          <option value={1}>2022</option>
+          <option value={2}>2023</option>
+          <option value={3}>2024</option>
           <option value={4}>2025</option>
           <option value={5}>2026</option>
           <option value={6}>2027</option>

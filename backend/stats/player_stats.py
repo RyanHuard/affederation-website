@@ -42,15 +42,47 @@ def get_player_stats(season_id):
             criteria += f" AND team_city = '{get_team_stats_city(team_id)}'"
 
         query = f"""
-        SELECT first_name, last_name, position, team_city,
-        (SELECT team_logo FROM teams WHERE
-        teams.abbreviation = player_stats.team_city),
-        {', '.join(selections)} FROM player_stats 
-        WHERE {criteria} AND last_name <> 'One' AND last_name <> 'Two'
-        AND last_name <> 'Three' AND last_name <> 'Five'
-        AND season_id = %s GROUP BY pid, last_name,
-        first_name, team_city, position
-        """
+    SELECT
+        ps1.first_name,
+        ps1.last_name,
+        ps1.position,
+        (
+            SELECT team_city
+            FROM player_stats AS ps2
+            WHERE
+                ps2.first_name = ps1.first_name
+                AND ps2.last_name = ps1.last_name
+                AND ps2.position = ps1.position
+                AND ps2.season_id = 6
+            ORDER BY ps2.game_id DESC
+            LIMIT 1
+        ) AS team,
+        (
+            SELECT team_logo
+            FROM teams
+            WHERE teams.abbreviation = (
+                SELECT team_city
+                FROM player_stats AS ps2
+                WHERE
+                    ps2.first_name = ps1.first_name
+                    AND ps2.last_name = ps1.last_name
+                    AND ps2.position = ps1.position
+                    AND ps2.season_id = 6
+                ORDER BY ps2.game_id DESC
+                LIMIT 1
+            )
+        ) AS team_logo,
+        {', '.join(selections)}
+    FROM player_stats AS ps1
+    WHERE
+        {criteria}
+        AND last_name <> 'One'
+        AND last_name <> 'Two'
+        AND last_name <> 'Three'
+        AND last_name <> 'Five'
+        AND season_id = %s
+    GROUP BY pid, last_name, first_name, position
+"""
         cursor.execute(query, (season_id,))
 
         players = cursor.fetchall()

@@ -26,8 +26,8 @@ const Article = () => {
 
   return (
     <MainLayout>
-      <div className="flex bg-white sm:-mt-12 p-16">
-        <div className="flex flex-col pr-6">
+      <div className="flex bg-white sm:-mt-12 sm:p-16 p-8">
+        <div className="flex flex-col">
           <ArticleHeader
             author={article?.author}
             publishDate={article?.publish_date.replace("GMT", "CST")}
