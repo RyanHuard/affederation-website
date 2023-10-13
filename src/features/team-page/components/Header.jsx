@@ -23,7 +23,7 @@ const Header = ({ team, tabs, handleSeasonSelect, seasonId }) => {
                 <span className="font-bold">{team?.team_name}</span>
               </div>
               <div>
-                ({team?.wins}-{team?.loss})
+                {/* ({team?.wins}-{team?.loss}) */}
               </div>
             </div>
           </header>
