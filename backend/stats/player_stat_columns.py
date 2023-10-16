@@ -153,7 +153,7 @@ player_stat_columns = {
             "touchbacks",
         ],
     },
-    "kick_return": {
+    "kickoff returns": {
         "selections": [
             "CAST(SUM(match_kick_return_yards) AS DECIMAL)/NULLIF(SUM(match_kick_return_count), 0)",
             "SUM(match_kick_return_count)",
@@ -175,7 +175,7 @@ player_stat_columns = {
             "long",
         ],
     },
-    "punt_return": {
+    "punt returns": {
         "selections": [
             "CAST(SUM(match_punt_return_yards) AS DECIMAL)/NULLIF(SUM(match_punt_return_count), 0)",
             "SUM(match_punt_return_count)",

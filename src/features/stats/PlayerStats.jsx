@@ -20,8 +20,8 @@ const PlayerStats = () => {
     "Defense",
     "Kicking",
     "Punting",
-    // "Kickoff Returns",
-    // "Punt Returns",
+    "Kickoff Returns",
+    "Punt Returns",
   ];
 
   const handleSeasonSelect = (e) => {
@@ -48,6 +48,7 @@ const PlayerStats = () => {
       }
     >
       <div>
+        {console.log(playerStatsQuery?.data)}
         <Table
           key={category}
           data={stats}

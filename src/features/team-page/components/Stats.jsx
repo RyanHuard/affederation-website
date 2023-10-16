@@ -47,12 +47,12 @@ const Stats = ({ team, seasonId }) => {
       (player) => player.tackles === maxTackles
     );
 
-    // Find the player with the most interceptions
-    const maxInterceptions = Math.max(
-      ...playerStatsData?.defense.map((player) => player.interceptions)
+    // Find the player with the most sacks
+    const maxSacks = Math.max(
+      ...playerStatsData?.defense.map((player) => player.sacks)
     );
-    const playerWithMaxInterceptions = playerStatsData?.defense.find(
-      (player) => player.interceptions === maxInterceptions
+    const playerWithMaxSacks = playerStatsData?.defense.find(
+      (player) => player.sacks === maxSacks
     );
 
     teamLeaders = [
@@ -90,10 +90,10 @@ const Stats = ({ team, seasonId }) => {
       },
       {
         Inteceptions: {
-          firstName: playerWithMaxInterceptions?.first_name,
-          lastName: playerWithMaxInterceptions?.last_name,
-          leadingStat: playerWithMaxInterceptions?.interceptions,
-          position: playerWithMaxInterceptions?.position,
+          firstName: playerWithMaxSacks?.first_name,
+          lastName: playerWithMaxSacks?.last_name,
+          leadingStat: playerWithMaxSacks?.sacks,
+          position: playerWithMaxSacks?.position,
         },
       },
     ];

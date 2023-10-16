@@ -164,13 +164,13 @@ export const columns = [
       width: "16rem",
     },
     {
-      name: "Rec",
-      selector: (row) => row.receptions,
+      name: "Rec Yds",
+      selector: (row) => row.receiving_yards,
       sortable: true,
     },
     {
-      name: "Rec Yds",
-      selector: (row) => row.receiving_yards,
+      name: "Rec",
+      selector: (row) => row.receptions,
       sortable: true,
     },
     {
@@ -381,6 +381,116 @@ export const columns = [
       sortable: true,
     },
   ],
+  
+  /* Kickoff Returns */ [
+    {
+      name: "Player",
+      selector: (row) => `${row.first_name} ${row.last_name}`,
+      sortable: true,
+      cell: (row) => {
+        return (
+          <Link to={`/players/${row.first_name.toLowerCase()}-${row.last_name.toLowerCase()}`}>
+          <div className="flex">
+            <img
+              src={`/assets/logos/${row.team_logo}`}
+              alt="Logo"
+              width={30}
+            />
+            <div className="my-auto pl-2">
+              {row.first_name} {row.last_name}
+              <span className="px-[6px]">·</span>
+              <span className="text-neutral-500">{row.position}</span>
+            </div>
+          </div>
+          </Link>
+        );
+      },
+      width: "16rem",
+    },
+    {
+      name: "K Avg",
+      selector: (row) => {
+        const yardsPerAttempt = row.yards_per_return;
+        return Math.round(yardsPerAttempt * 10) / 10; // Round to 1 decimal place
+      },
+      sortable: true,
+    },
+    {
+      name: "K Ret",
+      selector: (row) => row.count,
+      sortable: true,
+    },
+    {
+      name: "K Yds",
+      selector: (row) => row.yards,
+      sortable: true,
+    },
+    {
+      name: "K TD",
+      selector: (row) => row.tds,
+      sortable: true,
+    },
+    {
+      name: "K Long",
+      selector: (row) => row.long,
+      sortable: true,
+    },
+  ],
+
+  /* Punt Returns */ [
+    {
+      name: "Player",
+      selector: (row) => `${row.first_name} ${row.last_name}`,
+      sortable: true,
+      cell: (row) => {
+        return (
+          <Link to={`/players/${row.first_name.toLowerCase()}-${row.last_name.toLowerCase()}`}>
+          <div className="flex">
+            <img
+              src={`/assets/logos/${row.team_logo}`}
+              alt="Logo"
+              width={30}
+            />
+            <div className="my-auto pl-2">
+              {row.first_name} {row.last_name}
+              <span className="px-[6px]">·</span>
+              <span className="text-neutral-500">{row.position}</span>
+            </div>
+          </div>
+          </Link>
+        );
+      },
+      width: "16rem",
+    },
+    {
+    name: "P Avg",
+    selector: (row) => {
+      const yardsPerAttempt = row.yards_per_return;
+      return Math.round(yardsPerAttempt * 10) / 10; // Round to 1 decimal place
+    },
+    sortable: true,
+    },
+    {
+    name: "P Ret",
+    selector: (row) => row.count,
+    sortable: true,
+    },
+    {
+    name: "P Yds",
+    selector: (row) => row.yards,
+    sortable: true,
+    },
+    {
+    name: "P TD",
+    selector: (row) => row.tds,
+    sortable: true,
+    },
+    {
+    name: "P Long",
+    selector: (row) => row.long,
+    sortable: true,
+    },
+  ]
 ];
 
 import { clamp, round } from "lodash";
