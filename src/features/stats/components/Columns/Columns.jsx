@@ -114,8 +114,11 @@ export const columns = [
     },
     {
       name: "Yds/Carry",
-      selector: (row) => parseFloat(row.yards_per_carry).toFixed(1),
+      selector: (row) => parseFloat(row.yards_per_carry),
       sortable: true,
+      cell: (row) => (
+        <div>{parseFloat(row.yards_per_carry).toFixed(1)}</div>
+      )
     },
     {
       name: "Carries",
