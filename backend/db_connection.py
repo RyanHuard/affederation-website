@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv
 import psycopg2
 
-# load_dotenv()
+#load_dotenv()
 
 def get_conn():
     # DB_HOST = os.getenv("DB_HOST")

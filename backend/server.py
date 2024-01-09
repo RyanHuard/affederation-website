@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS, cross_origin
-import psycopg2
+
 import os
 
 from db_connection import get_conn, get_cursor
@@ -13,6 +13,7 @@ from stats.player_stats import player_stats_blueprint
 from games.player_stats import game_stats_blueprint
 from teams.team_stats import team_stats_blueprint
 from articles.publish import publish_articles_blueprint
+from free_agency.free_agency import free_agency_blueprint
 
 
 app = Flask(__name__, static_folder="../dist", static_url_path="")
@@ -20,6 +21,7 @@ app.register_blueprint(player_stats_blueprint)
 app.register_blueprint(game_stats_blueprint)
 app.register_blueprint(team_stats_blueprint)
 app.register_blueprint(publish_articles_blueprint)
+app.register_blueprint(free_agency_blueprint)
 
 CORS(app)
 

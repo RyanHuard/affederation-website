@@ -6,6 +6,6 @@ if (window.location.hostname != "affederation.net") {
    port = ":5000"
 }
 export const api = axios.create({
-   baseURL: `${window.location.protocol}//${window.location.hostname}/api`,
+   baseURL: `${window.location.protocol}//${window.location.hostname}:5000/api`,
 });
 

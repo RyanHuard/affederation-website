@@ -16,6 +16,7 @@ import Article from "./features/articles/Article";
 import Player from "./features/player/Player";
 import CreateAPlayer from "./features/create-a-player/CreateAPlayer";
 import LeagueInfo from "./features/league-info/LeagueInfo";
+import FreeAgency from "./features/free-agency/FreeAgency";
 import UploadArticles from "./manager-features/upload-articles/uploadArticles";
 import Checkout from "./features/create-a-player/components/Checkout";
 import Success from "./features/create-a-player/components/Success";
@@ -51,6 +52,7 @@ function App() {
           </Route> */}
 
           <Route path="/league-info" element={<LeagueInfo />} />
+          <Route path="/free-agency" element={<FreeAgency />} />
 {/* 
           <Route path="/upload-article" element={<UploadArticles />} /> */}
         </Routes>
