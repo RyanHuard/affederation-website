@@ -1,1 +1,1 @@
-worker: python backend/server.py
+worker: python backend/server.py heroku ps:scale web=1
