@@ -374,4 +374,4 @@ def server():
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
-    socketio.run(app, port=port, debug=True)
+    socketio.run(app, port=port)

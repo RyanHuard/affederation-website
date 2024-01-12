@@ -14,7 +14,6 @@ import { useRef, useState } from "react";
 
 import { api } from "./lib/axios";
 
-
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -33,43 +32,44 @@ export const auth = getAuth(app);
 
 const provider = new GoogleAuthProvider();
 
-
 export const signInWithGoogle = () => {
   signInWithPopup(auth, provider)
     .then((result) => {
       const email = result.user.email;
       const userId = result.user.uid;
       toast("Log In sucessful!");
-      console.log(userId)
 
       // Make a GET request to /api/authorization/{userId}
-      api.get(`/authorization/${userId}`)
+      api
+        .get(`/authorization/${userId}`)
         .then((response) => {
-          console.log(response.data.isManager)
           // Check if the userId matches the id in the database
-          let team_city = response.data.team_location.replaceAll(" ", "-")
-          let team_link =  team_city.toLowerCase() + "-" + response.data.team_name.toLowerCase()
-          
+          let team_city = response.data.team_location.replaceAll(" ", "-");
+          let team_link =
+            team_city.toLowerCase() +
+            "-" +
+            response.data.team_name.toLowerCase();
+
           if (response.data.isManager) {
-            localStorage.setItem("isManager", "true")
-            localStorage.setItem("team", `${team_link}`)
-            localStorage.setItem("teamId", `${response.data.team_id}`)
-            localStorage.setItem("pendingTrade", response.data.pending_trades)
+            localStorage.setItem("isManager", "true");
+            localStorage.setItem("team", `${team_link}`);
+            localStorage.setItem("teamId", `${response.data.team_id}`);
+            localStorage.setItem("pendingTrade", response.data.pending_trades);
           } else {
-            localStorage.setItem("isManager", "false")
+            localStorage.setItem("isManager", "false");
           }
+          window.location.reload();
         })
         .catch((error) => {
           console.log(error);
         });
 
-        localStorage.setItem("email", email);
-        
-
+      localStorage.setItem("email", email);
     })
     .catch((error) => {
       console.log(error);
     });
+    
 };
 
 export const signOutWithGoogle = () => {
@@ -77,7 +77,8 @@ export const signOutWithGoogle = () => {
   toast("Log Out sucessful!");
 
   localStorage.removeItem("email");
-  localStorage.removeItem("userId");
+  localStorage.removeItem("teamId");
+  localStorage.removeItem("team");
   localStorage.removeItem("isManager");
 };
 

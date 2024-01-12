@@ -56,7 +56,7 @@ const FreeAgency = () => {
   };
 
   useEffect(() => {
-    socket = io("http://127.0.0.1:5000/", { transports: ["websocket"] });
+    socket = io({ transports: ["websocket"] });
 
     socket.on("connect", () => {
       const teamId = localStorage.getItem("teamId");

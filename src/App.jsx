@@ -22,6 +22,7 @@ import Checkout from "./features/create-a-player/components/Checkout";
 import Success from "./features/create-a-player/components/Success";
 import Cancel from "./features/create-a-player/components/Cancel";
 import ScrollToTop from "./components/scroll-to-top/ScrolLToTop";
+import ProtectedRoute from "./components/protected-route/ProtectedRoute";
 
 function App() {
   const teams = useTeams();
@@ -50,10 +51,17 @@ function App() {
             <Route path="success" element={<Success />} />
             <Route path="cancel" element={<Cancel />} />
           </Route> */}
-
+          {console.log(localStorage.getItem("teamId"))}
           <Route path="/league-info" element={<LeagueInfo />} />
-          <Route path="/free-agency" element={<FreeAgency />} />
-{/* 
+          <Route
+            path="/free-agency"
+            element={
+              <ProtectedRoute>
+                <FreeAgency />
+              </ProtectedRoute>
+            }
+          />
+          {/* 
           <Route path="/upload-article" element={<UploadArticles />} /> */}
         </Routes>
       </TeamContext.Provider>
