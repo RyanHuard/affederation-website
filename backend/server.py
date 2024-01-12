@@ -1,7 +1,9 @@
-from flask import Flask, request, jsonify, send_from_directory
-from flask_cors import CORS, cross_origin
 
-import os
+from flask import Blueprint, jsonify, request, send_from_directory, Flask
+from flask_socketio import emit, SocketIO
+from flask_cors import CORS
+import json
+import random
 
 from db_connection import get_conn, get_cursor
 
@@ -13,17 +15,162 @@ from stats.player_stats import player_stats_blueprint
 from games.player_stats import game_stats_blueprint
 from teams.team_stats import team_stats_blueprint
 from articles.publish import publish_articles_blueprint
-from free_agency.free_agency import free_agency_blueprint
-
 
 app = Flask(__name__, static_folder="../dist", static_url_path="")
+CORS(app, resources={r"/*": {"origins": "*"}})
+socketio = SocketIO(app, logger=True, engineio_logger=True, cors_allowed_origins="*")
+
 app.register_blueprint(player_stats_blueprint)
 app.register_blueprint(game_stats_blueprint)
 app.register_blueprint(team_stats_blueprint)
 app.register_blueprint(publish_articles_blueprint)
-app.register_blueprint(free_agency_blueprint)
 
-CORS(app)
+
+offers = []
+top_offers = []
+final_offer_checks = {}
+current_player_index = 0
+current_player = None
+free_agent_list = []
+
+
+@app.route("/api/free-agents")
+def get_free_agents():
+    conn = get_conn()
+    cursor = get_cursor(conn)
+
+    query = "SELECT * FROM free_agency ORDER BY overall DESC"
+
+    cursor.execute(query)
+    free_agents = cursor.fetchall()
+    free_agents_json = []
+    column_names = [cursor[0] for cursor in cursor.description]
+
+    for player in free_agents:
+        free_agents_json.append(dict(zip(column_names, player)))
+    
+    cursor.close()
+    conn.close()
+
+    global free_agent_list
+    free_agent_list = free_agents
+    global current_player
+    current_player = free_agent_list[current_player_index]
+
+    return jsonify(free_agents_json)
+
+@socketio.on("connect")
+def handle_connect():
+    emit("update_player", current_player_index, broadcast=True)
+    emit("update_offers", offers, broadcast=True)
+    
+
+@socketio.on("disconnect")
+def handle_disconnect():
+    global final_offer_checks
+    del final_offer_checks[request.sid]
+
+    result = []
+    for k, v in final_offer_checks.items():
+        result.append({'requestId': k, 'data': v})
+    emit("final_offer_checks", result, broadcast=True)
+   
+
+@socketio.on("send_offer")
+def handle_offer(client_offer):
+    global offers
+
+    for i, offer in enumerate(offers):
+        if client_offer["team"]["team_id"] == offer["team"]["team_id"]:
+            offers.pop(i)
+    
+    offers.append(client_offer)
+    emit("update_offers", offers, broadcast=True)
+
+
+@socketio.on("final_offer_checked")
+def handle_final_offer_checked(data):
+    is_checked = data["is_checked"]
+    team_id = data["team_id"]
+    global final_offer_checks
+    final_offer_checks[request.sid] = {"isChecked": is_checked, "team_id": team_id}
+
+    result = []
+    all_final_offers = True
+    for k, v in final_offer_checks.items():
+        result.append({'requestId': k, 'data': v})
+        if not v["isChecked"]:
+            all_final_offers = False
+
+    emit("final_offer_checks", result, broadcast=True)
+
+    
+    # All offers are in
+    if all_final_offers:
+        # spin winner
+        # global top_offers
+        winner = choose_winner()
+        emit("winner", winner, broadcast=True)
+        set_current_player_new_team(winner["winner"])
+
+        global current_player_index
+        global current_player
+        global offers
+        offers.clear()
+        current_player_index += 1
+        current_player = free_agent_list[current_player_index]
+
+        emit("update_player", current_player_index, broadcast=True)
+
+        result = []
+        all_final_offers = True
+        for k, v in final_offer_checks.items():
+            final_offer_checks[k]["isChecked"] = False
+            result.append({'requestId': k, 'data': v})
+            if not v["isChecked"]:
+                all_final_offers = False
+            emit("final_offer_checks", result, broadcast=True)
+        
+
+def set_current_player_new_team(winner):
+    conn = get_conn()
+    cursor = get_cursor(conn)
+    team = winner["team"]
+    team_name = team["team_name"]
+    contract = winner["contract"]
+    salary = contract.split("/")[0]
+    years = contract.split("/")[1]
+
+    update_query = "UPDATE free_agency SET new_team = %s, contract_salary = %s, \
+        contract_years = %s WHERE name = %s"
+    cursor.execute(update_query, (team_name, salary, years, current_player[0]))
+
+    conn.rollback()
+    cursor.close()
+    conn.close()
+
+
+       
+
+def choose_winner():
+    sorted_offers = sorted(offers, key=lambda offer: offer['entries'], reverse=True)
+
+    # Adds offers all offers that are tied for third place
+    if len(sorted_offers) >= 3:
+        min_offer_index = 2
+    else:
+        min_offer_index = len(sorted_offers)
+
+    third_offer_entries = sorted_offers[min_offer_index-1]['entries']
+    top_offers = [offer for offer in sorted_offers if offer['entries'] >= third_offer_entries]
+
+    # Uses entries as random weight
+    winner = random.choices(top_offers, weights=(offer["entries"] for offer in top_offers))[0]
+    #update_new_contracts(winner[0])
+
+    return {"winner": winner, "player": current_player}
+
+
 
 
 # Gets column names from PostgresQL and inserts in data
@@ -222,9 +369,9 @@ def is_manager(user_id):
 
 @app.route("/")
 def server():
-    return send_from_directory(app.static_folder, "index.html")
+    return send_from_directory(main.static_folder, "index.html")
 
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+    socketio.run(app, port=port, debug=True)
