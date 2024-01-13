@@ -369,7 +369,7 @@ def is_manager(user_id):
 
 @app.route("/")
 def server():
-    return send_from_directory(main.static_folder, "index.html")
+    return send_from_directory(app.static_folder, "index.html")
 
 
 if __name__ == "__main__":
