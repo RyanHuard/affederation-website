@@ -51,7 +51,7 @@ function App() {
             <Route path="success" element={<Success />} />
             <Route path="cancel" element={<Cancel />} />
           </Route> */}
-          {console.log(localStorage.getItem("teamId"))}
+
           <Route path="/league-info" element={<LeagueInfo />} />
           <Route
             path="/free-agency"

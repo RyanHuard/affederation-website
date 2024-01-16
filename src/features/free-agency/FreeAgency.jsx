@@ -1,24 +1,27 @@
 import React, { useContext, useEffect, useState } from "react";
 
 import { io } from "socket.io-client";
-import WheelComponent from 'react-wheel-of-prizes'
-//import 'react-wheel-of-prizes/dist/index.css'
+import WheelComponent from "react-wheel-of-prizes";
 
 import { TeamContext } from "/src/lib/TeamContext.js";
 import { useFreeAgents } from "./api/getFreeAgents";
+import Button from "../../components/button/Button";
 
 import MainLayout from "src/components/layout/MainLayout";
 import List from "./components/List";
 import Offers from "./components/Offers";
 import CurrentPlayer from "./components/CurrentPlayer";
 import OfferInput from "./components/OfferInput";
-
+import TeamList from "./components/TeamList";
 
 let socket;
 const FreeAgency = () => {
+  const [start, setStart] = useState(false);
+  const [capRemaining, setCapRemaining] = useState([])
+
   const [inputOffer, setInputOffer] = useState("");
   const [offers, setOffers] = useState([]);
-  const [userOffer, setUserOffer] = useState("");
+  const [userOffer, setUserOffer] = useState();
 
   const [finalOfferIsChecked, setFinalOfferIsChecked] = useState(false);
   const [finalOfferChecks, setFinalOfferChecks] = useState([]);
@@ -26,12 +29,12 @@ const FreeAgency = () => {
 
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
 
-
   let freeAgentsQuery = useFreeAgents();
   let freeAgents = freeAgentsQuery?.data;
 
-  const [currentPlayer, setCurrentPlayer] = useState(freeAgents?.[currentPlayerIndex])
-
+  const [currentPlayer, setCurrentPlayer] = useState(
+    freeAgents?.[currentPlayerIndex]
+  );
 
   const teams = useContext(TeamContext)?.data;
 
@@ -58,6 +61,10 @@ const FreeAgency = () => {
   useEffect(() => {
     socket = io({ transports: ["websocket"] });
 
+    socket.on("start", () => {
+      setStart(true);
+    });
+
     socket.on("connect", () => {
       const teamId = localStorage.getItem("teamId");
       socket.emit("final_offer_checked", {
@@ -65,6 +72,10 @@ const FreeAgency = () => {
         team_id: teamId,
       });
     });
+
+    socket.on("update_cap", (updated_cap) => {
+      setCapRemaining(updated_cap[localStorage.getItem("teamId")]);
+    })
 
     socket.on("update_offers", (updated_offers) => {
       setOffers([...updated_offers]);
@@ -88,12 +99,13 @@ const FreeAgency = () => {
       setOffers([]);
       setInputOffer("");
       setNumChecked(0);
-    })
+      setUserOffer();
+    });
 
     socket.on("update_player", (data) => {
       setCurrentPlayerIndex(data);
-      setCurrentPlayer(freeAgents?.[data])
-    })
+      setCurrentPlayer(freeAgents?.[data]);
+    });
 
     return () => {
       socket.disconnect();
@@ -109,14 +121,15 @@ const FreeAgency = () => {
       contract: inputOffer,
       entries: calculateEntries(inputOffer),
       team: userTeam,
-    };
+    };   
     socket.emit("send_offer", offer);
-    
+
   };
 
   const handleSubmitOffer = () => {
     if (/^\d+\/[1-5]$/.test(inputOffer)) {
       sendOffer();
+      setUserOffer(inputOffer);
       setInputOffer("");
     } else {
       alert(
@@ -135,19 +148,7 @@ const FreeAgency = () => {
       is_checked: isChecked,
       team_id: teamId,
     });
-
   };
-
-  const onFinished = (winner) => {
-    console.log(winner)
-  }
-  
-  const segments = ["bison", "cannons", "steamboats"]
-  const segColors = [
-    '#EE4040',
-    '#F0CF50',
-    '#815CD1'
-  ]
 
   return (
     <div className="bg-[#edeef2]">
@@ -156,85 +157,39 @@ const FreeAgency = () => {
           AMERICAN FOOTBALL FEDERATION FREE AGENCY 2028
         </h1>
       </div>
-      <div className="flex h-[89.3vh] justify-center gap-8 p-8 ">
-        <List
-          freeAgents={freeAgents}
-          teams={teams}
-          currentPlayerIndex={currentPlayerIndex}
-        />
-        <Offers offers={offers} teams={teams} />
-        <div className="flex flex-col gap-8">
-          <CurrentPlayer currentPlayer={currentPlayer} />
-          <OfferInput
-            currentPlayer={currentPlayer}
-            handleSubmitOffer={handleSubmitOffer}
-            inputOffer={inputOffer}
-            setInputOffer={setInputOffer}
-            finalOfferIsChecked={finalOfferIsChecked}
-            handleFinalOfferCheck={handleFinalOfferCheck}
-            finalOfferChecks={finalOfferChecks}
-            numChecked={numChecked}
+      {start || localStorage.getItem("teamId") == "2" ? (
+        <div className="flex h-[89.3vh] justify-center gap-8 p-8 ">
+          <List
+            freeAgents={freeAgents}
+            teams={teams}
+            currentPlayerIndex={currentPlayerIndex}
           />
-          <div className="flex flex-col gap-4">
-            <div className="flex flex-wrap gap-10">
-              {finalOfferChecks?.slice(0, 5).map((offer, index) => {
-                const offerTeam = teams?.find(
-                  (team) => team.team_id == offer.data?.team_id
-                );
-                let opaque;
-                if (!offer.data?.isChecked) {
-                  opaque = "opacity-40";
-                }
-                else {
-                  opaque = "opacity-100";
-                }
-
-                return (
-                  <img
-                    key={index}
-                    className={`w-[4rem] ${opaque}`}
-                    src={`/assets/logos/${offerTeam?.team_logo}`}
-                  />
-                );
-              })}
-            </div>
-            <div className="flex flex-wrap gap-10">
-              {finalOfferChecks?.slice(5, 10).map((offer, index) => {
-                const offerTeam = teams?.find(
-                  (team) => team.team_id == offer.data?.team_id
-                );
-                let opaque;
-                if (!offer.data?.isChecked) {
-                  opaque = "opacity-50";
-                }
-                else {
-                  opaque = "opacity-100";
-                }
-
-                return (
-                  <img
-                    key={index}
-                    className={`w-[4rem] ${opaque}`}
-                    src={`/assets/logos/${offerTeam?.team_logo}`}
-                  />
-                );
-              })}
-            </div>
-          </div>
-          <div>
-            {/* <WheelComponent 
-              segments={segments}
-              segColors={segColors}
-              winningSegment="cannons"
-              onFinished={(winner) => onFinished(winner)}
-              buttonText="Spin"
-              upDuration={200}
-              downDuration={4000}
-              isOnlyOnce={false}
-            /> */}
+          <Offers offers={offers} teams={teams} />
+          <div className="flex flex-col gap-8">
+            <CurrentPlayer currentPlayer={currentPlayer} capRemaining={capRemaining} userOffer={userOffer} setCapRemaining={setCapRemaining}/>
+            <OfferInput
+              currentPlayer={currentPlayer}
+              handleSubmitOffer={handleSubmitOffer}
+              inputOffer={inputOffer}
+              setInputOffer={setInputOffer}
+              finalOfferIsChecked={finalOfferIsChecked}
+              handleFinalOfferCheck={handleFinalOfferCheck}
+              finalOfferChecks={finalOfferChecks}
+              numChecked={numChecked}
+            />
+            {localStorage.getItem("teamId") == 2 && !start && (
+              <Button onClick={() => socket.emit("start")}>Start</Button>
+            )}
+           <TeamList finalOfferChecks={finalOfferChecks} teams={teams}/>
           </div>
         </div>
-      </div>
+      ) : (
+        <div className="flex h-[89.3vh] justify-center gap-8 p-8 ">
+          <h1 className="text-center text-xl font-semibold">
+            Waiting for free agency to start!
+          </h1>
+        </div>
+      )}
     </div>
   );
 };

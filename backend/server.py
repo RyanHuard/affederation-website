@@ -32,6 +32,20 @@ final_offer_checks = {}
 current_player_index = 0
 current_player = None
 free_agent_list = []
+start = False
+
+cap_remaining = {
+    "0": {2028: 16, 2029: 23, 2030: 64},
+    "1": {2028: 21, 2029: 33, 2030: 63},
+    "2": {2028: 12, 2029: 20, 2030: 58},
+    "3": {2028: 19, 2029: 31, 2030: 65},
+    "4": {2028: 13, 2029: 25, 2030: 76},
+    "5": {2028: 27, 2029: 32, 2030: 75},
+    "6": {2028: 15, 2029: 26, 2030: 65},
+    "7": {2028: 25, 2029: 33, 2030: 71},
+    "8": {2028: 43, 2029: 42, 2030: 73},
+    "9": {2028: 16, 2029: 22, 2030: 64},
+}
 
 
 @app.route("/api/free-agents")
@@ -59,8 +73,15 @@ def get_free_agents():
 
     return jsonify(free_agents_json)
 
+
+@socketio.on("start")
+def start_free_agency():
+    emit("start", broadcast=True)
+
+
 @socketio.on("connect")
 def handle_connect():
+    emit("update_cap", cap_remaining, broadcast=True)
     emit("update_player", current_player_index, broadcast=True)
     emit("update_offers", offers, broadcast=True)
     
@@ -94,7 +115,7 @@ def handle_final_offer_checked(data):
     team_id = data["team_id"]
     global final_offer_checks
     final_offer_checks[request.sid] = {"isChecked": is_checked, "team_id": team_id}
-
+    print(final_offer_checks)
     result = []
     all_final_offers = True
     for k, v in final_offer_checks.items():
@@ -130,6 +151,8 @@ def handle_final_offer_checked(data):
             if not v["isChecked"]:
                 all_final_offers = False
             emit("final_offer_checks", result, broadcast=True)
+
+        emit("update_cap", cap_remaining, broadcast=True)
         
 
 def set_current_player_new_team(winner):
@@ -145,11 +168,14 @@ def set_current_player_new_team(winner):
         contract_years = %s WHERE name = %s"
     cursor.execute(update_query, (team_name, salary, years, current_player[0]))
 
+    global cap_remaining
+    for year in range(int(years)):
+        year = year + 2028
+        cap_remaining[team["team_id"][year]] += cap_remaining[team["team_id"][year]]+salary
+
     conn.rollback()
     cursor.close()
     conn.close()
-
-
        
 
 def choose_winner():
@@ -169,8 +195,6 @@ def choose_winner():
     #update_new_contracts(winner[0])
 
     return {"winner": winner, "player": current_player}
-
-
 
 
 # Gets column names from PostgresQL and inserts in data
