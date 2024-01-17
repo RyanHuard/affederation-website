@@ -15,7 +15,6 @@ const CurrentPlayer = ({
     for (let i = 0; i < userOfferLength; i++) {
       if (i < 3) {
       let updatedCap = parseInt(capRemaining[2028 + i] - parseInt(userOfferSalary));
-      console.log(updatedCap)
       updatedCapRemaining = {
         ...updatedCapRemaining,
         [2028 + i]: updatedCap,

@@ -122,7 +122,7 @@ def handle_final_offer_checked(data):
     team_id = data["team_id"]
     global final_offer_checks
     final_offer_checks[request.sid] = {"isChecked": is_checked, "team_id": team_id}
-    print(final_offer_checks)
+
     result = []
     all_final_offers = True
     for k, v in final_offer_checks.items():
@@ -139,7 +139,8 @@ def handle_final_offer_checked(data):
         # global top_offers
         winner = choose_winner()
         emit("winner", winner, broadcast=True)
-        set_current_player_new_team(winner["winner"])
+        if winner["winner"] != None:
+            set_current_player_new_team(winner["winner"])
 
         global current_player_index
         global current_player
@@ -183,7 +184,6 @@ def set_current_player_new_team(winner):
         year = year + 2028
         if year > 2030:
             continue
-        print(cap_remaining[team_id][year])
         cap_remaining[team_id][year] -= int(salary)
 
     conn.rollback()
@@ -200,12 +200,14 @@ def choose_winner():
     else:
         min_offer_index = len(sorted_offers)
 
+    if len(sorted_offers) == 0:
+        return {"winner": None, "player": current_player}
+    
     third_offer_entries = sorted_offers[min_offer_index-1]['entries']
     top_offers = [offer for offer in sorted_offers if offer['entries'] >= third_offer_entries]
 
     # Uses entries as random weight
     winner = random.choices(top_offers, weights=(offer["entries"] for offer in top_offers))[0]
-    #update_new_contracts(winner[0])
 
     return {"winner": winner, "player": current_player}
 

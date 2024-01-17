@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 
 import { io } from "socket.io-client";
 import WheelComponent from "react-wheel-of-prizes";
+import { Modal, ModalContent, ModalOverlay } from "@chakra-ui/react";
 
 import { TeamContext } from "/src/lib/TeamContext.js";
 import { useFreeAgents } from "./api/getFreeAgents";
@@ -13,11 +14,12 @@ import Offers from "./components/Offers";
 import CurrentPlayer from "./components/CurrentPlayer";
 import OfferInput from "./components/OfferInput";
 import TeamList from "./components/TeamList";
+import CountdownTimer from "./components/CountdownTimer";
 
 let socket;
 const FreeAgency = () => {
   const [start, setStart] = useState(false);
-  const [capRemaining, setCapRemaining] = useState([])
+  const [capRemaining, setCapRemaining] = useState([]);
 
   const [inputOffer, setInputOffer] = useState("");
   const [offers, setOffers] = useState([]);
@@ -28,11 +30,14 @@ const FreeAgency = () => {
   const [numChecked, setNumChecked] = useState(0);
 
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
-  
+
+  const [winner, setWinner] = useState();
+  const [winnerModal, setWinnerModal] = useState(false);
+
   let freeAgentsQuery = useFreeAgents();
   let freeAgents = freeAgentsQuery?.data;
-  let currentPlayer = freeAgents?.[currentPlayerIndex]
-  
+  let currentPlayer = freeAgents?.[currentPlayerIndex];
+
   const teams = useContext(TeamContext)?.data;
 
   const calculateEntries = (offer) => {
@@ -72,7 +77,7 @@ const FreeAgency = () => {
 
     socket.on("update_cap", (updated_cap) => {
       setCapRemaining(updated_cap[localStorage.getItem("teamId")]);
-    })
+    });
 
     socket.on("update_offers", (updated_offers) => {
       setOffers([...updated_offers]);
@@ -92,16 +97,20 @@ const FreeAgency = () => {
     });
 
     socket.on("winner", (winner) => {
+      console.log(winner);
       setFinalOfferIsChecked(false);
       setOffers([]);
       setInputOffer("");
       setNumChecked(0);
       setUserOffer();
+      setWinner(winner);
+      if (winner.winner) {
+        setWinnerModal(true);
+      }
     });
 
     socket.on("update_player", (data) => {
       setCurrentPlayerIndex(data);
-      setCurrentPlayer(freeAgents?.[data]);
     });
 
     return () => {
@@ -118,9 +127,8 @@ const FreeAgency = () => {
       contract: inputOffer,
       entries: calculateEntries(inputOffer),
       team: userTeam,
-    };   
+    };
     socket.emit("send_offer", offer);
-
   };
 
   const handleSubmitOffer = () => {
@@ -146,10 +154,19 @@ const FreeAgency = () => {
       team_id: teamId,
     });
   };
-  
+
+  const handleWinnerModalClose = () => {
+    setWinnerModal(false);
+  };
 
   return (
     <div className="bg-[#edeef2]">
+      <Modal size="2xl" isOpen={winnerModal} onClose={handleWinnerModalClose}>
+        <ModalOverlay />
+        <ModalContent >
+          <CountdownTimer winner={winner} />
+        </ModalContent>
+      </Modal>
       <div className="border-b-2 border-white bg-aff-blue pb-8 pt-8">
         <h1 className="text-center text-2xl font-bold text-gray-100">
           AMERICAN FOOTBALL FEDERATION FREE AGENCY 2028
@@ -164,7 +181,12 @@ const FreeAgency = () => {
           />
           <Offers offers={offers} teams={teams} />
           <div className="flex flex-col gap-8">
-            <CurrentPlayer currentPlayer={freeAgents?.[currentPlayerIndex]} capRemaining={capRemaining} userOffer={userOffer} setCapRemaining={setCapRemaining}/>
+            <CurrentPlayer
+              currentPlayer={freeAgents?.[currentPlayerIndex]}
+              capRemaining={capRemaining}
+              userOffer={userOffer}
+              setCapRemaining={setCapRemaining}
+            />
             <OfferInput
               currentPlayer={currentPlayer}
               handleSubmitOffer={handleSubmitOffer}
@@ -178,7 +200,7 @@ const FreeAgency = () => {
             {localStorage.getItem("teamId") == 2 && !start && (
               <Button onClick={() => socket.emit("start")}>Start</Button>
             )}
-           <TeamList finalOfferChecks={finalOfferChecks} teams={teams}/>
+            <TeamList finalOfferChecks={finalOfferChecks} teams={teams} />
           </div>
         </div>
       ) : (
