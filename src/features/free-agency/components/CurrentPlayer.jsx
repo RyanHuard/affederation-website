@@ -74,7 +74,7 @@ const CurrentPlayer = ({
             </div>
             <div className="ml-16">
               <span className="font-bold">Your current offer:</span>
-              <div className="">$4,000,000 / 3 years</div>
+              {userOfferSalary && <div className="">${userOfferSalary},000,000 / {userOfferLength} year{userOfferLength != 1 && <span>s</span>}</div>}
               <div className="pt-2">
                 <span className="font-bold">Cap remaining:</span>
                 <ul className="">

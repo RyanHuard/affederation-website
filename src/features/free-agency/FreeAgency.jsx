@@ -28,14 +28,11 @@ const FreeAgency = () => {
   const [numChecked, setNumChecked] = useState(0);
 
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
-
+  
   let freeAgentsQuery = useFreeAgents();
   let freeAgents = freeAgentsQuery?.data;
-
-  const [currentPlayer, setCurrentPlayer] = useState(
-    freeAgents?.[currentPlayerIndex]
-  );
-
+  let currentPlayer = freeAgents?.[currentPlayerIndex]
+  
   const teams = useContext(TeamContext)?.data;
 
   const calculateEntries = (offer) => {
@@ -61,8 +58,8 @@ const FreeAgency = () => {
   useEffect(() => {
     socket = io({ transports: ["websocket"] });
 
-    socket.on("start", () => {
-      setStart(true);
+    socket.on("start", (data) => {
+      setStart(data);
     });
 
     socket.on("connect", () => {
@@ -149,6 +146,7 @@ const FreeAgency = () => {
       team_id: teamId,
     });
   };
+  
 
   return (
     <div className="bg-[#edeef2]">
@@ -166,7 +164,7 @@ const FreeAgency = () => {
           />
           <Offers offers={offers} teams={teams} />
           <div className="flex flex-col gap-8">
-            <CurrentPlayer currentPlayer={currentPlayer} capRemaining={capRemaining} userOffer={userOffer} setCapRemaining={setCapRemaining}/>
+            <CurrentPlayer currentPlayer={freeAgents?.[currentPlayerIndex]} capRemaining={capRemaining} userOffer={userOffer} setCapRemaining={setCapRemaining}/>
             <OfferInput
               currentPlayer={currentPlayer}
               handleSubmitOffer={handleSubmitOffer}

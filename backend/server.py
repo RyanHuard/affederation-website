@@ -76,11 +76,14 @@ def get_free_agents():
 
 @socketio.on("start")
 def start_free_agency():
-    emit("start", broadcast=True)
+    global start
+    start = True
+    emit("start", start, broadcast=True)
 
 
 @socketio.on("connect")
 def handle_connect():
+    emit("start", start, broadcast=True)
     emit("update_cap", cap_remaining, broadcast=True)
     emit("update_player", current_player_index, broadcast=True)
     emit("update_offers", offers, broadcast=True)
@@ -89,10 +92,14 @@ def handle_connect():
 @socketio.on("disconnect")
 def handle_disconnect():
     global final_offer_checks
+    leaving_id = final_offer_checks[request.sid]["team_id"]
     del final_offer_checks[request.sid]
 
     result = []
     for k, v in final_offer_checks.items():
+        if v["team_id"] == leaving_id:
+            del final_offer_checks[k]
+            pass
         result.append({'requestId': k, 'data': v})
     emit("final_offer_checks", result, broadcast=True)
    
@@ -142,6 +149,7 @@ def handle_final_offer_checked(data):
         current_player = free_agent_list[current_player_index]
 
         emit("update_player", current_player_index, broadcast=True)
+        emit("update_offers", offers, broadcast=True)
 
         result = []
         all_final_offers = True
@@ -164,6 +172,8 @@ def set_current_player_new_team(winner):
     salary = contract.split("/")[0]
     years = contract.split("/")[1]
 
+    team_id = str(team["team_id"])
+
     update_query = "UPDATE free_agency SET new_team = %s, contract_salary = %s, \
         contract_years = %s WHERE name = %s"
     cursor.execute(update_query, (team_name, salary, years, current_player[0]))
@@ -171,7 +181,10 @@ def set_current_player_new_team(winner):
     global cap_remaining
     for year in range(int(years)):
         year = year + 2028
-        cap_remaining[team["team_id"][year]] += cap_remaining[team["team_id"][year]]+salary
+        if year > 2030:
+            continue
+        print(cap_remaining[team_id][year])
+        cap_remaining[team_id][year] -= int(salary)
 
     conn.rollback()
     cursor.close()
