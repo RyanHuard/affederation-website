@@ -186,7 +186,7 @@ def set_current_player_new_team(winner):
             continue
         cap_remaining[team_id][year] -= int(salary)
 
-    conn.rollback()
+    conn.commit()
     cursor.close()
     conn.close()
        
