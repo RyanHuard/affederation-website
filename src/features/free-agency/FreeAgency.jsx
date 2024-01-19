@@ -34,7 +34,7 @@ const FreeAgency = () => {
   const [winner, setWinner] = useState();
   const [winnerModal, setWinnerModal] = useState(false);
 
-  let freeAgentsQuery = useFreeAgents();
+  let freeAgentsQuery = useFreeAgents(currentPlayerIndex);
   let freeAgents = freeAgentsQuery?.data;
   let currentPlayer = freeAgents?.[currentPlayerIndex];
 
@@ -163,7 +163,7 @@ const FreeAgency = () => {
     <div className="bg-[#edeef2]">
       <Modal size="2xl" isOpen={winnerModal} onClose={handleWinnerModalClose}>
         <ModalOverlay />
-        <ModalContent >
+        <ModalContent>
           <CountdownTimer winner={winner} />
         </ModalContent>
       </Modal>
@@ -173,7 +173,7 @@ const FreeAgency = () => {
         </h1>
       </div>
       {start || localStorage.getItem("teamId") == "2" ? (
-        <div className="flex h-[89.3vh] justify-center gap-8 p-8 ">
+        <div className="flex h-[89.3vh] flex-col justify-center gap-2 p-2 md:flex-row md:justify-around md:gap-8 md:p-8 pt-44">
           <List
             freeAgents={freeAgents}
             teams={teams}

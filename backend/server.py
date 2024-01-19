@@ -53,7 +53,7 @@ def get_free_agents():
     conn = get_conn()
     cursor = get_cursor(conn)
 
-    query = "SELECT * FROM free_agency ORDER BY overall DESC"
+    query = "SELECT * FROM free_agency ORDER BY overall DESC, name"
 
     cursor.execute(query)
     free_agents = cursor.fetchall()

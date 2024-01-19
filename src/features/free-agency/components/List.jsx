@@ -2,7 +2,7 @@ import React from 'react'
 
 const List = ({ freeAgents, teams, currentPlayerIndex }) => {
   return (
-    <div className="w-[50rem] overflow-scroll bg-white drop-shadow-md">
+    <div className="w-[50rem] hidden xl:block overflow-scroll bg-white drop-shadow-md">
           <table className="w-full table-auto text-[14px]">
             <thead>
               <tr className="border-b border-gray-400 text-left [&>*]:py-2 [&>*]:pl-2">

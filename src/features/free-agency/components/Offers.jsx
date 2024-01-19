@@ -3,7 +3,7 @@ import React from "react";
 const Offers = ({ offers, teams }) => {
   offers.sort((a, b) => b.entries - a.entries)
   return (
-    <div className="w-[30rem] bg-white drop-shadow-md">
+    <div className="lg:w-[30rem] md:min-w-[24rem] bg-white drop-shadow-md">
       {offers?.map((offer, index) => {
         let formattedOffer = `$${offer.contract.split("/")[0]} million / ${
           offer.contract.split("/")[1]

@@ -24,7 +24,7 @@ const CurrentPlayer = ({
   }
   
   return (
-    <div className="h-fit min-h-[50%] w-[30rem] bg-white drop-shadow-md">
+    <div className="h-fit min-h-[50%] max-w-[30rem] lg:w-[30rem] bg-white drop-shadow-md">
       <div className="px-6 pt-6">
         <h2 className="text-xl font-semibold">
           {currentPlayer?.name} is now accepting offers:
