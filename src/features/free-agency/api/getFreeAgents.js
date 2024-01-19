@@ -6,9 +6,9 @@ export const getFreeAgents = () => {
   return api.get(`/free-agents`).then((res) => res.data);
 };
 
-export const useFreeAgents = () => {
+export const useFreeAgents = (currentPlayerIndex) => {
   return useQuery({
-    queryKey: ["free_agents"],
+    queryKey: ["free_agents", currentPlayerIndex],
     queryFn: () => getFreeAgents(),
   });
 };
