@@ -4,6 +4,7 @@ from flask_cors import CORS
 import json
 import random
 import os
+import time
 
 from db_connection import get_conn, get_cursor
 
@@ -122,7 +123,12 @@ def handle_final_offer_checked(data):
     team_id = data["team_id"]
     global final_offer_checks
     final_offer_checks[request.sid] = {"isChecked": is_checked, "team_id": team_id}
-
+    
+    # 5 second countdown to make sure everyone is okay with their final offer
+    emit("start_final_countdown", broadcast=True)
+    time.sleep(5)
+    
+    
     result = []
     all_final_offers = True
     for k, v in final_offer_checks.items():
@@ -130,7 +136,8 @@ def handle_final_offer_checked(data):
         if not v["isChecked"]:
             all_final_offers = False
 
-    emit("final_offer_checks", result, broadcast=True)
+    if all_final_offers:
+        emit("final_offer_checks", result, broadcast=True)
 
     
     # All offers are in

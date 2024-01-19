@@ -34,6 +34,9 @@ const FreeAgency = () => {
   const [winner, setWinner] = useState();
   const [winnerModal, setWinnerModal] = useState(false);
 
+  const [finalOfferCountdown, setFinalOfferCountdown] = useState(false);
+  const [countdownSeconds, setCountdownSeconds] = useState(5);
+
   let freeAgentsQuery = useFreeAgents(currentPlayerIndex);
   let freeAgents = freeAgentsQuery?.data;
   let currentPlayer = freeAgents?.[currentPlayerIndex];
@@ -113,10 +116,40 @@ const FreeAgency = () => {
       setCurrentPlayerIndex(data);
     });
 
+    socket.on("start_final_countdown", () => {
+      startCountdown();
+    });
+
     return () => {
       socket.disconnect();
     };
   }, []);
+
+
+//  // Define the countdown logic
+//  const startCountdown = () => {
+//   setCountdownSeconds(5);
+//   const countdownInterval = setInterval(() => {
+//     setCountdownSeconds((prevSeconds) => prevSeconds - 1);
+
+//     // Check if someone unchecks during the countdown
+//     if (!finalOfferIsChecked) {
+//       clearInterval(countdownInterval);
+//       console.log("Countdown stopped due to unchecking");
+//       // Optionally, emit an event to inform the server that the countdown stopped
+//       // socket.emit("countdown_stopped");
+//     }
+
+//     if (countdownSeconds === 0) {
+//       clearInterval(countdownInterval);
+//       console.log("Countdown complete");
+//       // Optionally, you can trigger the final action here
+//       // For example, you can emit an event to inform the server to proceed with "final_offer_checks"
+//       // socket.emit("finalize_final_offer_checks");
+//     }
+//   }, 1000);
+// };
+
 
   const sendOffer = () => {
     const userTeam = teams?.find(
@@ -196,10 +229,12 @@ const FreeAgency = () => {
               handleFinalOfferCheck={handleFinalOfferCheck}
               finalOfferChecks={finalOfferChecks}
               numChecked={numChecked}
+              countdownSeconds={countdownSeconds}
             />
             {localStorage.getItem("teamId") == 2 && !start && (
-              <Button onClick={() => socket.emit("start")}>Start</Button>
+              <Button onClick={() => socket.emit("start")}>Start</Button> 
             )}
+            
             <TeamList finalOfferChecks={finalOfferChecks} teams={teams} />
           </div>
         </div>

@@ -18,7 +18,8 @@ const OfferInput = ({
   finalOfferIsChecked,
   handleFinalOfferCheck,
   finalOfferChecks,
-  numChecked
+  numChecked,
+  countdownSeconds
 }) => {
   const handleInputChange = (e) => setInputOffer(e.target.value);
 
@@ -49,6 +50,7 @@ const OfferInput = ({
           <div className="ml-2">
             Final offer? ({numChecked}/{finalOfferChecks.length})
           </div>
+          {/* <div className="ml-2">{countdownSeconds}</div> */}
         </div>
       </div>
     </FormControl>
