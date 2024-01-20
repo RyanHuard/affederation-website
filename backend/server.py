@@ -137,6 +137,7 @@ def handle_final_offer_checked(data):
     # All offers are in
     if all_final_offers:
         # 5 second countdown to make sure everyone is okay with their final offer
+        temp_offers = offers
         emit("start_final_countdown", broadcast=True)
         time.sleep(5)
         
@@ -147,7 +148,7 @@ def handle_final_offer_checked(data):
             if not v["isChecked"]:
                 all_final_offers = False
 
-        if all_final_offers:
+        if all_final_offers and offers == temp_offers:
             winner = choose_winner()
             emit("winner", winner, broadcast=True)
             if winner["winner"] != None:
