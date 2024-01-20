@@ -100,7 +100,6 @@ const FreeAgency = () => {
     });
 
     socket.on("winner", (winner) => {
-      console.log(winner);
       setFinalOfferIsChecked(false);
       setOffers([]);
       setInputOffer("");
@@ -164,6 +163,8 @@ const FreeAgency = () => {
   };
 
   const handleSubmitOffer = () => {
+    if (!finalOfferIsChecked) {
+      console.log(inputOffer)
     if (/^\d+\/[1-5]$/.test(inputOffer)) {
       sendOffer();
       setUserOffer(inputOffer);
@@ -174,6 +175,7 @@ const FreeAgency = () => {
       );
       setInputOffer("");
     }
+  }
   };
 
   const handleFinalOfferCheck = (e) => {

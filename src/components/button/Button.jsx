@@ -5,6 +5,7 @@ import "./Button.css";
 const Button = ({
   children,
   onClick,
+  onSubmit,
   height = "2.5rem",
   backgroundColor = "#013369",
   color = "#FFF",
@@ -29,6 +30,7 @@ const Button = ({
       onClick={onClick}
       disabled={disabled}
       type={type}
+      onSubmit={onSubmit}
     >
       {children}
     </button>

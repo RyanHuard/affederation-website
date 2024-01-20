@@ -132,21 +132,27 @@ def handle_final_offer_checked(data):
             all_final_offers = False
 
     emit("final_offer_checks", result, broadcast=True)
-    global offers
+   
 
     # All offers are in
     if all_final_offers:
+        global offers
         # 5 second countdown to make sure everyone is okay with their final offer
         temp_offers = offers
         emit("start_final_countdown", broadcast=True)
         time.sleep(5)
+        print("TEMPOFFERS:", temp_offers, "OFFERS", offers, "\n\n")
         
-        result = []
-        all_final_offers = True
-        for k, v in final_offer_checks.items():
-            result.append({'requestId': k, 'data': v})
-            if not v["isChecked"]:
-                all_final_offers = False
+        
+
+        if offers == temp_offers:
+            result = []
+            all_final_offers = True
+            for k, v in final_offer_checks.items():
+                result.append({'requestId': k, 'data': v})
+                if not v["isChecked"]:
+                    all_final_offers = False
+
 
         if all_final_offers and offers == temp_offers:
             winner = choose_winner()
