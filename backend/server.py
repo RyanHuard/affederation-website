@@ -132,7 +132,7 @@ def handle_final_offer_checked(data):
             all_final_offers = False
 
     emit("final_offer_checks", result, broadcast=True)
-    
+    global offers
 
     # All offers are in
     if all_final_offers:
@@ -156,7 +156,6 @@ def handle_final_offer_checked(data):
 
             global current_player_index
             global current_player
-            global offers
             offers.clear()
             current_player_index += 1
             current_player = free_agent_list[current_player_index]
