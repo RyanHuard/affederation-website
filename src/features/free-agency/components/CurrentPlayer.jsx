@@ -11,6 +11,19 @@ const CurrentPlayer = ({
   let userOfferLength = userOffer?.split("/")[1];
   let updatedCapRemaining = capRemaining;
 
+  let ageStage;
+
+  if (currentPlayer?.age >= 32) {
+    ageStage = "Regression";
+  }
+
+  else if (currentPlayer?.age >= 28) {
+    ageStage = "Prime";
+  }
+  else {
+    ageStage = "Progression";
+  }
+
   if (userOfferLength) {
     for (let i = 0; i < userOfferLength; i++) {
       if (i < 3) {
@@ -24,7 +37,7 @@ const CurrentPlayer = ({
   }
   
   return (
-    <div className="h-fit min-h-[50%] max-w-[30rem] lg:w-[30rem] bg-white drop-shadow-md">
+    <div className="h-fit max-w-[30rem] lg:w-[30rem] bg-white drop-shadow-md">
       <div className="px-6 pt-6">
         <h2 className="text-xl font-semibold">
           {currentPlayer?.name} is now accepting offers:
@@ -49,7 +62,7 @@ const CurrentPlayer = ({
                 <li>{currentPlayer?.name}</li>
                 <li>{currentPlayer?.pos}</li>
                 <li>{currentPlayer?.college}</li>
-                <li>{currentPlayer?.age}</li>
+                <li>{currentPlayer?.age} ({ageStage})</li>
                 <li>{currentPlayer?.personality}</li>
               </ul>
             </div>

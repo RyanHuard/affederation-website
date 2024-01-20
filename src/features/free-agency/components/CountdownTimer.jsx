@@ -20,15 +20,15 @@ const CountdownTimer = ({ winner }) => {
   }, [count]);
 
   return (
-    <div className="h-96 rounded bg-white align-middle">
+    <div className="h-96 rounded bg-white">
       <div className="p-4 text-center text-xl" style={{}}>
         {count === 0 ? (
-          <div>
+          <div className="h-full mt-14 text-2xl">
             <h1 className="font-semibold pb-4">Congratulations!</h1>
             <div>
               <div>
                 <img
-                  width="60px"
+                  width="90px"
                   className="mx-auto pb-4"
                   src={`assets/logos/${winningTeam.team_logo}`}
                 />
@@ -39,7 +39,7 @@ const CountdownTimer = ({ winner }) => {
             </div>
           </div>
         ) : (
-          <h1>{count}</h1>
+          <h1 className="text-3xl mt-14">{count}</h1>
         )}
       </div>
     </div>

@@ -122,12 +122,7 @@ def handle_final_offer_checked(data):
     is_checked = data["is_checked"]
     team_id = data["team_id"]
     global final_offer_checks
-    final_offer_checks[request.sid] = {"isChecked": is_checked, "team_id": team_id}
-    
-    # 5 second countdown to make sure everyone is okay with their final offer
-    emit("start_final_countdown", broadcast=True)
-    time.sleep(5)
-    
+    final_offer_checks[request.sid] = {"isChecked": is_checked, "team_id": team_id}    
     
     result = []
     all_final_offers = True
@@ -136,40 +131,49 @@ def handle_final_offer_checked(data):
         if not v["isChecked"]:
             all_final_offers = False
 
-    if all_final_offers:
-        emit("final_offer_checks", result, broadcast=True)
-
+    emit("final_offer_checks", result, broadcast=True)
     
+
     # All offers are in
     if all_final_offers:
-        # spin winner
-        # global top_offers
-        winner = choose_winner()
-        emit("winner", winner, broadcast=True)
-        if winner["winner"] != None:
-            set_current_player_new_team(winner["winner"])
-
-        global current_player_index
-        global current_player
-        global offers
-        offers.clear()
-        current_player_index += 1
-        current_player = free_agent_list[current_player_index]
-
-        emit("update_player", current_player_index, broadcast=True)
-        emit("update_offers", offers, broadcast=True)
-
+        # 5 second countdown to make sure everyone is okay with their final offer
+        emit("start_final_countdown", broadcast=True)
+        time.sleep(5)
+        
         result = []
         all_final_offers = True
         for k, v in final_offer_checks.items():
-            final_offer_checks[k]["isChecked"] = False
             result.append({'requestId': k, 'data': v})
             if not v["isChecked"]:
                 all_final_offers = False
-            emit("final_offer_checks", result, broadcast=True)
 
-        emit("update_cap", cap_remaining, broadcast=True)
-        
+        if all_final_offers:
+            winner = choose_winner()
+            emit("winner", winner, broadcast=True)
+            if winner["winner"] != None:
+                set_current_player_new_team(winner["winner"])
+
+            global current_player_index
+            global current_player
+            global offers
+            offers.clear()
+            current_player_index += 1
+            current_player = free_agent_list[current_player_index]
+
+            emit("update_player", current_player_index, broadcast=True)
+            emit("update_offers", offers, broadcast=True)
+
+            result = []
+            all_final_offers = True
+            for k, v in final_offer_checks.items():
+                final_offer_checks[k]["isChecked"] = False
+                result.append({'requestId': k, 'data': v})
+                if not v["isChecked"]:
+                    all_final_offers = False
+                emit("final_offer_checks", result, broadcast=True)
+
+            emit("update_cap", cap_remaining, broadcast=True)
+            
 
 def set_current_player_new_team(winner):
     conn = get_conn()

@@ -35,7 +35,7 @@ const FreeAgency = () => {
   const [winnerModal, setWinnerModal] = useState(false);
 
   const [finalOfferCountdown, setFinalOfferCountdown] = useState(false);
-  const [countdownSeconds, setCountdownSeconds] = useState(5);
+  const [countdownSeconds, setCountdownSeconds] = useState(0);
 
   let freeAgentsQuery = useFreeAgents(currentPlayerIndex);
   let freeAgents = freeAgentsQuery?.data;
@@ -125,31 +125,30 @@ const FreeAgency = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (countdownSeconds > 0) {
+      const timer = setInterval(
+        () => setCountdownSeconds(prevCountdownSeconds => prevCountdownSeconds - 1),
+        1000
+      );
+  
+      return () => {
+        clearInterval(timer);
+        setFinalOfferCountdown(false);
+      };
+    }
+  }, [countdownSeconds, setFinalOfferCountdown]);
 
-//  // Define the countdown logic
-//  const startCountdown = () => {
-//   setCountdownSeconds(5);
-//   const countdownInterval = setInterval(() => {
-//     setCountdownSeconds((prevSeconds) => prevSeconds - 1);
-
-//     // Check if someone unchecks during the countdown
-//     if (!finalOfferIsChecked) {
-//       clearInterval(countdownInterval);
-//       console.log("Countdown stopped due to unchecking");
-//       // Optionally, emit an event to inform the server that the countdown stopped
-//       // socket.emit("countdown_stopped");
-//     }
-
-//     if (countdownSeconds === 0) {
-//       clearInterval(countdownInterval);
-//       console.log("Countdown complete");
-//       // Optionally, you can trigger the final action here
-//       // For example, you can emit an event to inform the server to proceed with "final_offer_checks"
-//       // socket.emit("finalize_final_offer_checks");
-//     }
-//   }, 1000);
-// };
-
+  const startCountdown = () => {
+    setCountdownSeconds(prevCountdownSeconds => {
+      // Check if countdown is not already active
+      if (prevCountdownSeconds === 0) {
+        setFinalOfferCountdown(true); // Assuming you want to indicate that the countdown is now active
+        return 5;
+      }
+      return prevCountdownSeconds;
+    });
+  };
 
   const sendOffer = () => {
     const userTeam = teams?.find(
@@ -193,7 +192,7 @@ const FreeAgency = () => {
   };
 
   return (
-    <div className="bg-[#edeef2]">
+    <div className="min-h-[900px] bg-[#edeef2]">
       <Modal size="2xl" isOpen={winnerModal} onClose={handleWinnerModalClose}>
         <ModalOverlay />
         <ModalContent>
@@ -206,7 +205,7 @@ const FreeAgency = () => {
         </h1>
       </div>
       {start || localStorage.getItem("teamId") == "2" ? (
-        <div className="flex h-[89.3vh] flex-col justify-center gap-2 p-2 md:flex-row md:justify-around md:gap-8 md:p-8 pt-44">
+        <div className="flex h-[89.3vh] flex-col justify-center gap-2 p-2 pt-44 md:flex-row md:justify-around md:gap-8 md:p-8">
           <List
             freeAgents={freeAgents}
             teams={teams}
@@ -232,9 +231,9 @@ const FreeAgency = () => {
               countdownSeconds={countdownSeconds}
             />
             {localStorage.getItem("teamId") == 2 && !start && (
-              <Button onClick={() => socket.emit("start")}>Start</Button> 
+              <Button onClick={() => socket.emit("start")}>Start</Button>
             )}
-            
+
             <TeamList finalOfferChecks={finalOfferChecks} teams={teams} />
           </div>
         </div>

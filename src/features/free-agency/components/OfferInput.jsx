@@ -50,7 +50,7 @@ const OfferInput = ({
           <div className="ml-2">
             Final offer? ({numChecked}/{finalOfferChecks.length})
           </div>
-          {/* <div className="ml-2">{countdownSeconds}</div> */}
+          <div className="ml-2 text-red-600">{countdownSeconds > 0 && countdownSeconds}</div>
         </div>
       </div>
     </FormControl>
