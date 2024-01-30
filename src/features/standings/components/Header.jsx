@@ -16,7 +16,7 @@ const Header = ({ handleSeasonSelect, handleDivisionSelect, seasonId }) => {
               borderRadius="sm"
               width="10rem"
               onChange={handleSeasonSelect}
-              defaultValue={6}
+              defaultValue={7}
             >
               <option value={1}>2022</option>
             <option value={2}>2023</option>

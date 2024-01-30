@@ -44,7 +44,7 @@ const Header = ({
           <Select
             borderRadius="sm"
             width="10rem"
-            defaultValue={6}
+            defaultValue={7}
             onChange={handleSeasonSelect}
           >
           <option value={4}>2025</option>
