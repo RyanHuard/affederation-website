@@ -9,7 +9,7 @@ import { columns } from "./components/Columns/Columns";
 import { TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 
 const PlayerStats = () => {
-  const [seasonId, setSeasonId] = useState(6);
+  const [seasonId, setSeasonId] = useState(7);
   const [tabIndex, setTabIndex] = useState(0);
   const [category, setCategory] = useState("Passing");
 

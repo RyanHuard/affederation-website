@@ -13,7 +13,7 @@ import Stats from "./components/Stats";
 
 const Team = () => {
   const [tabIndex, setTabIndex] = useState(0);
-  const [seasonId, setSeasonId] = useState(6);
+  const [seasonId, setSeasonId] = useState(7);
 
   const { teamId } = useParams();
   const teamContext = useContext(TeamContext);

@@ -5,7 +5,7 @@ import Tables from "./components/Tables";
 import MainLayout from "src/components/layout/MainLayout";
 
 const Standings = () => {
-  const [seasonId, setSeasonId] = useState(6);
+  const [seasonId, setSeasonId] = useState(7);
 
   const handleSeasonSelect = (e) => {
     setSeasonId(parseInt(e.target.value));

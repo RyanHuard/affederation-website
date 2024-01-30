@@ -38,6 +38,7 @@ const Header = ({ team, tabs, handleSeasonSelect, seasonId }) => {
           <option value={4}>2025</option>
           <option value={5}>2026</option>
           <option value={6}>2027</option>
+          <option value={7}>2028</option>
         </Select>
       </div>
     </div>

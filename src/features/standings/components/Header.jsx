@@ -19,11 +19,12 @@ const Header = ({ handleSeasonSelect, handleDivisionSelect, seasonId }) => {
               defaultValue={6}
             >
               <option value={1}>2022</option>
-              <option value={2}>2023</option>
-              <option value={3}>2024</option>
-              <option value={4}>2025</option>
-              <option value={5}>2026</option>
-              <option value={6}>2027</option>
+            <option value={2}>2023</option>
+            <option value={3}>2024</option>
+            <option value={4}>2025</option>
+            <option value={5}>2026</option>
+            <option value={6}>2027</option>
+            <option value={7}>2028</option>
             </Select>
             <Select borderRadius="sm" width="10rem">
               <option value="all">All Divisons</option>
