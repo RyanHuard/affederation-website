@@ -116,7 +116,7 @@ def get_player_info(first_name, last_name):
 
         players_by_season = {}  # Store player stats by season
 
-        for season_id in range(7):  # Iterate through season IDs 0 to 6
+        for season_id in range(8):  # Iterate through season IDs 0 to 6
             query = f"""
            SELECT first_name, last_name, position, team_city,
             (SELECT team_logo FROM teams WHERE

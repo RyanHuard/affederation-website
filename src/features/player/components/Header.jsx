@@ -46,10 +46,10 @@ const Header = ({ playerInfo, team, tabs }) => {
                 <div className="text-neutral-500">COLLEGE</div>
                 <div>{playerInfo?.college}</div>
               </li>
-              <li className="flex justify-between">
+              {/* <li className="flex justify-between">
                 <div className="text-neutral-500">PERSONALITY</div>
                 <div>{playerInfo?.personality}</div>
-              </li>
+              </li> */}
               <li className="flex justify-between">
                 <div className="text-neutral-500">AGE</div>
                 <div>{playerInfo?.age}</div>

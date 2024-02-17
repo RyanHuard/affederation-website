@@ -18,7 +18,7 @@ const Player = () => {
 
   let firstName = player.split("-")[0];
   let lastName = player.split("-")[1];
-  console.log(firstName, lastName)
+
   const playerQuery = usePlayerInfo(firstName, lastName);
 
   const playerInfo = playerQuery?.data?.["player_info"];
