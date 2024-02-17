@@ -89,7 +89,7 @@ const Stats = ({ team, seasonId }) => {
         },
       },
       {
-        Inteceptions: {
+        Sacks: {
           firstName: playerWithMaxSacks?.first_name,
           lastName: playerWithMaxSacks?.last_name,
           leadingStat: playerWithMaxSacks?.sacks,

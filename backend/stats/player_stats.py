@@ -53,7 +53,7 @@ def get_player_stats(season_id):
                 ps2.first_name = ps1.first_name
                 AND ps2.last_name = ps1.last_name
                 AND ps2.position = ps1.position
-                AND ps2.season_id = 6
+                AND ps2.season_id = 7
             ORDER BY ps2.game_id DESC
             LIMIT 1
         ) AS team,
@@ -67,7 +67,7 @@ def get_player_stats(season_id):
                     ps2.first_name = ps1.first_name
                     AND ps2.last_name = ps1.last_name
                     AND ps2.position = ps1.position
-                    AND ps2.season_id = 6
+                    AND ps2.season_id = 7
                 ORDER BY ps2.game_id DESC
                 LIMIT 1
             )
