@@ -1,4 +1,5 @@
 import React from "react";
+import { Input } from "@chakra-ui/react"
 
 import HomeLayout from "./HomeLayout";
 import MainLayout from "src/components/layout/MainLayout";
@@ -21,7 +22,7 @@ const Home = () => {
     <>
       <div className="hidden lg:block">
         <MainLayout header={<Header />}>
-          <HomeLayout>
+          <HomeLayout>  
             <div className="col-span-6 flex-col space-y-6">
               <JoinCommunity />
               <ArticleCard />

@@ -4,11 +4,13 @@ import { Link } from "react-router-dom"
 import tb from "/src/assets/UTSA_Football_Slide-ac6d4cc60d.jpg"
 
 const Thumbnail = ({ article }) => {
+  const thumbnail = article.thumbnail_url ? `/article_thumbnails/${article.thumbnail_url}` : tb;
+
   return (
     <div className="relative min-w-full">
       <Link to={`/news/${article.title.replaceAll(" ", "-").toLowerCase()}/${article.article_id}`}>
         <img
-          src={tb}
+          src={thumbnail}
           className="rounded-t-sm max-h-[418px] aspect-[16/9] w-full"
         />
         <div className="absolute bottom-0 left-0 h-96 w-full bg-gradient-to-t from-black via-transparent to-transparent"></div>

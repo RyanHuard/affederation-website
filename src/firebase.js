@@ -12,6 +12,7 @@ import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { useRef, useState } from "react";
 
+//import { isManager } from "./components/protected-route/ProtectedRoute";
 import { api } from "./lib/axios";
 
 // Your web app's Firebase configuration
@@ -65,6 +66,9 @@ export const signInWithGoogle = () => {
         });
 
       localStorage.setItem("email", email);
+      // if (isManager(userId)) {
+      //   localStorage.setItem("isManager", "true")
+      // }
     })
     .catch((error) => {
       console.log(error);

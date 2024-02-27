@@ -19,13 +19,14 @@ import { auth, signInWithGoogle, signOutWithGoogle } from "src/firebase";
 import navRoutes from "../routes";
 import affLogo from "src/assets/aff-logo.png";
 import "./Navbar.css";
+//import { isManager } from "../../../../../protected-route/ProtectedRoute";
 
 const DesktopNavbar = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [anchorElement, setAnchorElement] = useState(null);
   const openAccountMenu = Boolean(anchorElement);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleAccountClick = (event) => {
     setAnchorElement(event.currentTarget);
@@ -69,18 +70,12 @@ const DesktopNavbar = () => {
           <MenuList color="black">
             {loggedIn ? (
               <>
-                {/* {localStorage.getItem("isManager") == "true" ? (
-                  <MenuItem
-                    onClick={() => {
-                      navigate(`/teams/${localStorage.getItem("teamId")}/${localStorage.getItem("team")}`);
-                      handleAccountClose();
-                    }}
-                  >
-                    <>My Team</>
+                {/* {isManager(auth.currentUser.uid) && 
+                  <MenuItem onClick={() => {navigate("/upload-article")}}>
+                    {console.log(isManager(auth.currentUser.uid))}
+                    Publish Article
                   </MenuItem>
-                ) : (
-                  <></>
-                )} */}
+                } */}
                 <MenuItem
                   onClick={() => {
                     signOutWithGoogle();

@@ -6,7 +6,7 @@ import { Category } from "@mui/icons-material";
 
 const Stats = ({ player }) => {
   const categories = ["Passing", "Rushing", "Receiving", "Defense"];
-  console.log(player);
+  
   return (
     <div className="h-[500px]">
       {categories.map((category, index) => {

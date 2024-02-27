@@ -53,7 +53,7 @@ def get_player_stats(season_id):
                 ps2.first_name = ps1.first_name
                 AND ps2.last_name = ps1.last_name
                 AND ps2.position = ps1.position
-                AND ps2.season_id = 7
+                AND ps2.season_id = %s
             ORDER BY ps2.game_id DESC
             LIMIT 1
         ) AS team,
@@ -67,7 +67,7 @@ def get_player_stats(season_id):
                     ps2.first_name = ps1.first_name
                     AND ps2.last_name = ps1.last_name
                     AND ps2.position = ps1.position
-                    AND ps2.season_id = 7
+                    AND ps2.season_id = %s
                 ORDER BY ps2.game_id DESC
                 LIMIT 1
             )
@@ -83,7 +83,7 @@ def get_player_stats(season_id):
         AND season_id = %s
     GROUP BY last_name, first_name, position
 """
-        cursor.execute(query, (season_id,))
+        cursor.execute(query, (season_id, season_id, season_id,))
 
         players = cursor.fetchall()
         players_json = []
@@ -116,7 +116,7 @@ def get_player_info(first_name, last_name):
 
         players_by_season = {}  # Store player stats by season
 
-        for season_id in range(8):  # Iterate through season IDs 0 to 6
+        for season_id in range(8):  # Iterate through season IDs 0 to 7
             query = f"""
            SELECT first_name, last_name, position, team_city,
             (SELECT team_logo FROM teams WHERE

@@ -26,6 +26,9 @@ app.register_blueprint(game_stats_blueprint)
 app.register_blueprint(team_stats_blueprint)
 app.register_blueprint(publish_articles_blueprint)
 
+UPLOAD_FOLDER = "../public/article_thumbnails/"
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 
 offers = []
 top_offers = []

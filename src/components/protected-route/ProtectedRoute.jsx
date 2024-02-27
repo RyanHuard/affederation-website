@@ -1,16 +1,47 @@
-import React from "react";
-import MainLayout from "../layout/MainLayout";
+import React, { useEffect, useState } from "react";
+import { Outlet, Navigate } from "react-router-dom";
+import { getFirestore, collection, getDocs } from "@firebase/firestore";
 
-const ProtectedRoute = ({ children }) => {
-  const teamId = parseInt(localStorage.getItem("teamId"));
-  if (teamId >= 0 && teamId <= 9) {
-    return children;
+import MainLayout from "../layout/MainLayout";
+import { auth } from "/src/firebase.js";
+
+const ProtectedRoute = () => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+      setUser(authUser);
+
+      setLoading(false); // Once the auth state is determined, set loading to false
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  // While loading, render a loading indicator or null
+  // if (loading) {
+  //   return null; // or render a loading indicator
+  // }
+
+  if (!user) {
+    return <Navigate to="/" />
   }
-  return (
-    <MainLayout>
-      <h1 className="font-semibold text-xl text-center">Please make sure to log in to access the free agency room!</h1>
-    </MainLayout>
-  );
+
+  // Once loading is complete, render based on user authentication status
+  return isManager(user.uid) ? <Outlet /> : <Navigate to="/" />;
 };
+
+export const isManager = async (uid) => {
+  const db = getFirestore();
+  const colRef = collection(db, "managers");
+  const querySnapshot = await getDocs(colRef);
+  console.log(uid)
+  let isManager = querySnapshot.docs.some(manager => manager.data().uid === uid);
+  console.log(isManager)
+
+  return isManager;
+};
+
 
 export default ProtectedRoute;
