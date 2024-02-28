@@ -2,14 +2,15 @@ import { useQuery } from "@tanstack/react-query";
 
 import { api } from "src/lib/axios";
 
-export const getRecentArticles = () => {
-  return api.get(`/recent-articles`).then((res) => res.data);
+
+export const getRecentArticles = (count) => {
+  return api.get(`/recent-articles/${count}`).then((res) => res.data);
 };
 
-export const useRecentArticles = () => {
+export const useRecentArticles = (count) => {
   return useQuery({
-    queryKey: ["recentArticles"],
-    queryFn: () => getRecentArticles(),
+    queryKey: ["recentArticles", count],
+    queryFn: () => getRecentArticles(count),
   });
 };
 

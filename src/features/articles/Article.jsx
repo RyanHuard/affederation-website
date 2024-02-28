@@ -35,7 +35,7 @@ const Article = () => {
           />
           <ArticleBody text={article?.content} />
         </div>
-        {/* <MoreNews /> */}
+        <MoreNews />
       </div>
     </MainLayout>
   );

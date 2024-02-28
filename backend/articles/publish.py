@@ -10,13 +10,21 @@ publish_articles_blueprint = Blueprint("publish_articles_blueprint", __name__)
 UPLOAD_FOLDER = "../public/article_thumbnails/"
 
 
-@publish_articles_blueprint.route("/api/recent-articles")
-def get_recent_articles():
+@publish_articles_blueprint.route("/api/recent-articles/<count>")
+def get_recent_articles(count):
     conn = get_conn()
     cursor = get_cursor(conn)
+    
+    count_query = "SELECT COUNT(*) FROM articles"
+    cursor.execute(count_query)
+    total_articles = cursor.fetchone()
 
-    article_query = "SELECT * FROM articles ORDER BY article_id DESC LIMIT 4"
-    cursor.execute(article_query)
+    limit = min(total_articles[0], int(count))
+    print(limit)
+
+
+    article_query = "SELECT * FROM articles ORDER BY article_id DESC LIMIT %s"
+    cursor.execute(article_query, (limit,))
 
     articles_fetch = cursor.fetchall()
 

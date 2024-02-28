@@ -66,9 +66,7 @@ export const signInWithGoogle = () => {
         });
 
       localStorage.setItem("email", email);
-      // if (isManager(userId)) {
-      //   localStorage.setItem("isManager", "true")
-      // }
+    
     })
     .catch((error) => {
       console.log(error);

@@ -10,7 +10,7 @@ const ArticleCard = () => {
   const [cardWidth, setCardWidth] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const articleQuery = useRecentArticles();
+  const articleQuery = useRecentArticles(4);
 
   const articles = articleQuery?.data;
 

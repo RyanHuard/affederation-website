@@ -13,7 +13,7 @@ import { createMarkup } from "./components/createMarkup";
 import { usePublishArticle } from "./api/postArticle";
 import { Input } from "@chakra-ui/react";
 
-const UploadArticles = () => {
+const UploadArticles = ({ isLoading }) => {
   const [author, setAuthor] = useState("");
   const [title, setTitle] = useState("");
   const [thumbnail, setThumbnail] = useState();
@@ -40,9 +40,11 @@ const UploadArticles = () => {
     setConvertedContent(html);
   }, [editorState]);
 
+  
 
   return (
     <MainLayout>
+      {isLoading ? <div>Loading...</div> :
       <form onSubmit={handlePostArticle} encType="multipart/form-data" className="flex flex-col gap-4 bg-white px-4 pb-16 sm:-mt-12 sm:px-16">
         <h1 className="pb-4 pt-10 text-[28px] font-bold">Publish an Article</h1>
         <div className="flex flex-col gap-4">
@@ -78,7 +80,7 @@ const UploadArticles = () => {
           <MarkdownPreview source={convertedContent} />
         </div>
         <Button type="submit">Publish</Button>
-      </form>
+      </form>}
     </MainLayout>
   );
 };

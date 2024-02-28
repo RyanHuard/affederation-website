@@ -11,6 +11,9 @@ const navRoutes = [
     {
         to: "/stats", name: "Stats",
     },
+    {
+        to: "/news", name: "News",
+    },
 ];
 
 export default navRoutes;

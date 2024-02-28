@@ -24,6 +24,7 @@ import Cancel from "./features/create-a-player/components/Cancel";
 import ScrollToTop from "./components/scroll-to-top/ScrolLToTop";
 import ProtectedRoute from "./components/protected-route/ProtectedRoute";
 import { Upload } from "@mui/icons-material";
+import News from "./features/news/News";
 
 function App() {
   const teams = useTeams();
@@ -31,13 +32,13 @@ function App() {
   return (
     <HashRouter>
       <TeamContext.Provider value={teams?.data}>
-        <AuthContext.Provider>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/standings" element={<Standings />} />
           <Route path="/schedule" element={<Schedule />} />
           <Route path="/teams" element={<Teams />} />
           <Route path="/stats" element={<PlayerStats />} />
+          <Route path="/news" element={<News />} />
 
           <Route path="/game/:seasonId/:gameId" element={<Game />} />
 
@@ -68,7 +69,6 @@ function App() {
           </Route>
         
         </Routes>
-        </AuthContext.Provider>
       </TeamContext.Provider>
       <ScrollToTop />
     </HashRouter>

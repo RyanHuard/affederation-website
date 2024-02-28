@@ -19,11 +19,12 @@ import { auth, signInWithGoogle, signOutWithGoogle } from "src/firebase";
 import navRoutes from "../routes";
 import affLogo from "src/assets/aff-logo.png";
 import "./Navbar.css";
-//import { isManager } from "../../../../../protected-route/ProtectedRoute";
+import { isManager } from "../../../../../protected-route/ProtectedRoute";
 
 const DesktopNavbar = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [anchorElement, setAnchorElement] = useState(null);
+  const [manager, setManager] = useState(false);
   const openAccountMenu = Boolean(anchorElement);
 
   const navigate = useNavigate();
@@ -36,11 +37,18 @@ const DesktopNavbar = () => {
   };
 
   useEffect(() => {
-    if (auth.currentUser) {
-      setLoggedIn(true);
-    } else {
-      setLoggedIn(false);
-    }
+    const fetchData = async () => {
+      if (auth.currentUser) {
+        setLoggedIn(true);
+        const managerStatus = await isManager(auth.currentUser.uid);
+        setManager(managerStatus);
+      } else {
+        setLoggedIn(false);
+      }
+    };
+  
+    fetchData();
+  
   }, [auth.currentUser]);
 
   return (
@@ -70,12 +78,11 @@ const DesktopNavbar = () => {
           <MenuList color="black">
             {loggedIn ? (
               <>
-                {/* {isManager(auth.currentUser.uid) && 
+                {manager && 
                   <MenuItem onClick={() => {navigate("/upload-article")}}>
-                    {console.log(isManager(auth.currentUser.uid))}
                     Publish Article
                   </MenuItem>
-                } */}
+                }
                 <MenuItem
                   onClick={() => {
                     signOutWithGoogle();

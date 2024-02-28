@@ -3,11 +3,10 @@ import parse from "html-react-parser"
 
 
 const ArticleBody = ({ text }) => {
-  console.log(text)
   text = text.replaceAll("</p>", "</p><br/>")
 
   return (
-    <div className="leading-7">{parse(text)}</div>
+    <div className="leading-7 sm:leading-7 sm:text-base text-sm">{parse(text)}</div>
   )
 }
 
